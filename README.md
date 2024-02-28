@@ -35,6 +35,12 @@
       - BoardEntity
       - BoardFileEntity, BoardFileRepository
       - detail.html
+8. 댓글 처리하기
+   - 글 상세 페이지에서 댓글 입력(ajax)
+   - ajax 다뤄보기 재생목록
+   - 상세조회할 때 기존에 작성된 댓글목록이 보임
+   - 댓글을 입력하면 기존 댓글 목록에 새로 작성한 댓글 추가
+   - 댓글용 테이블 필요
 <br> <br>
 ### 페이징 화면 <br>
 ![img_1.png](img_1.png)
@@ -69,3 +75,17 @@ constraint FKcfxqly70ddd02xbou0jxgh4o3
 foreign key (board_id) references board_table (id) on delete cascade
 );
 ```
+
+## 파일 첨부 기능
+
+### 파일 추가
+![img_3.png](img_3.png)
+
+### 글목록
+![img_4.png](img_4.png)
+
+### 추가된 파일
+![img_5.png](img_5.png)
+
+### 댓글 기능
+![img_6.png](img_6.png)
