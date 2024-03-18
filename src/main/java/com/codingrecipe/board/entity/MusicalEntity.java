@@ -1,5 +1,6 @@
 package com.codingrecipe.board.entity;
 
+import com.codingrecipe.board.dto.MusicalDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,8 +12,8 @@ import javax.persistence.*;
 @Getter
 public class MusicalEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int res_no;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
+    private Long res_no;
 
     @Column
     private String title;
@@ -23,14 +24,22 @@ public class MusicalEntity {
     @Column
     private String place_nm;
     @Column
-    private char pay_ad;
+    private String op_at;
+    @Column
+    private String pay_at;
 
-    public MusicalEntity(int res_no, String title, String op_st_dt, String op_ed_dt, String place_nm, char pay_ad) {
-        this.res_no = res_no;
-        this.title = title;
-        this.op_st_dt = op_st_dt;
-        this.op_ed_dt = op_ed_dt;
-        this.place_nm = place_nm;
-        this.pay_ad = pay_ad;
+
+    public static MusicalEntity toSaveEntity(MusicalDTO musicalDTO) {
+        MusicalEntity musicalEntity = new MusicalEntity();
+
+        musicalEntity.setOp_at(musicalDTO.getOp_at());
+        musicalEntity.setTitle(musicalDTO.getTitle());
+        musicalEntity.setPay_at(musicalDTO.getPay_at());
+        musicalEntity.setOp_ed_dt(musicalDTO.getOp_ed_dt());
+        musicalEntity.setOp_at(musicalDTO.getOp_at());
+        musicalEntity.setOp_st_dt(musicalDTO.getOp_st_dt());
+
+        return musicalEntity;
+
     }
 }
