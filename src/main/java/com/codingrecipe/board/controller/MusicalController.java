@@ -54,7 +54,6 @@ public class MusicalController {
         }
         rd.close();
         conn.disconnect();
-        System.out.println(sb.toString());
 
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(sb.toString());
@@ -84,7 +83,6 @@ public class MusicalController {
             musicalDTO.setPlace_nm(place_nm);
             musicalDTO.setPay_at(pay_at);
 
-            System.out.println(musicalDTO);
             musicalService.save(musicalDTO);
            
         }
