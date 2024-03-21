@@ -10,24 +10,30 @@
 <button onclick="listReq()">글목록</button>
 <button onclick="pagingReq()">페이징목록</button>
 <button onclick="api_data()">데이터불러오기</button>
+<button onclick="api_view()">뮤지컬 정보</button>
 </body>
 <script>
     //  function saveReq() {
     //
     //  }
 
-      const saveReq = () => {
-        location.href = "/board/save";
-      }
-      const listReq = () => {
-        location.href = "/board/";
-      }
-      const pagingReq = () => {
-        location.href = "/board/paging";
-      }
-      const api_data = () => {
-        location.href="/api";
+    const saveReq = () => {
+      location.href = "/board/save";
     }
+    const listReq = () => {
+      location.href = "/board/";
+    }
+    const pagingReq = () => {
+      location.href = "/board/paging";
+    }
+    const api_data = () => {
+      location.href="/api";
+    }
+    const api_view = () => {
+        location.href="/api_page";
+    }
+
+
 
 </script>
 </html>

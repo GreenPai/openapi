@@ -34,7 +34,7 @@ public class MusicalController {
         StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/6260000/BusanCultureMusicalService/getBusanCultureMusical"); /*URL*/
         urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=BrjHJ90yRTyYUg5oXeTm2jkYZqSjX1PwSP7Deo4z9S1eZflecDH0maN6daAzOYp2Yrar15uGqecubtJ1%2Fh%2Fl7w%3D%3D"); /*Service Key*/
         urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
+        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("110", "UTF-8")); /*한 페이지 결과 수*/
         urlBuilder.append("&" + URLEncoder.encode("resultType","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*JSON방식으로 호출 시 파라미터 resultType=json 입력*/
         URL url = new URL(urlBuilder.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -83,16 +83,12 @@ public class MusicalController {
             musicalDTO.setPlace_nm(place_nm);
             musicalDTO.setPay_at(pay_at);
 
-            musicalService.save(musicalDTO);
-           
+        //    musicalService.save(musicalDTO);
+            musicalService.addNewMusical(musicalDTO);
         }
 
         return sb.toString();
     }
-
-
-
-
 
 
 
