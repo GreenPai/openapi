@@ -11,11 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class MusicalService {
     private final MusicalRepository musicalRepository;
+
 
 
     // addNewMusical : 제목을 비교해서 없는 중복 저장하지 않는다.
@@ -58,6 +60,15 @@ public class MusicalService {
         return musicalDTOList;
 
 
+
+    }
+
+    @Transactional
+    public MusicalDTO findByTitle(String title) {
+
+        List<MusicalEntity> musicalEntity = musicalRepository.findByTitle(title);
+        MusicalDTO musicalDTO = MusicalDTO.convertToDTO(musicalEntity.get(0));
+        return musicalDTO;
 
     }
 }

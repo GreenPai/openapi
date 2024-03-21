@@ -26,6 +26,7 @@ public class MusicalDTO {
         musicalDTO.setOp_at(existingMusical.getOp_at());
         musicalDTO.setOp_st_dt(existingMusical.getOp_at());
         musicalDTO.setOp_ed_dt(existingMusical.getOp_ed_dt());
+        musicalDTO.setPlace_nm(existingMusical.getPlace_nm());
         return musicalDTO;
     }
 }

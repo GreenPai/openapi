@@ -15,7 +15,7 @@
         <td>뮤지컬 제목</td>
     </tr>
     <tr th:each="list: ${musicalList}">
-        <td><a th:href="@{|/musical/${list.title}|}" th:text="${list.title}">&nbsp;</a></td>
+        <td><a th:href="@{/api-detail(title=${list.title})}" th:text="${list.title}">&nbsp;</a></td>
 
     </tr>
 
