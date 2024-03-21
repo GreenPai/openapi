@@ -32,7 +32,7 @@ public class MusicalEntity {
     public static MusicalEntity toSaveEntity(MusicalDTO musicalDTO) {
         MusicalEntity musicalEntity = new MusicalEntity();
 
-        musicalEntity.setOp_at(musicalDTO.getOp_at());
+        musicalEntity.setPlace_nm(musicalDTO.getPlace_nm());
         musicalEntity.setTitle(musicalDTO.getTitle());
         musicalEntity.setPay_at(musicalDTO.getPay_at());
         musicalEntity.setOp_ed_dt(musicalDTO.getOp_ed_dt());

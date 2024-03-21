@@ -1,11 +1,15 @@
 package com.codingrecipe.board.service;
 
+import com.codingrecipe.board.dto.BoardDTO;
 import com.codingrecipe.board.dto.MusicalDTO;
+import com.codingrecipe.board.entity.BoardEntity;
 import com.codingrecipe.board.entity.MusicalEntity;
 import com.codingrecipe.board.repository.MusicalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,7 +32,6 @@ public class MusicalService {
             for(MusicalEntity existingMusical : existingMusicals){
                 MusicalDTO musicalDTO1 = MusicalDTO.convertToDTO(existingMusical);
                 if(musicalDTO1.getTitle().equals(musicalDTO.getTitle())){
-                    System.out.println(musicalDTO1.getTitle());
 
                 }
 
@@ -40,13 +43,21 @@ public class MusicalService {
 
     public void save(MusicalDTO musicalDTO){
         MusicalEntity musicalEntity = MusicalEntity.toSaveEntity(musicalDTO);
-    //    musicalRepository.save(musicalEntity);
+        musicalRepository.save(musicalEntity);
     }
 
 
+    @Transactional
+    public List<MusicalDTO> findAll() {
+
+        List<MusicalEntity> musicalEntityList = musicalRepository.findAll();
+        List<MusicalDTO> musicalDTOList =new ArrayList<>();
+        for (MusicalEntity musicalEntity: musicalEntityList){
+            musicalDTOList.add(MusicalDTO.convertToDTO(musicalEntity));
+        }
+        return musicalDTOList;
 
 
 
-
-
+    }
 }

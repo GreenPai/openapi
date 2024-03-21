@@ -83,7 +83,6 @@ public class MusicalController {
             musicalDTO.setPlace_nm(place_nm);
             musicalDTO.setPay_at(pay_at);
 
-        //    musicalService.save(musicalDTO);
             musicalService.addNewMusical(musicalDTO);
         }
 

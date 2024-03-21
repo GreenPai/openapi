@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/musical.css">
     <title>뮤지컬 상세 정보</title>
 </head>
 <body>
-    <a>뮤지컬 정보 입니다.</a>
+
+ <a style="font-size:24px; font-weigth:bold" >뮤지컬 정보 페이지 입니다..</a>
+ <br><br>
+ <table>
+
+    <tr id="title">
+        <td>뮤지컬 제목</td>
+    </tr>
+    <tr th:each="list: ${musicalList}">
+        <td><a th:href="@{|/musical/${list.title}|}" th:text="${list.title}">&nbsp;</a></td>
+
+    </tr>
+
+</table>
+
 </body>
 </html>
