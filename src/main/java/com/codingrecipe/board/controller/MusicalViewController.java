@@ -44,5 +44,9 @@ public class MusicalViewController {
     }
 
 
+    @GetMapping("/test")
+    public String test(){
+        return "/basic/navbar";
 
+    }
 }
