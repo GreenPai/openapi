@@ -24,6 +24,9 @@ mysql에 저장하는 작업을 진행했습니다.
 6. Thymeleaf
 
 
+# 라이브러리
+1. json-simple, version: '1.1.1'
+2. JWT , 0.12.3
 
 
 
