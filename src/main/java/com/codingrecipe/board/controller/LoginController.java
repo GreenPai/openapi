@@ -11,7 +11,6 @@ public class LoginController {
 
     @GetMapping("/newUser")
     public String newuser(){
-
         return "/login/newuser";
     }
 

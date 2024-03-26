@@ -77,7 +77,11 @@ public class SecurityConfig {
                         .requestMatchers(
                                 new AntPathRequestMatcher("/login"),
                                 new AntPathRequestMatcher("/Main"),
+                                new AntPathRequestMatcher("/"),
+                                new AntPathRequestMatcher("/newUser"),
+                                new AntPathRequestMatcher("/login"),
                                 new AntPathRequestMatcher("/join")).permitAll()
+
                         .requestMatchers(new AntPathRequestMatcher("/admin")).hasRole("ADMIN")
                         .anyRequest().authenticated());
 
