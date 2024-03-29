@@ -32,6 +32,7 @@ public class SecurityConfig {
     }
 
     //
+    /*
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> {
@@ -42,7 +43,7 @@ public class SecurityConfig {
                     );
         };
     }
-
+*/
 
 
 
@@ -89,7 +90,7 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests()
-                .antMatchers("/login", "/Main", "/", "/join").permitAll()
+                .antMatchers("/login", "/Main", "/", "/join","/newUser").permitAll()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
