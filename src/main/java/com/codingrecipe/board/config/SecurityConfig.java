@@ -90,7 +90,8 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests()
-                .antMatchers("/login", "/Main", "/", "/join","/newUser").permitAll()
+                .antMatchers("/login", "/Main", "/", "/join","/newUser","/upload/**").permitAll()
+                .antMatchers("/getUser").permitAll()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated();
 

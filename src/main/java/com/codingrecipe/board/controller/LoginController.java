@@ -14,5 +14,10 @@ public class LoginController {
         return "/login/newuser";
     }
 
+    @GetMapping("/getUser")
+    public String getUser(){
+        return "/login/getuser";
+    }
+
 
 }
