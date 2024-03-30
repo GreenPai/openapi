@@ -195,6 +195,7 @@
             <input type="text" id="phone-number" placeholder="전화번호 - 제외">
         </fieldset>
 
+        <div class="wrong-phonenumber hide">전화번호가 틀렸습니다.</div>
 
 
         <fieldset class="signup">
@@ -214,6 +215,10 @@
     let elInputPasswordRetype = document.querySelector('#password-retype');
     let elMismatchMessage  = document.querySelector('.mismatch-message ');
     let elStrongPasswordMessage  = document.querySelector('.strongPassword-message');
+
+    let elInputPhoneNumber = document.querySelector('#phone-number');
+    let elWrongPhoneNumber = document.querySelector('.wrong-phonenumber');
+
 
     // 아이디 유효성 검사 (4글자 이상, 12글자 이하)
     function idLength(value){
@@ -235,7 +240,10 @@
         return password1 == password2;
     }
 
-
+    // 전화번호 확인
+    function checkPhoneNumber(str) {
+        return /^[0-9]{11}$/.test(str);
+    }
 
 
 
@@ -312,6 +320,22 @@
     }
 
 
+// 전화번호 확인
+    elInputPhoneNumber.onkeyup = function () {
+
+        if (elInputPhoneNumber.value.length != 0){
+            if(checkPhoneNumber(elInputPhoneNumber.value)){
+                elWrongPhoneNumber.classList.add('hide');
+            }
+            else{
+                elWrongPhoneNumber.classList.remove('hide');
+            }
+        }
+        else{
+            elWrongPhoneNumber.classList.add('hide');
+        }
+
+    }
 
 </script>
 </html>
