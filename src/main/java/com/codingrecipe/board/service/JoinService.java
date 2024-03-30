@@ -38,4 +38,15 @@ public class JoinService {
 
 
     }
+
+    public void save(JoinDTO joinDTO) {
+
+        // 비밀번호 암호화
+        String pwd = bCryptPasswordEncoder.encode(joinDTO.getPassword());
+        joinDTO.setPassword(pwd);
+
+        UserEntity userEntity = UserEntity.tosaveEntity(joinDTO);
+        userRepository.save(userEntity);
+
+    }
 }

@@ -2,6 +2,7 @@ package com.codingrecipe.board.controller;
 
 import com.codingrecipe.board.dto.BoardDTO;
 import com.codingrecipe.board.dto.CommentDTO;
+import com.codingrecipe.board.dto.JoinDTO;
 import com.codingrecipe.board.service.BoardService;
 import com.codingrecipe.board.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,7 @@ public class BoardController {
         boardService.save(boardDTO);
         return "index";
     }
+
 
     @GetMapping("/")
     public String findAll(Model model) {

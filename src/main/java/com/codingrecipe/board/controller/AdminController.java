@@ -1,6 +1,7 @@
 package com.codingrecipe.board.controller;
 
 
+import com.codingrecipe.board.service.JoinService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;

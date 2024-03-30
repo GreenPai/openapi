@@ -8,7 +8,7 @@
     }
 
     body{
-        background-image: url('/upload/background.jpg');
+        background-image: url('/upload/login.jpg');
         background-size:cover;
         background-repeat:no-repeat;
     }
@@ -168,56 +168,37 @@
     <title>회원가입</title>
 </head>
 <body>
+    <form action="/user/login" method="post" id="send" >
     <main>
-        <img class="logo" src="/upload/logo.png" alt="CODE_STATES_LOGO"/>
+        <a href="/"><img class="logo" src="/upload/logo.png" alt="CODE_STATES_LOGO"/></a>
 
         <fieldset>
-            <input type="text" id="username" placeholder="아이디">
+            <input type="text" id="username" name="username" placeholder="아이디">
         </fieldset>
 
-        <div class="success-message hide">사용할 수 있는 아이디입니다</div>
-        <div class="failure-message1 hide">아이디는 4~12글자이어야 합니다</div>
-        <div class="failure-message2 hide">영어 또는 숫자만 가능합니다</div>
+        <div class="fail-message-id hide">없는 아이디입니다.</div>
 
         <fieldset>
-            <input type="password" id="password" placeholder="비밀번호">
+            <input type="password" id="password" name="password" placeholder="비밀번호">
         </fieldset>
 
-        <div class="strongPassword-message hide">8글자 이상, 영문, 숫자, 특수문자 사용하세요</div>
-
-        <fieldset>
-            <input type="password" id="password-retype" placeholder="비밀번호확인">
-        </fieldset>
-
-        <div class="mismatch-message hide">비밀번호가 일치하지 않습니다</div>
-
-        <fieldset>
-            <input type="text" id="phone-number" placeholder="전화번호 - 제외">
-        </fieldset>
-
-        <div class="wrong-phonenumber hide">전화번호가 틀렸습니다.</div>
-
+        <div class="fail-message-password hide">비밀번호가 틀렸습니다.</div>
 
         <fieldset class="signup">
-            <button>회원가입</button>
+            <button type="submit" id="submit">로그인</button>
         </fieldset>
 
 
     </main>
+    </form>
+
 </body>
 <script>
     let elInputUsername = document.querySelector('#username'); //input#username
-    let elSuccessMessage = document.querySelector('.success-message'); // div.success-message.hide
-    let elFailureMessage = document.querySelector('.failure-message1'); // div.failure-message1.hide
-    let elFailureMessageTwo = document.querySelector('.failure-message2'); // div.failure-message2.hide
+    let elMissUsername = document.querySelector('.fail-message-id');
 
     let elInputPassword = document.querySelector('#password');
-    let elInputPasswordRetype = document.querySelector('#password-retype');
-    let elMismatchMessage  = document.querySelector('.mismatch-message ');
-    let elStrongPasswordMessage  = document.querySelector('.strongPassword-message');
-
-    let elInputPhoneNumber = document.querySelector('#phone-number');
-    let elWrongPhoneNumber = document.querySelector('.wrong-phonenumber');
+    let elMissPassword  = document.querySelector('.mismatch-message ');
 
 
     // 아이디 유효성 검사 (4글자 이상, 12글자 이하)
@@ -244,8 +225,6 @@
     function checkPhoneNumber(str) {
         return /^[0-9]{11}$/.test(str);
     }
-
-
 
 
 
@@ -336,6 +315,10 @@
         }
 
     }
+
+
+
+
 
 </script>
 </html>
