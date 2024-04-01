@@ -1,5 +1,6 @@
 package com.codingrecipe.board.dto;
 
+import com.codingrecipe.board.entity.UserEntity;
 import lombok.*;
 
 @Setter
@@ -12,4 +13,10 @@ public class JoinDTO {
     private String phonenumber;
 
 
+    public JoinDTO tosaveDto(UserEntity userEntity) {
+        JoinDTO joinDTO = new JoinDTO();
+        joinDTO.setUsername(userEntity.getUsername());
+        joinDTO.setPassword(userEntity.getPassword());
+        return joinDTO;
+    }
 }

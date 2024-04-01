@@ -6,7 +6,8 @@ import com.codingrecipe.board.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -48,5 +49,10 @@ public class JoinService {
         UserEntity userEntity = UserEntity.tosaveEntity(joinDTO);
         userRepository.save(userEntity);
 
+    }
+
+    public UserEntity login(String name, String pwd) {
+        UserEntity userEntity = userRepository.findByUsername(name);
+        return null;
     }
 }
