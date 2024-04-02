@@ -11,6 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
 
 @Controller
 @RequiredArgsConstructor
@@ -37,35 +42,43 @@ public class LoginController {
     }
 
     @GetMapping("/loginpage")
-    public String login(){return "/login/login";}
+    public String login(){return "/login/login2";}
 
-    /*
-    @GetMapping("/login")
-    public ResponseEntity<String> loginpost(JoinDTO joinDTO, HttpServletRequest request, HttpServletResponse response){
-
-
-        System.out.println(joinDTO.getUsername());
-        System.out.println(joinDTO.getPassword());
-        String name = joinDTO.getUsername();
-        String pwd  = joinDTO.getPassword();
-
-        System.out.println(request);
-        System.out.println(response);
-
-
-        UserDetails userDetails = userDetailsService.loadUserByUsername(name);
-
-        return "index";
-    }
-
-*/
 
     @PostMapping("/getUser")
     public String getUser(@ModelAttribute JoinDTO joinDTO) throws IOException {
         joinService.save(joinDTO);
+
         return "index";
     }
 
+    @PostMapping("/login")
+    public String login(JoinDTO joinDTO){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        Iterator<? extends GrantedAuthority> iter = authorities.iterator();
+        GrantedAuthority auth = iter.next();
+        String role = auth.getAuthority();
+
+        System.out.println(role);
+
+
+        return "index";
+    }
+
+    @GetMapping("/loginpage2")
+    public String login2(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        Iterator<? extends GrantedAuthority> iter = authorities.iterator();
+        GrantedAuthority auth = iter.next();
+        String role = auth.getAuthority();
+
+        System.out.println(role);
+        return "index";}
 
 
 

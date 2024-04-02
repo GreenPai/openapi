@@ -1,11 +1,13 @@
 package com.codingrecipe.board.jwt;
 
 import com.codingrecipe.board.dto.CustomUserDetails;
+import com.codingrecipe.board.service.CustomUserDetailService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -20,11 +22,12 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final JWTUtil jwtUtil;
 
 
-
     public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
 
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+
+        setFilterProcessesUrl("/user/login");
     }
 
     @Override
@@ -36,7 +39,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         //스프링 시큐리티에서 username과 password를 검증하기 위해서는 token에 담아야 함
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);
-
+        System.out.println(authToken);
         //token에 담은 검증을 위한 AuthenticationManager로 전달
         return authenticationManager.authenticate(authToken);
     }
@@ -47,6 +50,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         String username = customUserDetails.getUsername();
 
+
         // role값을 뽑아내기 위한 코드
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
@@ -56,6 +60,9 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         // 10시간 (L은 리터럴 Long 타입)
         String token = jwtUtil.createJwt(username, role, 60*60*10L);
+
+        System.out.println("로그인 성공");
+        System.out.println(token);
 
         // 띄어쓰기 중요.
         response.addHeader("Authorization", "Bearer " + token);

@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 @RequiredArgsConstructor
 public class JoinService {
@@ -51,8 +49,11 @@ public class JoinService {
 
     }
 
-    public UserEntity login(String name, String pwd) {
-        UserEntity userEntity = userRepository.findByUsername(name);
-        return null;
+    public JoinDTO test(JoinDTO joinDTO){
+        String username = joinDTO.getUsername();
+        UserEntity userData = userRepository.findByUsername(username);
+
+        JoinDTO joinDTO1 = JoinDTO.tosaveDto(userData);
+        return joinDTO1;
     }
 }

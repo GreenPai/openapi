@@ -13,7 +13,7 @@ public class JoinDTO {
     private String phonenumber;
 
 
-    public JoinDTO tosaveDto(UserEntity userEntity) {
+    public static JoinDTO tosaveDto(UserEntity userEntity) {
         JoinDTO joinDTO = new JoinDTO();
         joinDTO.setUsername(userEntity.getUsername());
         joinDTO.setPassword(userEntity.getPassword());

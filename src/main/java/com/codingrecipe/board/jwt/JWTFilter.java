@@ -22,6 +22,7 @@ public class JWTFilter extends OncePerRequestFilter {
     public JWTFilter(JWTUtil jwtUtil) {
 
         this.jwtUtil = jwtUtil;
+
     }
 
     @Override

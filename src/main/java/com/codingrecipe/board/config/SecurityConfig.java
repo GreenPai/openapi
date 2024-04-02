@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -72,28 +73,26 @@ public class SecurityConfig {
         http
                 .csrf((auth) -> auth.disable());
 
-        //From 로그인 방식 disable
+
+
+        //Form 로그인 방식 disable
         http
                 .formLogin((auth) -> auth.disable());
 
         //http basic 인증 방식 disable
         http
                 .httpBasic((auth) -> auth.disable());
-/*
-        //경로별 인가 작업
-        http
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/Main", "/join").permitAll()
-                        .requestMatchers("/admin").hasRole("ADMIN")
-                        .anyRequest().authenticated());
-*/
+
+
+
         //경로별 인가 작업
         http
                 .authorizeHttpRequests()
                 .antMatchers("/login", "/Main", "/", "/join","/user/**","/upload/**").permitAll()
                 .antMatchers("/board/**").permitAll()
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
+
 
 
         http
