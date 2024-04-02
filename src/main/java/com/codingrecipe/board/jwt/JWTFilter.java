@@ -2,6 +2,7 @@ package com.codingrecipe.board.jwt;
 
 import com.codingrecipe.board.dto.CustomUserDetails;
 import com.codingrecipe.board.entity.UserEntity;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,7 +31,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
         //request에서 Authorization 헤더를 찾음
         String authorization= request.getHeader("Authorization");
-
+        System.out.println(authorization);
         //Authorization 헤더 검증
         if (authorization == null || !authorization.startsWith("Bearer ")) {
 

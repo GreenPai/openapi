@@ -55,15 +55,6 @@ public class LoginController {
     @PostMapping("/login")
     public String login(JoinDTO joinDTO){
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        Iterator<? extends GrantedAuthority> iter = authorities.iterator();
-        GrantedAuthority auth = iter.next();
-        String role = auth.getAuthority();
-
-        System.out.println(role);
-
 
         return "index";
     }

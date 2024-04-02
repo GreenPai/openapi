@@ -1,8 +1,10 @@
 package com.codingrecipe.board.config;
 
+
+
+
 import com.codingrecipe.board.jwt.JWTFilter;
 import com.codingrecipe.board.jwt.JWTUtil;
-
 import com.codingrecipe.board.jwt.LoginFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,13 +12,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
+
 
 @Configuration
 @EnableWebSecurity
@@ -31,21 +31,6 @@ public class SecurityConfig {
         this.authenticationConfiguration = authenticationConfiguration;
         this.jwtUtil = jwtUtil;
     }
-
-    //
-    /*
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> {
-            web.ignoring()
-                    .antMatchers(
-                            "/",
-                            "/newUser"
-                    );
-        };
-    }
-*/
-
 
 
     // 시큐리티를 통해서 검증을 할때는 해쉬로 암호화 시켜서 검증을 해야 한다.
@@ -74,7 +59,6 @@ public class SecurityConfig {
                 .csrf((auth) -> auth.disable());
 
 
-
         //Form 로그인 방식 disable
         http
                 .formLogin((auth) -> auth.disable());
@@ -87,16 +71,15 @@ public class SecurityConfig {
 
         //경로별 인가 작업
         http
-                .authorizeHttpRequests()
+                .authorizeHttpRequests((auth) -> auth
                 .antMatchers("/login", "/Main", "/", "/join","/user/**","/upload/**").permitAll()
                 .antMatchers("/board/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated();
-
+                .anyRequest().authenticated());
 
 
         http
-                .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
+                .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         http
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
@@ -105,6 +88,11 @@ public class SecurityConfig {
         http
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        http
+                .formLogin().defaultSuccessUrl("/index", true); // 인증 성공 후 리디렉션할 페이지 설정
+
+
 
         return http.build();
     }

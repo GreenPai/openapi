@@ -66,6 +66,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         // 띄어쓰기 중요.
         response.addHeader("Authorization", "Bearer " + token);
+
     }
 
     //로그인 실패시 실행하는 메소드
