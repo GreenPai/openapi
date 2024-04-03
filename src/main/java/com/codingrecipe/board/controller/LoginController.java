@@ -55,7 +55,7 @@ public class LoginController {
     @PostMapping("/login")
     public String login(JoinDTO joinDTO){
 
-
+        System.out.println("인덱스 실행");
         return "index";
     }
 

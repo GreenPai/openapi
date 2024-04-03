@@ -58,14 +58,17 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         String role = auth.getAuthority();
 
-        // 10시간 (L은 리터럴 Long 타입)
-        String token = jwtUtil.createJwt(username, role, 60*60*10L);
+        // 10시간 (L은 리터럴 Long 타입) 60*60*10L
+        String token = jwtUtil.createJwt(username, role, 60*60*10*1000L);
 
         System.out.println("로그인 성공");
         System.out.println(token);
 
         // 띄어쓰기 중요.
+        response.addHeader("Access-Control-Allow-Origin","*");
         response.addHeader("Authorization", "Bearer " + token);
+   //     response.setContentType("application/json"); // JSON 형식으로 응답
+
 
     }
 
@@ -75,5 +78,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         // 로그인 실패시 401 응답 코드
         response.setStatus(401);
+        System.out.println("로그인 실패");
+
     }
 }
