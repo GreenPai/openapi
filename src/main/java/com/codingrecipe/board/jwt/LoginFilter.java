@@ -67,7 +67,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         // 띄어쓰기 중요.
         response.addHeader("Access-Control-Allow-Origin","*");
         response.addHeader("Authorization", "Bearer " + token);
-   //     response.setContentType("application/json"); // JSON 형식으로 응답
+
 
 
     }

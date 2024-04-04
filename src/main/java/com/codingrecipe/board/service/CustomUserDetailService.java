@@ -24,10 +24,8 @@ public class CustomUserDetailService implements UserDetailsService {
         UserEntity userData = userRepository.findByUsername(username);
 
         if(userData != null){
-           //  System.out.println("널이 아님");
             return new CustomUserDetails(userData);
         }
-       // System.out.println("널임");
         return null;
     }
 }
