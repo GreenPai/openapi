@@ -65,9 +65,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         System.out.println(token);
 
         // 띄어쓰기 중요.
-        response.addHeader("Access-Control-Allow-Origin","*");
         response.addHeader("Authorization", "Bearer " + token);
-
 
 
     }
