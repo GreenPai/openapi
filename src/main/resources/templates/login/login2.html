@@ -40,11 +40,8 @@
             success: function(data, textStatus, xhr) {
                 alert("로그인 성공");
                 var token = xhr.getResponseHeader("Authorization");
-                xhr.setRequestHeader("Authorization", token); // JWT를 헤더에 추가
                 alert(token);
                 localStorage.setItem('Authorization', token);
-            //    localStorage.getItem('jwt');
-            //    localStorage.removeItem('jwt');
                 window.location.href = "/";
             },
             error: function(request, status, error) {
