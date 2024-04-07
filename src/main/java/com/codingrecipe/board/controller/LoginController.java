@@ -72,5 +72,11 @@ public class LoginController {
         return "index";}
 
 
+    @GetMapping("/jwttest")
+    public String logintest(){
+        return "/login/jwttest";
+    }
+
+
 
 }

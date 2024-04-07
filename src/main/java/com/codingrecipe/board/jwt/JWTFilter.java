@@ -57,6 +57,7 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
+        System.out.println("토큰 확인 성공했습니다.");
         //토큰에서 username과 role 획득
         String username = jwtUtil.getUsername(token);
         String role = jwtUtil.getRole(token);
