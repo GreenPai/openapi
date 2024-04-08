@@ -17,13 +17,15 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/musical")
+@RequestMapping("musical")
 public class MusicalViewController {
 
     private final MusicalService musicalService;
 
     @GetMapping("/api-page")
     public String api_page(Model model){
+        //        LocalDate date = LocalDate.of(2010,3,1);
+        //        List<MusicalDTO> musicalDTOList = musicalService.findByDate(date);
         List<MusicalDTO> musicalDTOList = musicalService.findAll();
         model.addAttribute("musicalList", musicalDTOList);
         return "/musical/musical_list";

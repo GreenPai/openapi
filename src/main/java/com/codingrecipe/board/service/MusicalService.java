@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,9 +61,22 @@ public class MusicalService {
         }
         return musicalDTOList;
 
-
-
     }
+
+
+    /*
+    @Transactional
+    public List<MusicalDTO> findByDate(LocalDate startDate) {
+      List<MusicalEntity> musicalEntityList = musicalRepository.findByDate(date);
+
+        List<MusicalDTO> musicalDTOList =new ArrayList<>();
+        for (MusicalEntity musicalEntity: musicalEntityList){
+            musicalDTOList.add(MusicalDTO.convertToDTO(musicalEntity));
+        }
+
+        return musicalDTOList;
+    }
+*/
 
     @Transactional
     public MusicalDTO findByTitle(String title) {
