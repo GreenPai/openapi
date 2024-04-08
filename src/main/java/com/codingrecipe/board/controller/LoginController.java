@@ -42,7 +42,7 @@ public class LoginController {
     }
 
     @GetMapping("/loginpage")
-    public String login(){return "/login/login2";}
+    public String login(){return "/login/login";}
 
 
     @PostMapping("/getUser")

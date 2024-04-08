@@ -21,6 +21,7 @@ import java.net.URLEncoder;
 
 @RestController
 @RequiredArgsConstructor
+
 public class MusicalController {
 
     private final MusicalService musicalService;

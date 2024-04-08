@@ -17,6 +17,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/musical")
 public class MusicalViewController {
 
     private final MusicalService musicalService;

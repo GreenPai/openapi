@@ -1,5 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<style>
+
+a{
+    text-decoration: none;
+    color : #404040;
+}
+
+#big-title{
+    font-size: 36px;
+}
+
+#title{
+    font-size: 20px;
+}
+</style>
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/musical.css">
@@ -7,15 +24,17 @@
 </head>
 <body>
 
- <a style="font-size:24px; font-weigth:bold" >뮤지컬 정보 페이지 입니다..</a>
+
  <br><br>
  <table>
-
-    <tr id="title">
+     <tr id="big-title">뮤지컬 정보 페이지 입니다</tr>
+        <br><br><br>
+     <tr id="title">
         <td>뮤지컬 제목</td>
-    </tr>
+         <br>
+     </tr>
     <tr th:each="list: ${musicalList}">
-        <td><a th:href="@{/api-detail(title=${list.title})}" th:text="${list.title}">&nbsp;</a></td>
+        <td><a th:href="@{/musical/api-detail(title=${list.title})}" th:text="${list.title}">&nbsp;</a></td>
 
     </tr>
 
