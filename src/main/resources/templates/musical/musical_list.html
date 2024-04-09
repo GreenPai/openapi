@@ -3,42 +3,66 @@
 
 <style>
 
-a{
+    #big-title {
+        font-size: 24px;
+        font-weight: bold;
+        background-color: #f0f0f0; /* 배경색 지정 */
+    }
+
+    #title {
+        font-weight: bold;
+    }
+
+    #content:hover{
+        background-color : #94D8F6;
+    }
+    table {
+        width: 100%; /* 테이블 너비를 100%로 설정 */
+        border-collapse: collapse; /* 테이블 셀의 경계를 합쳐서 보여줌 */
+    }
+
+
+
+    td, th {
+        border: 1px solid #ddd; /* 셀 테두리 설정 */
+        padding: 8px; /* 셀 안 여백 설정 */
+        text-align: left; /* 텍스트 정렬 설정 */
+    }
+
+    a{
     text-decoration: none;
     color : #404040;
-}
-
-#big-title{
-    font-size: 36px;
-}
-
-#title{
-    font-size: 20px;
-}
+    }
 </style>
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/musical.css">
     <title>뮤지컬 상세 정보</title>
 </head>
 <body>
 
 
  <br><br>
+
  <table>
-     <tr id="big-title">뮤지컬 정보 페이지 입니다</tr>
-        <br><br><br>
-     <tr id="title">
-        <td>뮤지컬 제목</td>
-         <br>
+     <tr id="big-title">
+         <td colspan="2">뮤지컬 정보 페이지 입니다</td>
      </tr>
-    <tr th:each="list: ${musicalList}">
-        <td><a th:href="@{/musical/api-detail(title=${list.title})}" th:text="${list.title}">&nbsp;</a></td>
-
-    </tr>
-
-</table>
-
+     <tr id="title">
+         <td colspan="2">뮤지컬 제목</td>
+     </tr>
+     <tr id="content" th:each="list: ${musicalList}">
+         <td><a href="#" th:onclick="'openNewWindow(\'' + @{/musical/api-detail(title=${list.title})} + '\'); return false;'" th:text="${list.title}">&nbsp;</a></td>
+     </tr>
+ </table>
+<button onclick="MusicalWindow()">새창열기</button>
 </body>
+
+
+<script>
+    function openNewWindow(url) {
+       window.open(url, '_blank', 'width=500,height=500');
+   }
+
+</script>
 </html>
