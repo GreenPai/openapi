@@ -5,9 +5,27 @@
 <style>
 
 .table{
-    width: 60%;
+    width: 800px;
     height: 100px;
 }
+
+ #title th {
+    width: 100px;
+    background-color: #808080;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #dddddd;
+  }
+
+
+ .btn-container {
+    text-align: right;
+  }
+
+   .header-btn {
+        float: right;
+    }
 
 </style>
 
@@ -17,30 +35,37 @@
 </head>
 <body>
 <table class="table">
+
+
     <thead>
-    <tr>
-        <th scope="col">공연명</th>
+    <tr id="title">
+        <th colspan="2" scope="col">공연명</th>
         <th scope="col">공연시작일</th>
         <th scope="col">공연종료일</th>
-        <th scope="col">시설명</th>
-        <th scope="col">유무료 구분</th>
+        <th colspan="2" scope="col">시설명</th>
+        <th scope="col">유무료</th>
         <th scope="col">오픈런</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td th:text="${list.title}"></td>
+        <td colspan="2" th:text="${list.title}"></td>
         <td th:text="${list.op_st_dt}"></td>
         <td th:text="${list.op_ed_dt}"></td>
-        <td th:text="${list.place_nm}"></td>
+        <td colspan="2" th:text="${list.place_nm}"></td>
         <td th:text="${list.pay_at}"></td>
         <td th:text="${list.op_at}"></td>
     </tr>
     </tbody>
-
-
+    <thead>
+    <tr>
+        <td colspan="8">
+            <button id="btn" type="button" class="btn btn-outline-primary header-btn">예약하기</button>
+        </td>
+    </tr>
+    </thead>
 </table>
-<button type="button" class="btn btn-outline-primary">예약하기</button>
+
 
 
 
