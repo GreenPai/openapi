@@ -50,18 +50,18 @@
     </thead>
     <tbody>
     <tr>
-        <td colspan="2" th:text="${list.title}"></td>
+        <td id= "musical_title" colspan="2" th:text="${list.title}"></td>
         <td th:text="${list.op_st_dt}"></td>
         <td th:text="${list.op_ed_dt}"></td>
         <td colspan="2" th:text="${list.place_nm}"></td>
-        <td th:text="${list.pay_at}"></td>
+        <td id="musical_pay" th:text="${list.pay_at}"></td>
         <td th:text="${list.op_at}"></td>
     </tr>
     </tbody>
     <thead>
     <tr>
         <td colspan="8">
-            <button id="btn" type="button" onclick="" class="btn btn-outline-primary header-btn">예약하기</button>
+            <button id="reservation" type="button" onclick="reservation()" class="btn btn-outline-primary header-btn">예약하기</button>
             <button id="back" type="button" onclick="back()" class="btn btn-outline-primary header-btn">뒤로가기</button>
         </td>
     </tr>
@@ -70,9 +70,51 @@
 
 
 <script>
+
+/*
+    //let title = document.querySelector('#musical_title');
+    //let pay_at = document.querySelector('#musical_pay');
+
+    let title = document.querySelector('#musical_title').textContent.trim();
+    let pay_at = document.querySelector('#musical_pay').textContent.trim();
+
+
     const back = () => {
         window.close();
     }
+
+
+    const reservation = () => {
+
+    let data = {
+        title : title,
+        pay_at   : pay_at
+    };
+
+
+    $.ajax({
+        type: "POST",
+        url : "/musical/reservation",
+        contentType : "application/json",
+        data: JSON.stringify(data),
+        success: function(response){
+        },
+        error: function(xhr, status, error){
+            console.error('에러:', error);
+        }
+    }); // ajax-end
+
+    }; // const-end
+
+*/
+
+    function reservation() {
+
+    let title = document.querySelector('#musical_title').textContent.trim();
+    let pay_at = document.querySelector('#musical_pay').textContent.trim();
+
+    }
+
 
 
 </script>

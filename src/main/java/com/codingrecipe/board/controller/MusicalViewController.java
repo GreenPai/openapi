@@ -8,9 +8,7 @@ import com.codingrecipe.board.service.MusicalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -52,4 +50,16 @@ public class MusicalViewController {
         return "/basic/navbar";
 
     }
+
+    @PostMapping("/reservation")
+    public ModelAndView reservation(@RequestBody MusicalDTO musicalDTO){
+        System.out.println(musicalDTO.getTitle());
+        System.out.println(musicalDTO.getPay_at());
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/musical/musical_reservation");
+        return mv;
+    }
+
+
 }
