@@ -35,8 +35,8 @@ public class MusicalViewController {
 
         String title = musicalDTO.getTitle();
         MusicalDTO musicalDTO1 = musicalService.findByTitle(title);
-
-
+        System.out.println("음");
+        System.out.println(musicalDTO1.getRes_no());
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/musical/musical_detail");
         mv.addObject("list",musicalDTO1);
@@ -51,12 +51,13 @@ public class MusicalViewController {
 
     }
 
-    @PostMapping("/reservation")
-    public ModelAndView reservation(@RequestBody MusicalDTO musicalDTO){
-        System.out.println(musicalDTO.getTitle());
-        System.out.println(musicalDTO.getPay_at());
+    @GetMapping("/reservation")
+    public ModelAndView reservation(MusicalDTO musicalDTO){
+        MusicalDTO musicalDTO1 = musicalService.findByResno(musicalDTO.getRes_no());
+        System.out.println(musicalDTO1);
 
         ModelAndView mv = new ModelAndView();
+        mv.addObject("list", musicalDTO1);
         mv.setViewName("/musical/musical_reservation");
         return mv;
     }

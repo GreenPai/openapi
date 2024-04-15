@@ -86,4 +86,11 @@ public class MusicalService {
         return musicalDTO;
 
     }
+
+    public MusicalDTO findByResno(Long resNo) {
+        Optional<MusicalEntity> musicalEntity = musicalRepository.findById(resNo);
+        MusicalEntity entity = musicalEntity.get();
+        MusicalDTO musicalDTO = MusicalDTO.convertToDTO(entity);
+        return musicalDTO;
+    }
 }

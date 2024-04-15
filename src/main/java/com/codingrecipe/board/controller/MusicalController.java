@@ -68,7 +68,7 @@ public class MusicalController {
             JSONObject itemJson = (JSONObject) itemObject;
 
             // 각 아이템의 필드 가져오기
-            String res_no = (String) itemJson.get("res_no");
+            Long res_no = (Long) itemJson.get("res_no");
             String title = (String) itemJson.get("title");
             String op_st_dt = (String) itemJson.get("op_st_dt");
             String op_ed_dt = (String) itemJson.get("op_ed_dt");

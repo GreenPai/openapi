@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 public class MusicalDTO {
 
-    private String res_no;
+    private Long res_no;
     private String title;
     private String op_st_dt;
     private String op_ed_dt;
@@ -21,6 +21,7 @@ public class MusicalDTO {
 
     public static MusicalDTO convertToDTO(MusicalEntity existingMusical) {
         MusicalDTO musicalDTO = new MusicalDTO();
+        musicalDTO.setRes_no(existingMusical.getRes_no());
         musicalDTO.setTitle(existingMusical.getTitle());
         musicalDTO.setPay_at(existingMusical.getPay_at());
         musicalDTO.setOp_at(existingMusical.getOp_at());

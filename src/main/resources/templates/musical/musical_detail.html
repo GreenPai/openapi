@@ -46,6 +46,7 @@
         <th colspan="2" scope="col">시설명</th>
         <th scope="col">유무료</th>
         <th scope="col">오픈런</th>
+        <th scope="col" style="display: none;">공연번호</th>
     </tr>
     </thead>
     <tbody>
@@ -56,6 +57,7 @@
         <td colspan="2" th:text="${list.place_nm}"></td>
         <td id="musical_pay" th:text="${list.pay_at}"></td>
         <td th:text="${list.op_at}"></td>
+        <td id="musical_res_no" th:text="${list.res_no}" style="display: none;"></td>
     </tr>
     </tbody>
     <thead>
@@ -98,6 +100,7 @@
         contentType : "application/json",
         data: JSON.stringify(data),
         success: function(response){
+        console.log();
         },
         error: function(xhr, status, error){
             console.error('에러:', error);
@@ -109,10 +112,10 @@
 */
 
     function reservation() {
-
     let title = document.querySelector('#musical_title').textContent.trim();
+    let res_no = document.querySelector('#musical_res_no').textContent.trim();
     let pay_at = document.querySelector('#musical_pay').textContent.trim();
-
+    window.location.href = "/musical/reservation?res_no=" + res_no + "&pay_at=" + pay_at;
     }
 
 
