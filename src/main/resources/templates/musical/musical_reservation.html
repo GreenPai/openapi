@@ -1,12 +1,73 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 
 <head>
     <meta charset="UTF-8">
     <title>예약 페이지</title>
 </head>
 <body>
+
+
+
+<div style="margin-top:50px;">
+    <input type="text" id="datepicker" placeholder="날짜 선택 (YYYY-MM-DD)">
+</div>
+
+<div>
+    <td id="op_st_dt"   th:text="${list.op_st_dt}"> 뮤지컬 첫 날짜</td>
+    <td id="op_ed_dt"   th:text="${list.op_ed_dt}"> 뮤지컬 종료 날짜</td>
+</div>
+
+<script>
+
+
+    const datepicker  = document.getElementById('datepicker');
+//    const datepicker2 = document.getElementById('datepicker2');
+//    const startDateInput = document.getElementById('startDate');
+//    const endDateInput = document.getElementById('endDate');
+
+    const startDate = document.getElementById('op_st_dt');
+    const endDate = document.getElementById('op_ed_dt');
+
+
+
+
+    function handleDateChange(selecterDates , dateStr, instance){
+        console.log('선택한 날짜', dateStr);
+        console.log(startDate);
+        console.log(endDate);
+    }
+
+    flatpickr(datepicker, {
+		dateFormat: 'Y-m-d', // 날짜 및 시간 형식 설정 (예: 2023-09-12)
+		enableTime: false,        // 시간 선택 활성화
+
+		minDate: startDate,        // 오늘 이전 날짜 선택 비활성화
+		maxDate: endDate,   // 특정 날짜까지 선택 가능
+		defaultDate: startDate,    // 초기 날짜 설정 (현재 날짜와 시간)
+		locale: 'ko',            // 한국어로 지역화
+		onOpen: function(selectedDates, dateStr, instance) {
+			// 위젯이 열릴 때 실행할 코드
+		},
+		onClose: function(selectedDates, dateStr, instance) {
+			// 위젯이 닫힐 때 실행할 코드
+		},
+		onChange: function(selectedDates, dateStr, instance) {
+			// 날짜가 변경될 때 실행할 코드
+		},
+		});
+
+
+
+
+
+</script>
+
+
 
 </body>
 </html>

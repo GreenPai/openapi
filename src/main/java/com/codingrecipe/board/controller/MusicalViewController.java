@@ -35,7 +35,6 @@ public class MusicalViewController {
 
         String title = musicalDTO.getTitle();
         MusicalDTO musicalDTO1 = musicalService.findByTitle(title);
-        System.out.println("음");
         System.out.println(musicalDTO1.getRes_no());
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/musical/musical_detail");
