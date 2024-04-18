@@ -11,30 +11,23 @@
 </head>
 <body>
 
-
+<h2>뮤지컬 날짜 선택</h2>
 
 <div style="margin-top:50px;">
-    <input type="text" id="datepicker" placeholder="날짜 선택 (YYYY-MM-DD)">
+    <input type="text" id="datepicker" placeholder="날짜 선택 (YYYY-MM-DD)" style="display: none;">
 </div>
 
-<div>
-    <td id="op_st_dt"   th:text="${list.op_st_dt}"> 뮤지컬 첫 날짜</td>
-    <td id="op_ed_dt"   th:text="${list.op_ed_dt}"> 뮤지컬 종료 날짜</td>
-</div>
+<table>
+<tr>
+    <td id="op_st_dt"   th:text="${list.op_st_dt}" style="display: none;"> 뮤지컬 첫 날짜</td>
+    <td id="op_ed_dt"   th:text="${list.op_ed_dt}" style="display: none;"> 뮤지컬 종료 날짜</td>
+    <button id="back" type="button" onclick="back()" class="btn btn-outline-primary header-btn">뒤로가기</button>
+</tr>
+</table>
 
 <script>
 
-
     const datepicker  = document.getElementById('datepicker');
-//    const datepicker2 = document.getElementById('datepicker2');
-//    const startDateInput = document.getElementById('startDate');
-//    const endDateInput = document.getElementById('endDate');
-
-    const startDate = document.getElementById('op_st_dt');
-    const endDate = document.getElementById('op_ed_dt');
-
-
-
 
     function handleDateChange(selecterDates , dateStr, instance){
         console.log('선택한 날짜', dateStr);
@@ -42,13 +35,25 @@
         console.log(endDate);
     }
 
+    const startDate = document.querySelector("#op_st_dt").textContent.trim();
+    const endDate = document.querySelector("#op_ed_dt").textContent.trim();
+
+    const start = new Date(startDate); // 예시: '2024-04-17'
+    const end = new Date(endDate); // 예시: '2024-04-30'
+
+    const back = () => {
+        console.log(start);
+        console.log(end);
+    }
+
     flatpickr(datepicker, {
+        inline: true,
 		dateFormat: 'Y-m-d', // 날짜 및 시간 형식 설정 (예: 2023-09-12)
 		enableTime: false,        // 시간 선택 활성화
 
-		minDate: startDate,        // 오늘 이전 날짜 선택 비활성화
-		maxDate: endDate,   // 특정 날짜까지 선택 가능
-		defaultDate: startDate,    // 초기 날짜 설정 (현재 날짜와 시간)
+		minDate: start,        // 오늘 이전 날짜 선택 비활성화
+		maxDate: end,   // 특정 날짜까지 선택 가능
+		defaultDate: start,    // 초기 날짜 설정 (현재 날짜와 시간)
 		locale: 'ko',            // 한국어로 지역화
 		onOpen: function(selectedDates, dateStr, instance) {
 			// 위젯이 열릴 때 실행할 코드
@@ -60,9 +65,6 @@
 			// 날짜가 변경될 때 실행할 코드
 		},
 		});
-
-
-
 
 
 </script>
