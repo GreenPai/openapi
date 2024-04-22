@@ -5,6 +5,33 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 
+<style>
+    #screen_left{
+        float: left;
+        margin-top:20px;
+        width: 400px;
+        height: 350px;
+    }
+
+    #screen_right{
+        border: 1px solid #dddddd;
+        background-color: #E0DFE4;
+        float: left;
+        margin-top:20px;
+        width: 300px;
+        height: 300px;
+    }
+
+    #day_font{
+        font-weight: bold;
+    }
+
+    #buttons{
+
+    }
+</style>
+
+
 <head>
     <meta charset="UTF-8">
     <title>예약 페이지</title>
@@ -12,18 +39,35 @@
 <body>
 
 <h2>뮤지컬 날짜 선택</h2>
+<div>
 
-<div style="margin-top:50px;">
+    <div id="screen_left">
     <input type="text" id="datepicker" placeholder="날짜 선택 (YYYY-MM-DD)" style="display: none;">
-</div>
+    </div>
 
-<table>
-<tr>
-    <td id="op_st_dt"   th:text="${list.op_st_dt}" style="display: none;"> 뮤지컬 첫 날짜</td>
-    <td id="op_ed_dt"   th:text="${list.op_ed_dt}" style="display: none;"> 뮤지컬 종료 날짜</td>
-    <button id="back" type="button" onclick="back()" class="btn btn-outline-primary header-btn">뒤로가기</button>
-</tr>
-</table>
+    <div id="screen_right">
+
+        <table>
+            <tr>
+                <td id="op_st_dt"   th:text="${list.op_st_dt}" style="display: none;"> 뮤지컬 첫 날짜</td>
+                <td id="op_ed_dt"   th:text="${list.op_ed_dt}" style="display: none;"> 뮤지컬 종료 날짜</td>
+                <td id="day_font">예약 날짜</td>
+            </tr>
+            <tr>
+                <td id="musical_day" th:text="20"></td>
+            </tr>
+            <tr id="buttons">
+                <td>
+                <button id="back" type="button" onclick="back()" class="btn btn-outline-primary header-btn">뒤로가기</button>
+                <button id="select" type="button" onclick="select()" class="btn btn-outline-primary header-btn">예약하기</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+</div>
 
 <script>
 
@@ -42,8 +86,7 @@
     const end = new Date(endDate); // 예시: '2024-04-30'
 
     const back = () => {
-        console.log(start);
-        console.log(end);
+        window.close();
     }
 
     flatpickr(datepicker, {
