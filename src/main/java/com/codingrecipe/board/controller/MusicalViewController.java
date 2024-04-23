@@ -61,5 +61,14 @@ public class MusicalViewController {
         return mv;
     }
 
+    @PostMapping("/sit")
+    public ModelAndView sit(@RequestParam("date") String date) {
+        System.out.println(date);
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("index");
+        return mv;
+
+    }
+
 
 }

@@ -7,6 +7,7 @@
 
 <style>
     #screen_left{
+        margin-left:20px;
         float: left;
         margin-top:20px;
         width: 400px;
@@ -15,20 +16,54 @@
 
     #screen_right{
         border: 1px solid #dddddd;
-        background-color: #E0DFE4;
+        background-color: #fff;
         float: left;
         margin-top:20px;
         width: 300px;
         height: 300px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+
+    body {
+         font-family: Arial, sans-serif;
+         background-color: #f0f0f0;
+     }
+
+     table {
+         width: 300px;
+         margin: 50px auto;
+         border-collapse: collapse;
+         background-color: #fff;
+     }
+
+
+
+
 
     #day_font{
         font-weight: bold;
     }
 
     #buttons{
-
+        text-align: center;
     }
+
+    th, td {
+        padding: 10px;
+        text-align: center;
+    }
+
+    button {
+    padding: 15px 30px; /* 버튼의 패딩을 늘립니다. */
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    }
+
 </style>
 
 
@@ -48,13 +83,13 @@
     <div id="screen_right">
 
         <table>
-            <tr>
+            <tr id="tr1">
                 <td id="op_st_dt"   th:text="${list.op_st_dt}" style="display: none;"> 뮤지컬 첫 날짜</td>
                 <td id="op_ed_dt"   th:text="${list.op_ed_dt}" style="display: none;"> 뮤지컬 종료 날짜</td>
                 <td id="day_font">예약 날짜</td>
             </tr>
-            <tr>
-                <td id="musical_day" th:text="20"></td>
+            <tr id="tr2">
+                <td id="musical_day"></td>
             </tr>
             <tr id="buttons">
                 <td>
@@ -72,11 +107,11 @@
 <script>
 
     const datepicker  = document.getElementById('datepicker');
+    const musicalDay = document.getElementById('musical_day');
+
 
     function handleDateChange(selecterDates , dateStr, instance){
-        console.log('선택한 날짜', dateStr);
-        console.log(startDate);
-        console.log(endDate);
+        musicalDay.innerText = dateStr;
     }
 
     const startDate = document.querySelector("#op_st_dt").textContent.trim();
@@ -104,11 +139,40 @@
 		onClose: function(selectedDates, dateStr, instance) {
 			// 위젯이 닫힐 때 실행할 코드
 		},
-		onChange: function(selectedDates, dateStr, instance) {
-			// 날짜가 변경될 때 실행할 코드
-		},
+		onChange: handleDateChange,
 		});
 
+/*
+    $("#select").click(function(){
+        $.ajax({
+            type: "POST,
+            url: "/musical/sit",
+            data : {data : musicalDay },
+            success : function(response){
+                console.log("날짜가 성공적으로 저장되었습니다.");
+                console.log(data);
+            },
+            error: functionb(xhr, status, error){
+                console.error("날짜 저장 중 오류가 발생했습니다.");
+            }
+        });
+    });
+*/
+
+      $("#select").click(function() {
+                var selectedDate = $("#musical_day").text();
+                $.ajax({
+                    type: "POST",
+                    url: "/musical/sit",
+                    data: { date: selectedDate },
+                    success: function(response) {
+                        console.log("날짜가 성공적으로 저장되었습니다.");
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("날짜 저장 중 오류가 발생했습니다: " + error);
+                    }
+                });
+            });
 
 </script>
 
