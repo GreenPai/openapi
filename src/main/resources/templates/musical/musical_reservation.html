@@ -84,6 +84,7 @@
 
         <table>
             <tr id="tr1">
+                <td id="title" th:text="${list.title}" style="display: none;">뮤지컬 이름</td>
                 <td id="op_st_dt"   th:text="${list.op_st_dt}" style="display: none;"> 뮤지컬 첫 날짜</td>
                 <td id="op_ed_dt"   th:text="${list.op_ed_dt}" style="display: none;"> 뮤지컬 종료 날짜</td>
                 <td id="day_font">예약 날짜</td>
@@ -108,7 +109,7 @@
 
     const datepicker  = document.getElementById('datepicker');
     const musicalDay = document.getElementById('musical_day');
-
+    const title = document.getElementById('title');
 
     function handleDateChange(selecterDates , dateStr, instance){
         musicalDay.innerText = dateStr;
@@ -142,37 +143,28 @@
 		onChange: handleDateChange,
 		});
 
-/*
-    $("#select").click(function(){
-        $.ajax({
-            type: "POST,
-            url: "/musical/sit",
-            data : {data : musicalDay },
-            success : function(response){
-                console.log("날짜가 성공적으로 저장되었습니다.");
-                console.log(data);
-            },
-            error: functionb(xhr, status, error){
-                console.error("날짜 저장 중 오류가 발생했습니다.");
-            }
-        });
-    });
-*/
 
       $("#select").click(function() {
                 var selectedDate = $("#musical_day").text();
+                var title = $("#title").text();
+
                 $.ajax({
                     type: "POST",
                     url: "/musical/sit",
                     data: { date: selectedDate },
                     success: function(response) {
-                        console.log("날짜가 성공적으로 저장되었습니다.");
+                        localStorage.setItem('musical', selectedDate);
+                        localStorage.setItem('title', title);
+                        window.location.href = "/musical/sit";
+
                     },
                     error: function(xhr, status, error) {
                         console.error("날짜 저장 중 오류가 발생했습니다: " + error);
                     }
                 });
             });
+
+
 
 </script>
 

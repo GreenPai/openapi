@@ -1,10 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>뮤지컬 자리 예약</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+          background-color: #242333;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          margin: 0;
+        }
+        .container {
+          perspective: 100px;
+          perspective: 1000px;
+        }
+        .screen {
+          width: 200px;
+          height: 80px;
+          background-color: white;
+          box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+        }
+        .screen:hover {
+          transition: all 3s ease-out;
+          transform: rotateX(-180deg);
+        }
+    </style>
+    <title>Document</title>
 </head>
 <body>
-
+<div class="container">
+    <div class="screen"></div>
+</div>
 </body>
 </html>

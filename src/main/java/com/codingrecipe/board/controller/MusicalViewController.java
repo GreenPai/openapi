@@ -62,12 +62,18 @@ public class MusicalViewController {
     }
 
     @PostMapping("/sit")
-    public ModelAndView sit(@RequestParam("date") String date) {
+    public ModelAndView postsit(@RequestParam("date") String date) {
         System.out.println(date);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("index");
         return mv;
+    }
 
+    @GetMapping("/sit")
+    public ModelAndView getsit() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/musical/musical_sit");
+        return mv;
     }
 
 
