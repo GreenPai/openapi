@@ -18,21 +18,116 @@
           perspective: 1000px;
         }
         .screen {
-          width: 200px;
-          height: 80px;
+          width: 300px;
+          height: 100px;
           background-color: white;
           box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+          color : #C1C1C1;
+          font-weight: bold;
+          text-align: center;
+          line-height: 100px;
         }
         .screen:hover {
           transition: all 3s ease-out;
           transform: rotateX(-180deg);
         }
+
+    #check{
+        display: flex;
+        margin-bottom: 5px;
+        margin-left: 5px;
+        justify-content: space-between;
+    }
+
+    #check #title{
+        background-color:  #242333;
+        color : white;
+        font-weight: bold;
+    }
+
+    #check select {
+        font-weight: bold;
+        padding: 5px;
+        width: 150px;
+        border-radius:5px;
+        background-color: white;
+        text-align: center;
+        appearance : none;        //웹브라우저의 기본 스타일 제거
+        -moz-appearance: none;    //Firefox 기본 스타일 제거
+        -webkit-appearance: none; // webkit 기본 스타일 제거
+    }
+
+    #show{
+        background-color:#201D2C;
+        margin-bottom: 15px;
+        border-radius:5px;
+        height : 30px;
+        color : white;
+        font-weight : bold;
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-end;
+    }
+
+.item {
+    position: relative;
+    width: 50px; /* 네모 모양의 너비 설정 */
+    height: 20px; /* 네모 모양의 높이 설정 */
+    text-align: center;
+}
+
+.item::before {
+    content: "✔"; /* 의사 요소의 내용 설정 */
+    position: absolute;
+    top: 50%;
+    left: -25px; /* 텍스트와의 간격 조절 */
+    width: 20px; /* 네모 모양의 너비 설정 */
+    height: 20px; /* 네모 모양의 높이 설정 */
+    background-color: #ccc; /* 네모 모양의 배경색 설정 */
+    border: 1px solid #666; /* 네모 모양의 테두리 설정 */
+    transform: translateY(-50%); /* 수직 가운데 정렬 */
+    border-radius: 10px 10px 0 0; /* 윗부분만 둥글게 설정 */
+}
+
+.item.na::before {
+    background-color: #f2f2f2; /* N/A 배경색 설정 */
+}
+
+.item.selected::before {
+    background-color: #cceeff; /* Selected 배경색 설정 */
+}
+
+.item.occupied::before {
+    background-color: #ffcccc; /* Occupied 배경색 설정 */
+    content: "X"; /* 의사 요소의 내용 설정 */
+}
     </style>
-    <title>Document</title>
+    <title>좌석 예약</title>
 </head>
 <body>
+
 <div class="container">
-    <div class="screen"></div>
+
+    <div id="check">
+        <div id="title">
+            <label for="rank">좌석 등급 :</label>
+        </div>
+        <div>
+        <select name="rank" id="rank">
+            <option value="A등급">A등급 (10$)</option>
+            <option value="B등급">B등급 (20$)</option>
+            <option value="C등급">C등급 (30$)</option>
+        </select>
+        </div>
+    </div>
+
+    <div id="show">
+        <div class="item na">N/A</div>
+        <div class="item selected">Selected</div>
+        <div class="item occupied">Occupied</div>
+    </div>
+
+    <div class="screen">공연장</div>
 </div>
 </body>
 </html>
