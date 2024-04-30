@@ -69,15 +69,15 @@
         align-items: flex-end;
     }
 
-.item {
+.items {
     position: relative;
     width: 50px; /* 네모 모양의 너비 설정 */
     height: 20px; /* 네모 모양의 높이 설정 */
     text-align: center;
 }
 
-.item::before {
-    content: "✔"; /* 의사 요소의 내용 설정 */
+.items::before {
+    content: "X"; /* 의사 요소의 내용 설정 */
     position: absolute;
     top: 50%;
     left: -25px; /* 텍스트와의 간격 조절 */
@@ -89,18 +89,70 @@
     border-radius: 10px 10px 0 0; /* 윗부분만 둥글게 설정 */
 }
 
-.item.na::before {
+.items.na::before {
     background-color: #f2f2f2; /* N/A 배경색 설정 */
+    content: "X"; /* 의사 요소의 내용 설정 */
 }
 
-.item.selected::before {
+.items.selected::before {
     background-color: #cceeff; /* Selected 배경색 설정 */
+    content: "✔"; /* 의사 요소의 내용 설정 */
 }
 
-.item.occupied::before {
+.items.occupied::before {
     background-color: #ffcccc; /* Occupied 배경색 설정 */
     content: "X"; /* 의사 요소의 내용 설정 */
 }
+
+#sit {
+    margin-top:10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.seat-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-seats,
+.right-seats {
+    display: flex;
+    flex-direction: row;
+}
+
+.center-seats {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 20px; /* 좌석 사이의 간격을 조절 */
+}
+
+.item {
+    display: flex;
+    align-items: center; /* 수직 가운데 정렬을 위해 추가 */
+    justify-content: center; /* 수평 가운데 정렬을 위해 추가 */
+    position: relative;
+    width: 30px; /* 네모 모양의 너비 설정 */
+    height: 30px; /* 네모 모양의 높이 설정 */
+    text-align: center;
+}
+
+.item::before {
+    content: ""; /* 의사 요소의 내용 설정 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 25px; /* 네모 모양의 너비 설정 */
+    height: 25px; /* 네모 모양의 높이 설정 */
+    background-color: #ccc; /* 네모 모양의 배경색 설정 */
+    border: 1px solid #666; /* 네모 모양의 테두리 설정 */
+    border-radius: 10px 10px 0 0; /* 윗부분만 둥글게 설정 */
+}
+
+
     </style>
     <title>좌석 예약</title>
 </head>
@@ -114,20 +166,121 @@
         </div>
         <div>
         <select name="rank" id="rank">
-            <option value="A등급">A등급 (10$)</option>
+            <option value="A등급">A등급 (30$)</option>
             <option value="B등급">B등급 (20$)</option>
-            <option value="C등급">C등급 (30$)</option>
+            <option value="C등급">C등급 (20$)</option>
         </select>
         </div>
     </div>
 
     <div id="show">
-        <div class="item na">N/A</div>
-        <div class="item selected">Selected</div>
-        <div class="item occupied">Occupied</div>
+        <div class="items na">N/A</div>
+        <div class="items selected">Selected</div>
+        <div class="items occupied">Occupied</div>
     </div>
 
     <div class="screen">공연장</div>
+
+    <div id="sit">
+        <div id="A" class="seat-container">
+            <div class="left-seats">
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+            <div class="center-seats">
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+            <div class="right-seats">
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+        </div>
+
+        <div id="B" class="seat-container">
+            <div class="left-seats">
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+            <div class="center-seats">
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+            <div class="right-seats">
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+        </div>
+
+        <div id="C" class="seat-container">
+            <div class="left-seats">
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+            <div class="center-seats">
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+            <div class="right-seats">
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
+
+<script>
+    // 이전의 JavaScript 유지
+
+    document.getElementById('rank').addEventListener('change', function() {
+        var selectedValue = this.value;
+        console.log('선택된 등급:', selectedValue);
+
+        // 모든 좌석 초기화
+        var allSeats = document.querySelectorAll('.item');
+        allSeats.forEach(function(seat) {
+            seat.classList.remove('disabled');
+            seat.style.backgroundColor = '#ccc'; // 기본 색상으로 초기화
+        });
+
+        // 선택된 등급에 따라 해당되지 않는 좌석 비활성화
+        switch (selectedValue) {
+            case 'A등급':
+                var BSeats = document.querySelectorAll('#B .item');
+                var CSeats = document.querySelectorAll('#C .item');
+                disableSeats(BSeats);
+                disableSeats(CSeats);
+                break;
+            case 'B등급':
+                var ASeats = document.querySelectorAll('#A .item');
+                var CSeats = document.querySelectorAll('#C .item');
+                disableSeats(ASeats);
+                disableSeats(CSeats);
+                break;
+            case 'C등급':
+                var ASeats = document.querySelectorAll('#A .item');
+                var BSeats = document.querySelectorAll('#B .item');
+                disableSeats(ASeats);
+                disableSeats(BSeats);
+                break;
+            default:
+                break;
+        }
+    });
+
+    function disableSeats(seats) {
+        seats.forEach(function(seat) {
+            seat.classList.add('disabled');
+            seat.style.backgroundColor = '#ff0000'; // 비활성화된 좌석의 색상 변경
+        });
+    }
+</script>
+
 </html>
