@@ -4,6 +4,7 @@ package com.codingrecipe.board.controller;
 import com.codingrecipe.board.dto.BoardDTO;
 import com.codingrecipe.board.dto.CommentDTO;
 import com.codingrecipe.board.dto.MusicalDTO;
+import com.codingrecipe.board.dto.ReservationDTO;
 import com.codingrecipe.board.service.MusicalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -60,6 +61,36 @@ public class MusicalViewController {
         mv.setViewName("/musical/musical_reservation");
         return mv;
     }
+
+
+    @PostMapping("/reservation")
+    public ModelAndView reservation2(MusicalDTO musicalDTO,
+                                     @RequestParam("price") String price,
+                                     @RequestParam("seat") String[] seat,
+                                     @RequestParam("date") String date){
+
+        ReservationDTO reservationDTO = new ReservationDTO();
+        reservationDTO.setDate(date);
+        reservationDTO.setPrice(Integer.parseInt(price));
+        reservationDTO.setTitle(musicalDTO.getTitle());
+
+        for(String seatNumber : seat){
+            reservationDTO.setSeat(seatNumber);
+            musicalService.save(reservationDTO);
+            System.out.println(reservationDTO);
+        }
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("index");
+        return mv;
+    }
+
+
+
+
+
+
+
 
     @PostMapping("/sit")
     public ModelAndView postsit(@RequestParam("date") String date) {

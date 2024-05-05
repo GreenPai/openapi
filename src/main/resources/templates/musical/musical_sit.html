@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -69,6 +70,28 @@
         align-items: flex-end;
     }
 
+    .btn {
+        background-color: #21417A; /* 버튼 배경색 */
+        color: white; /* 버튼 텍스트 색상 */
+        padding: 5px 10px; /* 버튼 안 여백 */
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+
+    }
+
+    #btn {
+        display : flex;
+        justify-content: space-around;
+
+    }
+
+
+
+
+
 .items {
     position: relative;
     width: 50px; /* 네모 모양의 너비 설정 */
@@ -87,6 +110,7 @@
     border: 1px solid #666; /* 네모 모양의 테두리 설정 */
     transform: translateY(-50%); /* 수직 가운데 정렬 */
     border-radius: 10px 10px 0 0; /* 윗부분만 둥글게 설정 */
+    color : black;
 }
 
 .items.na::before {
@@ -138,19 +162,11 @@
     width: 30px; /* 네모 모양의 너비 설정 */
     height: 30px; /* 네모 모양의 높이 설정 */
     text-align: center;
-}
-
-.item::before {
-    content: ""; /* 의사 요소의 내용 설정 */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 25px; /* 네모 모양의 너비 설정 */
-    height: 25px; /* 네모 모양의 높이 설정 */
     background-color: #ccc; /* 네모 모양의 배경색 설정 */
     border: 1px solid #666; /* 네모 모양의 테두리 설정 */
     border-radius: 10px 10px 0 0; /* 윗부분만 둥글게 설정 */
 }
+
 
 
     </style>
@@ -167,7 +183,7 @@
         <div>
         <select name="rank" id="rank">
             <option value="A등급">A등급 (30$)</option>
-            <option value="B등급">B등급 (20$)</option>
+            <option value="B등급">B등급 (25$)</option>
             <option value="C등급">C등급 (20$)</option>
         </select>
         </div>
@@ -184,70 +200,89 @@
     <div id="sit">
         <div id="A" class="seat-container">
             <div class="left-seats">
-                <div class="item"></div>
-                <div class="item"></div>
+                <div class="item" id="A-1"></div>
+                <div class="item" id="A-2"></div>
             </div>
             <div class="center-seats">
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
+                <div class="item" id="A-3"></div>
+                <div class="item" id="A-4"></div>
+                <div class="item" id="A-5"></div>
+                <div class="item" id="A-6"></div>
             </div>
             <div class="right-seats">
-                <div class="item"></div>
-                <div class="item"></div>
+                <div class="item" id="A-7"></div>
+                <div class="item" id="A-8"></div>
             </div>
         </div>
 
         <div id="B" class="seat-container">
             <div class="left-seats">
-                <div class="item"></div>
-                <div class="item"></div>
+                <div class="item" id="B-1"></div>
+                <div class="item" id="B-2"></div>
             </div>
             <div class="center-seats">
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
+                <div class="item" id="B-3"></div>
+                <div class="item" id="B-4"></div>
+                <div class="item" id="B-5"></div>
+                <div class="item" id="B-6"></div>
             </div>
             <div class="right-seats">
-                <div class="item"></div>
-                <div class="item"></div>
+                <div class="item" id="B-7"></div>
+                <div class="item" id="B-8"></div>
             </div>
         </div>
 
         <div id="C" class="seat-container">
             <div class="left-seats">
-                <div class="item"></div>
-                <div class="item"></div>
+                <div class="item" id="C-1"></div>
+                <div class="item" id="C-2"></div>
             </div>
             <div class="center-seats">
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
+                <div class="item" id="C-3"></div>
+                <div class="item" id="C-4"></div>
+                <div class="item" id="C-5"></div>
+                <div class="item" id="C-6"></div>
             </div>
             <div class="right-seats">
-                <div class="item"></div>
-                <div class="item"></div>
+                <div class="item" id="C-7"></div>
+                <div class="item" id="C-8"></div>
             </div>
         </div>
+    </div>
+    <div id = "btn">
+        <button class="btn" id="back" onclick="back()">뒤로가기</button>
+        <button class="btn" id="res" onclick="res()">예약하기</button>
     </div>
 </div>
 </body>
 
 <script>
-    // 이전의 JavaScript 유지
+
+    let rank = "";
+    let price = 0;
 
     document.getElementById('rank').addEventListener('change', function() {
+
         var selectedValue = this.value;
+        rank = selectedValue;
+
+        if (selectedValue == "A등급") {
+           price = 30;
+        } else if (selectedValue == "B등급") {
+            price = 25;
+        } else {
+          price = 20;
+        }
+
         console.log('선택된 등급:', selectedValue);
+        console.log("가격: " + price);
 
         // 모든 좌석 초기화
         var allSeats = document.querySelectorAll('.item');
         allSeats.forEach(function(seat) {
             seat.classList.remove('disabled');
             seat.style.backgroundColor = '#ccc'; // 기본 색상으로 초기화
+            seat.innerHTML = "";
         });
 
         // 선택된 등급에 따라 해당되지 않는 좌석 비활성화
@@ -278,9 +313,87 @@
     function disableSeats(seats) {
         seats.forEach(function(seat) {
             seat.classList.add('disabled');
-            seat.style.backgroundColor = '#ff0000'; // 비활성화된 좌석의 색상 변경
+            seat.style.backgroundColor = '#f2f2f2'; // 비활성화된 좌석의 색상 변경
+            seat.innerHTML = "X"; // 변경된 부분: 내용을 "N/A"로 설정
+            // content: "X"; /* 의사 요소의 내용 설정 */
         });
     }
+
+
+    document.querySelectorAll('.item').forEach(item => {
+    item.addEventListener('click', function() {
+        if (!this.classList.contains('disabled')) {
+            if (this.classList.contains('selected')) {
+                this.classList.remove('selected');
+                this.style.backgroundColor = '#ccc';
+                this.innerHTML = "";
+            } else {
+                this.classList.add('selected');
+                this.style.backgroundColor = '#cceeff'; // 선택된 좌석의 색상 변경
+                this.innerHTML = "✔";
+            }
+        }
+    });
+    });
+
+
+    const back = () => {
+        window.close();
+    };
+
+    function res() {
+
+        // console.log(price);
+
+        switch (rank) {
+            case 'A등급':
+                var Seats = document.querySelectorAll('#A .item.selected');
+                break;
+            case 'B등급':
+                var Seats = document.querySelectorAll('#B .item.selected');
+                break;
+            case 'C등급':
+                var Seats = document.querySelectorAll('#C .item.selected');
+                break;
+            default:
+                alert("등급을 선택해주세요.");
+                break;
+        }
+
+        var sum = price * Seats.length;
+
+        var seatNum = [];
+        Seats.forEach(function(seat) {
+        seatNum.push(seat.id);
+        });
+
+        var title = localStorage.getItem("title");
+        var date = localStorage.getItem("musical");
+
+        console.log(title);
+        console.log(date);
+        console.log(seatNum);
+
+
+        $.ajax({
+        type: "POST",
+        url: "/musical/reservation",
+        data: { title: title, date: date, price: price, seat: seatNum },
+        traditional: true,
+        success: function(response) {
+        //    window.location.href = "/";
+        },
+        error: function(xhr, status, error) {
+            console.error("오류가 발생했습니다: " + error);
+            alert("좌석을 선택해주세요.");
+        }
+        });
+    }
+
+
+
+
+
 </script>
 
 </html>

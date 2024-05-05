@@ -1,17 +1,16 @@
 package com.codingrecipe.board.service;
 
-import com.codingrecipe.board.dto.BoardDTO;
 import com.codingrecipe.board.dto.MusicalDTO;
-import com.codingrecipe.board.entity.BoardEntity;
+import com.codingrecipe.board.dto.ReservationDTO;
 import com.codingrecipe.board.entity.MusicalEntity;
+import com.codingrecipe.board.entity.ReservationEntity;
 import com.codingrecipe.board.repository.MusicalRepository;
+import com.codingrecipe.board.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MusicalService {
     private final MusicalRepository musicalRepository;
+    private final ReservationRepository reservationRepository;
 
 
 
@@ -80,7 +80,6 @@ public class MusicalService {
 
     @Transactional
     public MusicalDTO findByTitle(String title) {
-
         List<MusicalEntity> musicalEntity = musicalRepository.findByTitle(title);
         MusicalDTO musicalDTO = MusicalDTO.convertToDTO(musicalEntity.get(0));
         return musicalDTO;
@@ -92,5 +91,11 @@ public class MusicalService {
         MusicalEntity entity = musicalEntity.get();
         MusicalDTO musicalDTO = MusicalDTO.convertToDTO(entity);
         return musicalDTO;
+    }
+
+    public void save(ReservationDTO reservationDTO) {
+        ReservationEntity reservationEntity = ReservationEntity.toSaveEntity(reservationDTO);
+        reservationRepository.save(reservationEntity);
+
     }
 }
