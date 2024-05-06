@@ -155,8 +155,7 @@
                     success: function(response) {
                         localStorage.setItem('musical', selectedDate);
                         localStorage.setItem('title', title);
-                        window.location.href = "/musical/sit";
-
+                        window.location.href ="/musical/sit?" + "title=" + encodeURIComponent(title) + "&selectedDate=" + encodeURIComponent(selectedDate);
                     },
                     error: function(xhr, status, error) {
                         console.error("날짜 저장 중 오류가 발생했습니다: " + error);

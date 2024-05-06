@@ -81,7 +81,7 @@
 
     let title = document.querySelector('#musical_title').textContent.trim();
     let pay_at = document.querySelector('#musical_pay').textContent.trim();
-
+    let user = localStorage.getItem("Authorization");
 
     const back = () => {
         window.close();
@@ -114,10 +114,12 @@
 */
 
     function reservation() {
+
     let title = document.querySelector('#musical_title').textContent.trim();
     let res_no = document.querySelector('#musical_res_no').textContent.trim();
     let pay_at = document.querySelector('#musical_pay').textContent.trim();
     window.location.href = "/musical/reservation?res_no=" + res_no + "&pay_at=" + pay_at;
+
     }
 
 

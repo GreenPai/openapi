@@ -5,7 +5,9 @@ import com.codingrecipe.board.dto.BoardDTO;
 import com.codingrecipe.board.dto.CommentDTO;
 import com.codingrecipe.board.dto.MusicalDTO;
 import com.codingrecipe.board.dto.ReservationDTO;
+import com.codingrecipe.board.repository.ReservationRepository;
 import com.codingrecipe.board.service.MusicalService;
+import com.codingrecipe.board.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,7 @@ import java.util.List;
 public class MusicalViewController {
 
     private final MusicalService musicalService;
+    private final ReservationService reservationService;
 
     @GetMapping("/api-page")
     public String api_page(Model model){
@@ -80,15 +83,12 @@ public class MusicalViewController {
             System.out.println(reservationDTO);
         }
 
+
+
         ModelAndView mv = new ModelAndView();
         mv.setViewName("index");
         return mv;
     }
-
-
-
-
-
 
 
 
@@ -101,8 +101,17 @@ public class MusicalViewController {
     }
 
     @GetMapping("/sit")
-    public ModelAndView getsit() {
+    public ModelAndView getsit(@RequestParam("title") String title,
+                               @RequestParam("selectedDate") String Date) {
+        System.out.println(title);
+        System.out.println(Date);
+
+        ReservationDTO reservationDTO = new ReservationDTO();
+
+        List<String> seat = ReservationService.findSeats(title, Date);
+
         ModelAndView mv = new ModelAndView();
+
         mv.setViewName("/musical/musical_sit");
         return mv;
     }
