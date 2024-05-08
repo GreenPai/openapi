@@ -5,6 +5,7 @@ import com.codingrecipe.board.dto.BoardDTO;
 import com.codingrecipe.board.dto.CommentDTO;
 import com.codingrecipe.board.dto.MusicalDTO;
 import com.codingrecipe.board.dto.ReservationDTO;
+import com.codingrecipe.board.entity.ReservationEntity;
 import com.codingrecipe.board.repository.ReservationRepository;
 import com.codingrecipe.board.service.MusicalService;
 import com.codingrecipe.board.service.ReservationService;
@@ -102,12 +103,9 @@ public class MusicalViewController {
     public ModelAndView getsit(@RequestParam("title") String title,
                                @RequestParam("selectedDate") String Date) {
 
-        System.out.println(title);
-        System.out.println(Date);
-
         ReservationDTO reservationDTO = new ReservationDTO();
 
-        List<String> seat = ReservationService.findSeats(title, Date);
+        List<ReservationDTO> seat = reservationService.findSeats(title, Date);
 
         ModelAndView mv = new ModelAndView();
 

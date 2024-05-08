@@ -1,20 +1,44 @@
 package com.codingrecipe.board.service;
 
+import com.codingrecipe.board.dto.ReservationDTO;
+import com.codingrecipe.board.entity.ReservationEntity;
 import com.codingrecipe.board.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ReservationService {
+
     private final ReservationRepository reservationRepository;
 
-    // 제목, 날짜에 따른 데이터를 가져와야됨.
-    public static List<String> findSeats(String title, String date) {
+    /*
+    @Autowired
+    public ReservationService(ReservationRepository reservationRepository) {
+        this.reservationRepository = reservationRepository;
+    }
+    */
+/*
+    public static List<ReservationEntity> findSeats(String title, String date) {
 
+         return reservationRepository.findByTitleAndDate(title,date);
+    }
+ */
 
-         return null;
+    public List<ReservationDTO> findSeats(String title, String date) {
+
+        List<ReservationEntity> reservationEntities  = reservationRepository.findByTitleAndDate(title,date);
+
+        List<ReservationDTO> dtos = new ArrayList<>();
+
+        for( ReservationEntity reservationEntity  :reservationEntities ){
+            dtos.add(ReservationDTO.convertToDTO(reservationEntity));
+        }
+
+        return dtos;
     }
 }
