@@ -13,6 +13,8 @@ public class ReservationService {
 
     // 제목, 날짜에 따른 데이터를 가져와야됨.
     public static List<String> findSeats(String title, String date) {
-        return null;
+
+
+    //     return null;
     }
 }

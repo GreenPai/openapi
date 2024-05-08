@@ -26,8 +26,6 @@ public class MusicalViewController {
 
     @GetMapping("/api-page")
     public String api_page(Model model){
-        //        LocalDate date = LocalDate.of(2010,3,1);
-        //        List<MusicalDTO> musicalDTOList = musicalService.findByDate(date);
         List<MusicalDTO> musicalDTOList = musicalService.findAll();
         model.addAttribute("musicalList", musicalDTOList);
         return "/musical/musical_list";
@@ -103,6 +101,7 @@ public class MusicalViewController {
     @GetMapping("/sit")
     public ModelAndView getsit(@RequestParam("title") String title,
                                @RequestParam("selectedDate") String Date) {
+
         System.out.println(title);
         System.out.println(Date);
 

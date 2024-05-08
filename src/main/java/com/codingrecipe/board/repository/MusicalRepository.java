@@ -11,11 +11,4 @@ public interface MusicalRepository extends JpaRepository<MusicalEntity, Long> {
 
     List<MusicalEntity> findByTitle(String title);
 
-    //  List<MusicalEntity> findByDate(String date);
-
-
-
-    //   List<MusicalEntity> findByOp_at(String op_at);
-
-
 }
