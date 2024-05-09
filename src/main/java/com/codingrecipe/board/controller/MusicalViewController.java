@@ -109,6 +109,8 @@ public class MusicalViewController {
 
         ModelAndView mv = new ModelAndView();
 
+        mv.addObject("seats",seat);
+
         mv.setViewName("/musical/musical_sit");
         return mv;
     }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -253,150 +254,170 @@
         <button class="btn" id="back" onclick="back()">뒤로가기</button>
         <button class="btn" id="res" onclick="res()">예약하기</button>
     </div>
+    <div id ="seats-data">
+        <div id="occupied-seats" th:text="${seats}" style="display: none;"></div>
+    </div>
 </div>
 </body>
 
 <script>
 
 
+    var occupiedSeatsElement = document.getElementById('occupied-seats');
+    var occupiedSeatsText = occupiedSeatsElement.textContent;
+
+    var seats = [];
+    var reservations = occupiedSeatsText.split(',');
+    var len = (reservations.length)/4;
+
+    reservations.forEach(function(reservation) {
+
+    var startIndex = reservation.indexOf("seat=");
+    // startIndex -> 조건에 해당하지 않으면 -1을 반환함.
+        if(startIndex != -1){
+            seats.push(reservation.substring(startIndex + 5 , startIndex + 8));
+        }
+    });
+
     // 페이지 이동 시 바로 호출. (예약된 좌석표시)
     window.onload = function() {
-    console.log("안녕");
+        console.log(reservations);
+        console.log(seats);
     };
 
 
 
-    let rank = "";
-    let price = 0;
+   let rank = "";
+   let price = 0;
 
-    document.getElementById('rank').addEventListener('change', function() {
+   document.getElementById('rank').addEventListener('change', function() {
 
-        var selectedValue = this.value;
-        rank = selectedValue;
+       var selectedValue = this.value;
+       rank = selectedValue;
 
-        if (selectedValue == "A등급") {
-           price = 30;
-        } else if (selectedValue == "B등급") {
-            price = 25;
-        } else {
-          price = 20;
-        }
+       if (selectedValue == "A등급") {
+          price = 30;
+       } else if (selectedValue == "B등급") {
+           price = 25;
+       } else {
+         price = 20;
+       }
 
-        console.log('선택된 등급:', selectedValue);
-        console.log("가격: " + price);
+       console.log('선택된 등급:', selectedValue);
+       console.log("가격: " + price);
 
-        // 모든 좌석 초기화
-        var allSeats = document.querySelectorAll('.item');
-        allSeats.forEach(function(seat) {
-            seat.classList.remove('disabled');
-            seat.style.backgroundColor = '#ccc'; // 기본 색상으로 초기화
-            seat.innerHTML = "";
-        });
+       // 모든 좌석 초기화
+       var allSeats = document.querySelectorAll('.item');
+       allSeats.forEach(function(seat) {
+           seat.classList.remove('disabled');
+           seat.style.backgroundColor = '#ccc'; // 기본 색상으로 초기화
+           seat.innerHTML = "";
+       });
 
-        // 선택된 등급에 따라 해당되지 않는 좌석 비활성화
-        switch (selectedValue) {
-            case 'A등급':
-                var BSeats = document.querySelectorAll('#B .item');
-                var CSeats = document.querySelectorAll('#C .item');
-                disableSeats(BSeats);
-                disableSeats(CSeats);
-                break;
-            case 'B등급':
-                var ASeats = document.querySelectorAll('#A .item');
-                var CSeats = document.querySelectorAll('#C .item');
-                disableSeats(ASeats);
-                disableSeats(CSeats);
-                break;
-            case 'C등급':
-                var ASeats = document.querySelectorAll('#A .item');
-                var BSeats = document.querySelectorAll('#B .item');
-                disableSeats(ASeats);
-                disableSeats(BSeats);
-                break;
-            default:
-                break;
-        }
-    });
+       // 선택된 등급에 따라 해당되지 않는 좌석 비활성화
+       switch (selectedValue) {
+           case 'A등급':
+               var BSeats = document.querySelectorAll('#B .item');
+               var CSeats = document.querySelectorAll('#C .item');
+               disableSeats(BSeats);
+               disableSeats(CSeats);
+               break;
+           case 'B등급':
+               var ASeats = document.querySelectorAll('#A .item');
+               var CSeats = document.querySelectorAll('#C .item');
+               disableSeats(ASeats);
+               disableSeats(CSeats);
+               break;
+           case 'C등급':
+               var ASeats = document.querySelectorAll('#A .item');
+               var BSeats = document.querySelectorAll('#B .item');
+               disableSeats(ASeats);
+               disableSeats(BSeats);
+               break;
+           default:
+               break;
+       }
+   });
 
-    function disableSeats(seats) {
-        seats.forEach(function(seat) {
-            seat.classList.add('disabled');
-            seat.style.backgroundColor = '#f2f2f2'; // 비활성화된 좌석의 색상 변경
-            seat.innerHTML = "X"; // 변경된 부분: 내용을 "N/A"로 설정
-            // content: "X"; /* 의사 요소의 내용 설정 */
-        });
-    }
-
-
-    document.querySelectorAll('.item').forEach(item => {
-    item.addEventListener('click', function() {
-        if (!this.classList.contains('disabled')) {
-            if (this.classList.contains('selected')) {
-                this.classList.remove('selected');
-                this.style.backgroundColor = '#ccc';
-                this.innerHTML = "";
-            } else {
-                this.classList.add('selected');
-                this.style.backgroundColor = '#cceeff'; // 선택된 좌석의 색상 변경
-                this.innerHTML = "✔";
-            }
-        }
-    });
-    });
+   function disableSeats(seats) {
+       seats.forEach(function(seat) {
+           seat.classList.add('disabled');
+           seat.style.backgroundColor = '#f2f2f2'; // 비활성화된 좌석의 색상 변경
+           seat.innerHTML = "X"; // 변경된 부분: 내용을 "N/A"로 설정
+           // content: "X"; /* 의사 요소의 내용 설정 */
+       });
+   }
 
 
-    const back = () => {
-        window.close();
-    };
-
-    function res() {
-
-        // console.log(price);
-
-        switch (rank) {
-            case 'A등급':
-                var Seats = document.querySelectorAll('#A .item.selected');
-                break;
-            case 'B등급':
-                var Seats = document.querySelectorAll('#B .item.selected');
-                break;
-            case 'C등급':
-                var Seats = document.querySelectorAll('#C .item.selected');
-                break;
-            default:
-                alert("등급을 선택해주세요.");
-                break;
-        }
-
-        var sum = price * Seats.length;
-
-        var seatNum = [];
-        Seats.forEach(function(seat) {
-        seatNum.push(seat.id);
-        });
-
-        var title = localStorage.getItem("title");
-        var date = localStorage.getItem("musical");
-
-        console.log(title);
-        console.log(date);
-        console.log(seatNum);
+   document.querySelectorAll('.item').forEach(item => {
+   item.addEventListener('click', function() {
+       if (!this.classList.contains('disabled')) {
+           if (this.classList.contains('selected')) {
+               this.classList.remove('selected');
+               this.style.backgroundColor = '#ccc';
+               this.innerHTML = "";
+           } else {
+               this.classList.add('selected');
+               this.style.backgroundColor = '#cceeff'; // 선택된 좌석의 색상 변경
+               this.innerHTML = "✔";
+           }
+       }
+   });
+   });
 
 
-        $.ajax({
-        type: "POST",
-        url: "/musical/reservation",
-        data: { title: title, date: date, price: price, seat: seatNum },
-        traditional: true,
-        success: function(response) {
-        //    window.location.href = "/";
-        },
-        error: function(xhr, status, error) {
-            console.error("오류가 발생했습니다: " + error);
-            alert("좌석을 선택해주세요.");
-        }
-        });
-    }
+   const back = () => {
+       window.close();
+   };
+
+   function res() {
+
+       // console.log(price);
+
+       switch (rank) {
+           case 'A등급':
+               var Seats = document.querySelectorAll('#A .item.selected');
+               break;
+           case 'B등급':
+               var Seats = document.querySelectorAll('#B .item.selected');
+               break;
+           case 'C등급':
+               var Seats = document.querySelectorAll('#C .item.selected');
+               break;
+           default:
+               alert("등급을 선택해주세요.");
+               break;
+       }
+
+       var sum = price * Seats.length;
+
+       var seatNum = [];
+       Seats.forEach(function(seat) {
+       seatNum.push(seat.id);
+       });
+
+       var title = localStorage.getItem("title");
+       var date = localStorage.getItem("musical");
+
+       console.log(title);
+       console.log(date);
+       console.log(seatNum);
+
+
+       $.ajax({
+       type: "POST",
+       url: "/musical/reservation",
+       data: { title: title, date: date, price: price, seat: seatNum },
+       traditional: true,
+       success: function(response) {
+       //    window.location.href = "/";
+       },
+       error: function(xhr, status, error) {
+           console.error("오류가 발생했습니다: " + error);
+           alert("좌석을 선택해주세요.");
+       }
+       });
+   }
 
 
 </script>
