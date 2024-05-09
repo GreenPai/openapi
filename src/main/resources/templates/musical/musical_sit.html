@@ -170,6 +170,7 @@
 
 
 
+
     </style>
     <title>좌석 예약</title>
 </head>
@@ -275,14 +276,13 @@
     var startIndex = reservation.indexOf("seat=");
     // startIndex -> 조건에 해당하지 않으면 -1을 반환함.
         if(startIndex != -1){
-            seats.push(reservation.substring(startIndex + 5 , startIndex + 8));
+            seats.push(reservation.substring(startIndex + 5 , startIndex + 8)); // seat=이 5글자라 (+5) ,  B-3 (+3)
         }
     });
 
     // 페이지 이동 시 바로 호출. (예약된 좌석표시)
     window.onload = function() {
-        console.log(reservations);
-        console.log(seats);
+        seatcheck();
     };
 
 
@@ -319,18 +319,23 @@
            case 'A등급':
                var BSeats = document.querySelectorAll('#B .item');
                var CSeats = document.querySelectorAll('#C .item');
+               seatcheck();
                disableSeats(BSeats);
                disableSeats(CSeats);
                break;
            case 'B등급':
                var ASeats = document.querySelectorAll('#A .item');
                var CSeats = document.querySelectorAll('#C .item');
+               // $('#B-5').addClass('disabled');
+               // disableSeats(seats);
+               seatcheck();
                disableSeats(ASeats);
                disableSeats(CSeats);
                break;
            case 'C등급':
                var ASeats = document.querySelectorAll('#A .item');
                var BSeats = document.querySelectorAll('#B .item');
+               seatcheck();
                disableSeats(ASeats);
                disableSeats(BSeats);
                break;
@@ -348,6 +353,13 @@
        });
    }
 
+    function seatcheck(){
+        seats.forEach(function(seatId) {
+        $('#' + seatId).addClass('disabled');
+        $('#' + seatId).css('background-color', '#FFCCCC');
+        $('#' + seatId).html("X");
+    });
+    }
 
    document.querySelectorAll('.item').forEach(item => {
    item.addEventListener('click', function() {
