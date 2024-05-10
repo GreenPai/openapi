@@ -55,13 +55,19 @@
          <td><a href="#" th:onclick="'openNewWindow(\'' + @{/musical/api-detail(title=${list.title})} + '\'); return false;'" th:text="${list.title}">&nbsp;</a></td>
      </tr>
  </table>
-<button onclick="MusicalWindow()">새창열기</button>
 </body>
 
 
 <script>
+
+    var token = localStorage.getItem("Authorization");
+
     function openNewWindow(url) {
-       window.open(url, '_blank', 'width=800,height=500');
+       if(token == null ){
+           alert("로그인 해주세요");
+       }else{
+           window.open(url, '_blank', 'width=800,height=500');
+       }
    }
 
 </script>

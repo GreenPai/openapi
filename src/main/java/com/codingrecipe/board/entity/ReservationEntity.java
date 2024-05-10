@@ -24,6 +24,9 @@ public class ReservationEntity {
     private int price;
     @Column
     private String seat;
+    @Column
+    private String user;
+
 
 
     public static ReservationEntity toSaveEntity(ReservationDTO reservationDTO) {

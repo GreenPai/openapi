@@ -1,12 +1,10 @@
 package com.codingrecipe.board.controller;
 
 
-import com.codingrecipe.board.dto.BoardDTO;
-import com.codingrecipe.board.dto.CommentDTO;
-import com.codingrecipe.board.dto.MusicalDTO;
-import com.codingrecipe.board.dto.ReservationDTO;
+import com.codingrecipe.board.dto.*;
 import com.codingrecipe.board.entity.ReservationEntity;
 import com.codingrecipe.board.repository.ReservationRepository;
+import com.codingrecipe.board.service.JoinService;
 import com.codingrecipe.board.service.MusicalService;
 import com.codingrecipe.board.service.ReservationService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +22,7 @@ public class MusicalViewController {
 
     private final MusicalService musicalService;
     private final ReservationService reservationService;
+    private final JoinService joinService;
 
     @GetMapping("/api-page")
     public String api_page(Model model){
@@ -69,8 +68,10 @@ public class MusicalViewController {
     public ModelAndView reservation2(MusicalDTO musicalDTO,
                                      @RequestParam("price") String price,
                                      @RequestParam("seat") String[] seat,
-                                     @RequestParam("date") String date){
+                                     @RequestParam("date") String date,
+                                     @RequestParam("username") String username) {
 
+        // JoinDTO joinDTO = joinService.
         ReservationDTO reservationDTO = new ReservationDTO();
         reservationDTO.setDate(date);
         reservationDTO.setPrice(Integer.parseInt(price));

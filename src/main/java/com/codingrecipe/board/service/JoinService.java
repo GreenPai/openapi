@@ -14,7 +14,7 @@ public class JoinService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
+    // 회원가입 서비스
     public void joinProcess(JoinDTO joinDTO){
 
         String username = joinDTO.getUsername();
@@ -38,6 +38,7 @@ public class JoinService {
 
     }
 
+    // 회원가입 서비스
     public void save(JoinDTO joinDTO) {
 
         // 비밀번호 암호화
@@ -49,6 +50,7 @@ public class JoinService {
 
     }
 
+    // 로그인 테스트
     public JoinDTO test(JoinDTO joinDTO){
         String username = joinDTO.getUsername();
         UserEntity userData = userRepository.findByUsername(username);
