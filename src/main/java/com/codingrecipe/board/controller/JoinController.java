@@ -36,33 +36,4 @@ public class JoinController {
     }
 
 
-    /*
-    @PostMapping("/join")
-    public String joinProcess(JoinDTO joinDTO) {
-
-        joinService.joinProcess(joinDTO);
-
-
-        return "ok";
-    }
-    */
-
-    /*
-    @PostMapping("/login")
-    public String login(JoinDTO joinDTO){
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        Iterator<? extends GrantedAuthority> iter = authorities.iterator();
-        GrantedAuthority auth = iter.next();
-        String role = auth.getAuthority();
-
-        System.out.println(role);
-
-
-        return "index";
-    }
-
-     */
 }

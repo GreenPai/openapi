@@ -72,7 +72,6 @@ public class BoardController {
         BoardDTO board = boardService.update(boardDTO);
         model.addAttribute("board", board);
         return "detail";
-//        return "redirect:/board/" + boardDTO.getId();
     }
 
     @GetMapping("/delete/{id}")

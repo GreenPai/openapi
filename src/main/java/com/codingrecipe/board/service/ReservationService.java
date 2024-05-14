@@ -16,19 +16,6 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
 
-    /*
-    @Autowired
-    public ReservationService(ReservationRepository reservationRepository) {
-        this.reservationRepository = reservationRepository;
-    }
-    */
-/*
-    public static List<ReservationEntity> findSeats(String title, String date) {
-
-         return reservationRepository.findByTitleAndDate(title,date);
-    }
- */
-
     public List<ReservationDTO> findSeats(String title, String date) {
 
         List<ReservationEntity> reservationEntities  = reservationRepository.findByTitleAndDate(title,date);
