@@ -63,7 +63,7 @@
     var token = localStorage.getItem("Authorization");
 
     function openNewWindow(url) {
-       if(token == null ){
+       if( token == null ){
            alert("로그인 해주세요");
        }else{
            window.open(url, '_blank', 'width=800,height=500');

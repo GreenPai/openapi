@@ -69,20 +69,21 @@ public class MusicalViewController {
                                      @RequestParam("price") String price,
                                      @RequestParam("seat") String[] seat,
                                      @RequestParam("date") String date,
-                                     @RequestParam("username") String username) {
+                                     @RequestParam("user") String username) {
+        System.out.println(username);
 
-        // JoinDTO joinDTO = joinService.
         ReservationDTO reservationDTO = new ReservationDTO();
         reservationDTO.setDate(date);
         reservationDTO.setPrice(Integer.parseInt(price));
         reservationDTO.setTitle(musicalDTO.getTitle());
 
+        /*   저장부분 잠시 주석
         for(String seatNumber : seat){
             reservationDTO.setSeat(seatNumber);
             musicalService.save(reservationDTO);
             System.out.println(reservationDTO);
         }
-
+        */
 
 
         ModelAndView mv = new ModelAndView();
