@@ -257,6 +257,7 @@
     </div>
     <div id ="seats-data">
         <div id="occupied-seats" th:text="${seats}" style="display: none;"></div>
+        <div id="username" th:text="${username}" style="display: none;"></div>
     </div>
 </div>
 </body>
@@ -301,7 +302,6 @@
        } else {
          price = 20;
        }
-
 
        // 모든 좌석 초기화
        var allSeats = document.querySelectorAll('.item');
@@ -406,9 +406,8 @@
        var title = localStorage.getItem("title");
        var date = localStorage.getItem("musical");
 
-       console.log(title);
-       console.log(date);
-       console.log(seatNum);
+
+       var username = document.getElementById('username').textContent;
 
        function save() {
         $.ajax({
@@ -417,7 +416,9 @@
         data: { title: title, date: date, price: price, seat: seatNum, user : token },
         traditional: true,
         success: function(response) {
-        //    window.location.href = "/";
+            console.log(username);
+            alert(username);
+            window.close();
         },
         error: function(xhr, status, error) {
             console.error("오류가 발생했습니다: " + error);
@@ -426,7 +427,22 @@
        });
        }
 
-       save();
+       $.ajax({
+        type: "GET",
+        url: "/loginCheck",
+        data: { user : token },
+        // dataType: "json",  // 서버가 JSON 응답을 반환하는 경우
+        success: function(response) {
+            save();
+        },
+        error: function(xhr, status, error) {
+            console.error("로그인 오류: " + error);
+            alert("로그인 문제");
+            alert(token);
+       }
+       });
+
+       // save();
 
 
    }

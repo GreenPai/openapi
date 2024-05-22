@@ -103,6 +103,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((auth) -> auth
                 .antMatchers("/login", "/Main", "/", "/join","/user/**","/upload/**").permitAll()
+                .antMatchers("/loginCheck").permitAll()
                 .antMatchers("/board/**" , "/musical/**","/api" ).permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated());

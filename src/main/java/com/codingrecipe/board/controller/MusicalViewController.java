@@ -24,6 +24,7 @@ public class MusicalViewController {
     private final ReservationService reservationService;
     private final JoinService joinService;
 
+    // 뮤지컬 페이지
     @GetMapping("/api-page")
     public String api_page(Model model){
         List<MusicalDTO> musicalDTOList = musicalService.findAll();
@@ -52,6 +53,8 @@ public class MusicalViewController {
 
     }
 
+    // 뮤지컬 예약 페이지
+
     @GetMapping("/reservation")
     public ModelAndView reservation(MusicalDTO musicalDTO){
         MusicalDTO musicalDTO1 = musicalService.findByResno(musicalDTO.getRes_no());
@@ -77,13 +80,11 @@ public class MusicalViewController {
         reservationDTO.setPrice(Integer.parseInt(price));
         reservationDTO.setTitle(musicalDTO.getTitle());
 
-        /*   저장부분 잠시 주석
         for(String seatNumber : seat){
             reservationDTO.setSeat(seatNumber);
             musicalService.save(reservationDTO);
             System.out.println(reservationDTO);
         }
-        */
 
 
         ModelAndView mv = new ModelAndView();
@@ -106,7 +107,6 @@ public class MusicalViewController {
                                @RequestParam("selectedDate") String Date) {
 
         ReservationDTO reservationDTO = new ReservationDTO();
-
         List<ReservationDTO> seat = reservationService.findSeats(title, Date);
 
         ModelAndView mv = new ModelAndView();
