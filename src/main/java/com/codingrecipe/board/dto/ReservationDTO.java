@@ -15,11 +15,11 @@ public class ReservationDTO {
     private String date;
     private int price;
     private String seat;
-
+    private String user;
 
     public static ReservationDTO convertToDTO(ReservationEntity reservationEntity) {
         ReservationDTO reservationDTO = new ReservationDTO();
-
+        reservationDTO.setUser(reservationDTO.getUser());
         reservationDTO.setDate(reservationEntity.getDate());
         reservationDTO.setTitle(reservationEntity.getTitle());
         reservationDTO.setSeat(reservationEntity.getSeat());

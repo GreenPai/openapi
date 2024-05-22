@@ -27,11 +27,9 @@ public class ReservationEntity {
     @Column
     private String user;
 
-
-
     public static ReservationEntity toSaveEntity(ReservationDTO reservationDTO) {
         ReservationEntity reservationEntity = new ReservationEntity();
-
+        reservationEntity.setUser(reservationDTO.getUser());
         reservationEntity.setDate(reservationDTO.getDate());
         reservationEntity.setPrice(reservationDTO.getPrice());
         reservationEntity.setSeat(reservationDTO.getSeat());

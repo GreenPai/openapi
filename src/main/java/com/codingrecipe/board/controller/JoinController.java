@@ -46,23 +46,21 @@ public class JoinController {
 
     // 로그인 좌석 예약 페이지 musical_sit.html 아이디 체크
     @GetMapping("/loginCheck")
-    public ModelAndView loginCheck(@RequestParam("user") String token) {
+    @ResponseBody
+
+    public Map<String, String> loginCheck(@RequestParam("user") String token) {
 
         // 토큰을 검증하고 필요한 데이터를 반환하는 로직
 
         // token의 경우 Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluMTIzIiwicm9sZSI6IuydvOuwmOyduCIsImlhdCI6MTcxNjM3NDU3NSwiZXhwIjoxNzE2NDEwNTc1fQ.AUcuJXLFmdY4yqj7NP0sGN2g6xrOPw3xzFKxulIGqlA
         // Bearer 이 부분을 분리해야된다. 분리하지 않으면 오류가 발생.
         String Real_token = token.split(" ")[1];
-        System.out.println(Real_token);
         String username = jwtUtil.getUsername(Real_token);
-        System.out.println(username);
 
-        ModelAndView mv = new ModelAndView();
+        Map<String, String> response = new HashMap<>();
+        response.put("username", username);
 
-        mv.addObject("username",username);
-
-        mv.setViewName("/musical/musical_sit");
-        return mv;
+        return response;
     }
 
 

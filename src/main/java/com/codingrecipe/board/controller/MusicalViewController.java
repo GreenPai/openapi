@@ -73,12 +73,13 @@ public class MusicalViewController {
                                      @RequestParam("seat") String[] seat,
                                      @RequestParam("date") String date,
                                      @RequestParam("user") String username) {
-        System.out.println(username);
+
 
         ReservationDTO reservationDTO = new ReservationDTO();
         reservationDTO.setDate(date);
         reservationDTO.setPrice(Integer.parseInt(price));
         reservationDTO.setTitle(musicalDTO.getTitle());
+        reservationDTO.setUser(username);
 
         for(String seatNumber : seat){
             reservationDTO.setSeat(seatNumber);

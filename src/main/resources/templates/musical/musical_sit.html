@@ -257,7 +257,6 @@
     </div>
     <div id ="seats-data">
         <div id="occupied-seats" th:text="${seats}" style="display: none;"></div>
-        <div id="username" th:text="${username}" style="display: none;"></div>
     </div>
 </div>
 </body>
@@ -407,13 +406,13 @@
        var date = localStorage.getItem("musical");
 
 
-       var username = document.getElementById('username').textContent;
+       var username;
 
        function save() {
         $.ajax({
         type: "POST",
         url: "/musical/reservation",
-        data: { title: title, date: date, price: price, seat: seatNum, user : token },
+        data: { title: title, date: date, price: price, seat: seatNum, user : username },
         traditional: true,
         success: function(response) {
             console.log(username);
@@ -433,6 +432,7 @@
         data: { user : token },
         // dataType: "json",  // 서버가 JSON 응답을 반환하는 경우
         success: function(response) {
+            username = response.username;
             save();
         },
         error: function(xhr, status, error) {
