@@ -9,4 +9,5 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
 
     List<ReservationEntity> findByTitleAndDate(String title, String date);
 
+    List<ReservationEntity> findByUser(String username);
 }

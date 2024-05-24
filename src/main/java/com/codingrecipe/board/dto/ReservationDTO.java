@@ -19,7 +19,7 @@ public class ReservationDTO {
 
     public static ReservationDTO convertToDTO(ReservationEntity reservationEntity) {
         ReservationDTO reservationDTO = new ReservationDTO();
-        reservationDTO.setUser(reservationDTO.getUser());
+        reservationDTO.setUser(reservationEntity.getUser());
         reservationDTO.setDate(reservationEntity.getDate());
         reservationDTO.setTitle(reservationEntity.getTitle());
         reservationDTO.setSeat(reservationEntity.getSeat());

@@ -74,7 +74,6 @@ public class MusicalViewController {
                                      @RequestParam("date") String date,
                                      @RequestParam("user") String username) {
 
-
         ReservationDTO reservationDTO = new ReservationDTO();
         reservationDTO.setDate(date);
         reservationDTO.setPrice(Integer.parseInt(price));
@@ -118,5 +117,17 @@ public class MusicalViewController {
         return mv;
     }
 
+    @GetMapping("/my_reservation")
+    public ModelAndView my_reservation(){
+        String username = "admin123";
+        List<ReservationDTO> reservationDTO = reservationService.findReservation(username);
+        System.out.println("reservationDTO: " + reservationDTO );
+
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("list",reservationDTO);
+        mv.setViewName("/musical/musical_userpage");
+
+        return mv;
+    }
 
 }
