@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -120,11 +121,27 @@ public class MusicalViewController {
     @GetMapping("/my_reservation")
     public ModelAndView my_reservation(){
         String username = "admin123";
-        List<ReservationDTO> reservationDTO = reservationService.findReservation(username);
-        System.out.println("reservationDTO: " + reservationDTO );
+        List<ReservationDTO> reservationDTOS = reservationService.findReservation(username);
+        System.out.println("reservationDTO: " + reservationDTOS );
+
+        // 제목 하나에 C1, C2 수 표시.
+        System.out.println(reservationDTOS.size());
+
+        List<ReservationDTO> DTOS = new ArrayList<>();
+
+        for(ReservationDTO reservationDTO : reservationDTOS){
+            for(ReservationDTO reservationDTO1 : DTOS){
+                if(reservationDTO1.getTitle().equals(reservationDTO.getTitle()) && reservationDTO1.getDate().equals(reservationDTO.getDate())){
+
+                }else{
+                    DTOS.add(reservationDTO);
+                }
+            }
+        }
 
         ModelAndView mv = new ModelAndView();
-        mv.addObject("list",reservationDTO);
+        mv.addObject("list",reservationDTOS);
+        mv.addObject("count",reservationDTOS.size());
         mv.setViewName("/musical/musical_userpage");
 
         return mv;

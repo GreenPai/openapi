@@ -16,6 +16,7 @@ public class ReservationDTO {
     private int price;
     private String seat;
     private String user;
+    private int count;
 
     public static ReservationDTO convertToDTO(ReservationEntity reservationEntity) {
         ReservationDTO reservationDTO = new ReservationDTO();
