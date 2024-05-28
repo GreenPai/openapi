@@ -118,29 +118,35 @@ public class MusicalViewController {
         return mv;
     }
 
+    // 마이페이지 유저 뮤지컬 정보 호출
     @GetMapping("/my_reservation")
     public ModelAndView my_reservation(){
         String username = "admin123";
         List<ReservationDTO> reservationDTOS = reservationService.findReservation(username);
-        System.out.println("reservationDTO: " + reservationDTOS );
-
-        // 제목 하나에 C1, C2 수 표시.
-        System.out.println(reservationDTOS.size());
 
         List<ReservationDTO> DTOS = new ArrayList<>();
 
         for(ReservationDTO reservationDTO : reservationDTOS){
-            for(ReservationDTO reservationDTO1 : DTOS){
-                if(reservationDTO1.getTitle().equals(reservationDTO.getTitle()) && reservationDTO1.getDate().equals(reservationDTO.getDate())){
 
-                }else{
-                    DTOS.add(reservationDTO);
+            if(!DTOS.isEmpty()){
+                for(int i=0; i<DTOS.size(); i++) {
+                    if (DTOS.get(i).getTitle().equals(reservationDTO.getTitle()) && DTOS.get(i).getDate().equals(reservationDTO.getDate())) {
+                        DTOS.get(i).setCount(DTOS.get(i).getCount() + 1);  // 좌석 수 Count
+                        DTOS.get(i).addSeat(reservationDTO.getSeat());
+                    } else {
+                        DTOS.add(reservationDTO);
+                    }
                 }
+            }else{
+                DTOS.add(reservationDTO);
             }
+
         }
 
+        System.out.println(DTOS);
+
         ModelAndView mv = new ModelAndView();
-        mv.addObject("list",reservationDTOS);
+        mv.addObject("list", DTOS);
         mv.addObject("count",reservationDTOS.size());
         mv.setViewName("/musical/musical_userpage");
 
