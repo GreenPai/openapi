@@ -132,7 +132,7 @@ public class MusicalViewController {
                 for(int i=0; i<DTOS.size(); i++) {
                     if (DTOS.get(i).getTitle().equals(reservationDTO.getTitle()) && DTOS.get(i).getDate().equals(reservationDTO.getDate())) {
                         DTOS.get(i).setCount(DTOS.get(i).getCount() + 1);  // 좌석 수 Count
-                        DTOS.get(i).addSeat(reservationDTO.getSeat());
+                        DTOS.get(i).addSeat(reservationDTO.getSeat());     // DTO에서 addSeat함수를 사용해서 Seat 배열 저장.
                     } else {
                         DTOS.add(reservationDTO);
                     }
@@ -142,8 +142,6 @@ public class MusicalViewController {
             }
 
         }
-
-        System.out.println(DTOS);
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("list", DTOS);
