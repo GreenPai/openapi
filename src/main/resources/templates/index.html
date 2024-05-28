@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>index</title>
@@ -15,6 +16,7 @@
 <button onclick="newUser()">회원가입</button>
 <button onclick="login()">로그인</button>
 <button onclick="test()">JWT 테스트</button>
+<button id="myPage" onclick="myPage()">마이페이지</button>
 </body>
 
 
@@ -24,6 +26,9 @@
 
 
 <script>
+
+    var token = localStorage.getItem("Authorization");
+    var username = "";
 
     const saveReq = () => {
       location.href = "/board/save";
@@ -50,6 +55,26 @@
     const test = () => {
         location.href="/user/jwttest";
     }
+
+    function myPage(){
+        $.ajax({
+        type: "GET",
+        url: "/loginCheck",
+        data: { user : token },
+        success: function(response) {
+            alert("성공");
+            username = response.username;
+            window.location.href= "/musical/my_reservation?user=" + username;
+        },
+        error: function(xhr, status, error) {
+            console.error("로그인 오류: " + error);
+            alert("로그인 문제");
+       }
+       });
+    }
+
+
+
 
 </script>
 </html>

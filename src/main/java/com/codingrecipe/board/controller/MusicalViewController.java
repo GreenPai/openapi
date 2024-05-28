@@ -120,8 +120,8 @@ public class MusicalViewController {
 
     // 마이페이지 유저 뮤지컬 정보 호출
     @GetMapping("/my_reservation")
-    public ModelAndView my_reservation(){
-        String username = "admin123";
+    public ModelAndView my_reservation(@RequestParam("user") String user ){
+        String username = user;
         List<ReservationDTO> reservationDTOS = reservationService.findReservation(username);
 
         List<ReservationDTO> DTOS = new ArrayList<>();
