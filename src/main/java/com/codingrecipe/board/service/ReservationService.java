@@ -32,6 +32,7 @@ public class ReservationService {
     public List<ReservationDTO> findReservation(String username) {
 
         List<ReservationEntity> reservationEntities  = reservationRepository.findByUser(username);
+
         List<ReservationDTO> reservationDTOS = new ArrayList<>();
 
         for( ReservationEntity reservationEntity : reservationEntities){
