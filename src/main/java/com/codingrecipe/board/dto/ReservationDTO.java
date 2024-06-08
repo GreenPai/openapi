@@ -23,6 +23,8 @@ public class ReservationDTO {
     // 마이페이지
     private int count = 1 ; // 예약 갯수
     private List<String> seat_list = new ArrayList<>(); // 좌석 배열 (c1, c2)
+    private String place; // 뮤지컬 장소
+
 
     public static ReservationDTO convertToDTO(ReservationEntity reservationEntity) {
         ReservationDTO reservationDTO = new ReservationDTO();

@@ -2,6 +2,7 @@ package com.codingrecipe.board.dto;
 
 
 import com.codingrecipe.board.entity.MusicalEntity;
+import com.codingrecipe.board.entity.ReservationEntity;
 import lombok.*;
 
 @Getter
@@ -29,5 +30,12 @@ public class MusicalDTO {
         musicalDTO.setOp_ed_dt(existingMusical.getOp_ed_dt());
         musicalDTO.setPlace_nm(existingMusical.getPlace_nm());
         return musicalDTO;
+    }
+
+    public static String convertTitleToDTO(MusicalEntity musicalEntity) {
+        MusicalDTO musicalDTO = new MusicalDTO();
+        musicalDTO.setPlace_nm(musicalDTO.getPlace_nm());
+        return musicalDTO.getPlace_nm();
+
     }
 }

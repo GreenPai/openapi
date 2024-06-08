@@ -1,6 +1,8 @@
 package com.codingrecipe.board.service;
 
+import com.codingrecipe.board.dto.MusicalDTO;
 import com.codingrecipe.board.dto.ReservationDTO;
+import com.codingrecipe.board.entity.MusicalEntity;
 import com.codingrecipe.board.entity.ReservationEntity;
 import com.codingrecipe.board.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +34,6 @@ public class ReservationService {
     public List<ReservationDTO> findReservation(String username) {
 
         List<ReservationEntity> reservationEntities  = reservationRepository.findByUser(username);
-
         List<ReservationDTO> reservationDTOS = new ArrayList<>();
 
         for( ReservationEntity reservationEntity : reservationEntities){
@@ -40,5 +41,14 @@ public class ReservationService {
         }
         return reservationDTOS;
 
+    }
+
+    public String findPlaceBytitle(String title) {
+        MusicalEntity musicalEntity = reservationRepository.findByTitle(title);
+        System.out.println("일단");
+
+        String place = MusicalDTO.convertTitleToDTO(musicalEntity);
+
+        return place;
     }
 }
