@@ -26,6 +26,8 @@ public class ReservationEntity {
     private String seat;
     @Column
     private String user;
+    @Column
+    private Long res_no;
 
 
     public static ReservationEntity toSaveEntity(ReservationDTO reservationDTO) {
@@ -35,6 +37,7 @@ public class ReservationEntity {
         reservationEntity.setPrice(reservationDTO.getPrice());
         reservationEntity.setSeat(reservationDTO.getSeat());
         reservationEntity.setTitle(reservationDTO.getTitle());
+        reservationEntity.setRes_no(reservationDTO.getRes_no());
 
 
         return reservationEntity;
