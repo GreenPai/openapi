@@ -54,6 +54,7 @@
      <tr id="content" th:each="list: ${musicalList}">
          <td><a href="#" th:onclick="'openNewWindow(\'' + @{/musical/api-detail(title=${list.title})} + '\'); return false;'" th:text="${list.title}">&nbsp;</a></td>
      </tr>
+
  </table>
 </body>
 
@@ -66,6 +67,7 @@
        if( token == null ){
            alert("로그인 해주세요");
        }else{
+
            window.open(url, '_blank', 'width=800,height=500');
        }
    }

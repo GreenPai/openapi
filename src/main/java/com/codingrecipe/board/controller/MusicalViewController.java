@@ -59,7 +59,6 @@ public class MusicalViewController {
     @GetMapping("/reservation")
     public ModelAndView reservation(MusicalDTO musicalDTO){
         MusicalDTO musicalDTO1 = musicalService.findByResno(musicalDTO.getRes_no());
-        System.out.println(musicalDTO1);
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("list", musicalDTO1);
@@ -73,20 +72,24 @@ public class MusicalViewController {
                                      @RequestParam("price") String price,
                                      @RequestParam("seat") String[] seat,
                                      @RequestParam("date") String date,
-                                     @RequestParam("user") String username) {
+                                     @RequestParam("user") String username,
+                                     @RequestParam("res_no") String res_no) {
+
+        System.out.println(res_no);
+
 
         ReservationDTO reservationDTO = new ReservationDTO();
         reservationDTO.setDate(date);
         reservationDTO.setPrice(Integer.parseInt(price));
         reservationDTO.setTitle(musicalDTO.getTitle());
         reservationDTO.setUser(username);
+        reservationDTO.setRes_no(Long.parseLong(res_no));
 
         for(String seatNumber : seat){
             reservationDTO.setSeat(seatNumber);
             musicalService.save(reservationDTO);
             System.out.println(reservationDTO);
         }
-
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("index");

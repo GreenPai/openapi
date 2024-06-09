@@ -404,6 +404,7 @@
 
        var title = localStorage.getItem("title");
        var date = localStorage.getItem("musical");
+       var res_no = localStorage.getItem("res_no");
 
 
        var username;
@@ -412,11 +413,11 @@
         $.ajax({
         type: "POST",
         url: "/musical/reservation",
-        data: { title: title, date: date, price: price, seat: seatNum, user : username },
+        data: { title: title, date: date, price: price, seat: seatNum, user : username, res_no : res_no },
         traditional: true,
         success: function(response) {
             console.log(username);
-            alert(username);
+            alert(res_no);
             window.close();
         },
         error: function(xhr, status, error) {

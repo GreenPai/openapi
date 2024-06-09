@@ -87,6 +87,8 @@
                 <td id="title" th:text="${list.title}" style="display: none;">뮤지컬 이름</td>
                 <td id="op_st_dt"   th:text="${list.op_st_dt}" style="display: none;"> 뮤지컬 첫 날짜</td>
                 <td id="op_ed_dt"   th:text="${list.op_ed_dt}" style="display: none;"> 뮤지컬 종료 날짜</td>
+                <td id="res_no" th:text="${list.res_no}" style="display:none;" >뮤지컬 번호</td>
+
                 <td id="day_font">예약 날짜</td>
             </tr>
             <tr id="tr2">
@@ -110,6 +112,7 @@
     const datepicker  = document.getElementById('datepicker');
     const musicalDay = document.getElementById('musical_day');
     const title = document.getElementById('title');
+    // const res_no = document.getElementById('res_no');
 
     function handleDateChange(selecterDates , dateStr, instance){
         musicalDay.innerText = dateStr;
@@ -147,6 +150,7 @@
       $("#select").click(function() {
                 var selectedDate = $("#musical_day").text();
                 var title = $("#title").text();
+                var res_no = $("#res_no").text();
 
                 $.ajax({
                     type: "POST",
@@ -155,6 +159,7 @@
                     success: function(response) {
                         localStorage.setItem('musical', selectedDate);
                         localStorage.setItem('title', title);
+                        localStorage.setItem('res_no',res_no);
                         window.location.href ="/musical/sit?" + "title=" + encodeURIComponent(title) + "&selectedDate=" + encodeURIComponent(selectedDate);
                     },
                     error: function(xhr, status, error) {

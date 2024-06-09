@@ -39,7 +39,6 @@ public class ReservationEntity {
         reservationEntity.setTitle(reservationDTO.getTitle());
         reservationEntity.setRes_no(reservationDTO.getRes_no());
 
-
         return reservationEntity;
     }
 }
