@@ -138,7 +138,7 @@ public class MusicalViewController {
                         DTOS.get(i).addSeat(reservationDTO.getSeat());     // DTO에서 addSeat함수를 사용해서 Seat 배열 저장.
                     } else {
                         System.out.println(reservationDTO.getTitle());
-                        String place = reservationService.findPlaceBytitle(reservationDTO.getTitle());
+                        String place = reservationService.findPlaceByresno(reservationDTO.getRes_no());
                         reservationDTO.setPlace(place);
                         DTOS.add(reservationDTO);
                     }

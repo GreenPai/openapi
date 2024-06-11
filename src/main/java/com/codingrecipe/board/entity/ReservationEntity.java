@@ -26,9 +26,15 @@ public class ReservationEntity {
     private String seat;
     @Column
     private String user;
+
+    /*
     @Column
     private Long res_no;
+    */
 
+    @ManyToOne
+    @JoinColumn(name = "res_no")
+    private MusicalEntity musicalEntity;
 
     public static ReservationEntity toSaveEntity(ReservationDTO reservationDTO) {
         ReservationEntity reservationEntity = new ReservationEntity();
@@ -37,8 +43,15 @@ public class ReservationEntity {
         reservationEntity.setPrice(reservationDTO.getPrice());
         reservationEntity.setSeat(reservationDTO.getSeat());
         reservationEntity.setTitle(reservationDTO.getTitle());
-        reservationEntity.setRes_no(reservationDTO.getRes_no());
+        // reservationEntity.setRes_no(reservationDTO.getRes_no());
 
         return reservationEntity;
     }
+
+    public void setMusicalEntity(MusicalEntity musicalEntity) {
+        this.musicalEntity = musicalEntity;
+    }
+
+
+
 }
