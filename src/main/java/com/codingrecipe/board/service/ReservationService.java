@@ -44,12 +44,14 @@ public class ReservationService {
     }
 
     public String findPlaceByresno(Long res_no) {
-        MusicalEntity musicalEntity = reservationRepository.findByRes_no(res_no);
+        // ReservationEntity reservationEntity = reservationRepository.findByMusical_Res_no(res_no);
         System.out.println("일단");
 
-        String place = MusicalDTO.convertTitleToDTO(musicalEntity);
 
-        return place;
+        // String place = MusicalDTO.convertTitleToDTO(musicalEntity);
+        String place2 = " ";
+        //return place;
+        return place2;
     }
 
 }

@@ -27,29 +27,19 @@ public class ReservationEntity {
     @Column
     private String user;
 
-    /*
-    @Column
-    private Long res_no;
-    */
-
-    @ManyToOne
-    @JoinColumn(name = "res_no")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "musical_res_no") // 외래 키 컬럼 정의
     private MusicalEntity musicalEntity;
 
-    public static ReservationEntity toSaveEntity(ReservationDTO reservationDTO) {
+    public static ReservationEntity toSaveEntity(ReservationDTO reservationDTO, MusicalEntity musicalEntity) {
         ReservationEntity reservationEntity = new ReservationEntity();
         reservationEntity.setUser(reservationDTO.getUser());
         reservationEntity.setDate(reservationDTO.getDate());
         reservationEntity.setPrice(reservationDTO.getPrice());
         reservationEntity.setSeat(reservationDTO.getSeat());
         reservationEntity.setTitle(reservationDTO.getTitle());
-        // reservationEntity.setRes_no(reservationDTO.getRes_no());
-
+        reservationEntity.setMusicalEntity(musicalEntity);
         return reservationEntity;
-    }
-
-    public void setMusicalEntity(MusicalEntity musicalEntity) {
-        this.musicalEntity = musicalEntity;
     }
 
 

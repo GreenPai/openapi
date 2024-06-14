@@ -32,10 +32,12 @@ public class MusicalDTO {
         return musicalDTO;
     }
 
+
     public static String convertTitleToDTO(MusicalEntity musicalEntity) {
         MusicalDTO musicalDTO = new MusicalDTO();
         musicalDTO.setPlace_nm(musicalDTO.getPlace_nm());
         return musicalDTO.getPlace_nm();
-
     }
+
+
 }

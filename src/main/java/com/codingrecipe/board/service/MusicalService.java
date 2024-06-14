@@ -2,6 +2,8 @@ package com.codingrecipe.board.service;
 
 import com.codingrecipe.board.dto.MusicalDTO;
 import com.codingrecipe.board.dto.ReservationDTO;
+import com.codingrecipe.board.entity.BoardEntity;
+import com.codingrecipe.board.entity.CommentEntity;
 import com.codingrecipe.board.entity.MusicalEntity;
 import com.codingrecipe.board.entity.ReservationEntity;
 import com.codingrecipe.board.repository.MusicalRepository;
@@ -19,8 +21,6 @@ import java.util.Optional;
 public class MusicalService {
     private final MusicalRepository musicalRepository;
     private final ReservationRepository reservationRepository;
-
-
 
     // addNewMusical : 제목을 비교해서 없는 중복 저장하지 않는다.
     // 현재 컨트롤러에서 정해진 양 만을 들고오기에 새롭게 추가되는 데이터는 없기에 else문에 데이터 추가 로직을 만들지 않음.
@@ -63,21 +63,6 @@ public class MusicalService {
 
     }
 
-
-    /*
-    @Transactional
-    public List<MusicalDTO> findByDate(LocalDate startDate) {
-      List<MusicalEntity> musicalEntityList = musicalRepository.findByDate(date);
-
-        List<MusicalDTO> musicalDTOList =new ArrayList<>();
-        for (MusicalEntity musicalEntity: musicalEntityList){
-            musicalDTOList.add(MusicalDTO.convertToDTO(musicalEntity));
-        }
-
-        return musicalDTOList;
-    }
-*/
-
     @Transactional
     public MusicalDTO findByTitle(String title) {
         List<MusicalEntity> musicalEntity = musicalRepository.findByTitle(title);
@@ -94,8 +79,13 @@ public class MusicalService {
     }
 
     public void save(ReservationDTO reservationDTO) {
-        ReservationEntity reservationEntity = ReservationEntity.toSaveEntity(reservationDTO);
-        reservationRepository.save(reservationEntity);
+
+        Optional<MusicalEntity> optionalMusicalEntity = musicalRepository.findById(reservationDTO.getRes_no());
+        if (optionalMusicalEntity.isPresent()) {
+            MusicalEntity musicalEntity = optionalMusicalEntity.get();
+            ReservationEntity reservationEntity = ReservationEntity.toSaveEntity(reservationDTO, musicalEntity);
+            reservationRepository.save(reservationEntity);
+        }
 
     }
 }
