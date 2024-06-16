@@ -28,7 +28,7 @@ public class ReservationEntity {
     private String user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "musical_res_no") // 외래 키 컬럼 정의
+    @JoinColumn(name = "resno") // 외래 키 컬럼 정의
     private MusicalEntity musicalEntity;
 
     public static ReservationEntity toSaveEntity(ReservationDTO reservationDTO, MusicalEntity musicalEntity) {

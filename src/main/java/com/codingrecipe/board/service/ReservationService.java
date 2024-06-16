@@ -44,11 +44,9 @@ public class ReservationService {
     }
 
     public String findPlaceByresno(Long res_no) {
-        // ReservationEntity reservationEntity = reservationRepository.findByMusical_Res_no(res_no);
-        System.out.println("일단");
+        ReservationEntity reservationEntity = reservationRepository.findByMusicalEntityRes_no(res_no);
 
 
-        // String place = MusicalDTO.convertTitleToDTO(musicalEntity);
         String place2 = " ";
         //return place;
         return place2;
