@@ -22,7 +22,7 @@ public class MusicalDTO {
 
     public static MusicalDTO convertToDTO(MusicalEntity existingMusical) {
         MusicalDTO musicalDTO = new MusicalDTO();
-        musicalDTO.setRes_no(existingMusical.getRes_no());
+        musicalDTO.setRes_no(existingMusical.getResno());
         musicalDTO.setTitle(existingMusical.getTitle());
         musicalDTO.setPay_at(existingMusical.getPay_at());
         musicalDTO.setOp_at(existingMusical.getOp_at());
@@ -40,4 +40,9 @@ public class MusicalDTO {
     }
 
 
+    public static String convertToDTOTitle(MusicalEntity musicalEntity) {
+        MusicalDTO musicalDTO = new MusicalDTO();
+        musicalDTO.setPlace_nm(musicalEntity.getPlace_nm());
+        return musicalDTO.getPlace_nm();
+    }
 }

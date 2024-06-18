@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class MusicalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
-    private Long res_no;
+    private Long resno;
 
     @Column
     private String title;

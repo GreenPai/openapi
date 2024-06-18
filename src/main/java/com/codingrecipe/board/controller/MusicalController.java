@@ -68,7 +68,9 @@ public class MusicalController {
             JSONObject itemJson = (JSONObject) itemObject;
 
             // 각 아이템의 필드 가져오기
-            Long res_no = (Long) itemJson.get("res_no");
+            //Long res_no = (Long) itemJson.get("res_no");
+            //Long res_no = 1000L;
+
             String title = (String) itemJson.get("title");
             String op_st_dt = (String) itemJson.get("op_st_dt");
             String op_ed_dt = (String) itemJson.get("op_ed_dt");
@@ -76,14 +78,13 @@ public class MusicalController {
             String place_nm = (String) itemJson.get("place_nm");
             String pay_at = (String) itemJson.get("pay_at");
 
-            musicalDTO.setRes_no(res_no);
+            // musicalDTO.setRes_no(res_no);
             musicalDTO.setTitle(title);
             musicalDTO.setOp_st_dt(op_st_dt);
             musicalDTO.setOp_ed_dt(op_ed_dt);
             musicalDTO.setOp_at(op_at);
             musicalDTO.setPlace_nm(place_nm);
             musicalDTO.setPay_at(pay_at);
-
             musicalService.addNewMusical(musicalDTO);
         }
 

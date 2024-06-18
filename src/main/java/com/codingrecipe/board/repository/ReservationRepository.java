@@ -15,5 +15,5 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
 
     List<ReservationEntity> findByUser(String username);
 
-    ReservationEntity findByMusicalEntityRes_no(Long resNo);
+    Optional<MusicalEntity> findByMusicalEntity_Resno(Long resNo);
 }

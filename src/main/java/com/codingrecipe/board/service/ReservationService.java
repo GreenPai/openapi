@@ -2,6 +2,8 @@ package com.codingrecipe.board.service;
 
 import com.codingrecipe.board.dto.MusicalDTO;
 import com.codingrecipe.board.dto.ReservationDTO;
+import com.codingrecipe.board.entity.BoardEntity;
+import com.codingrecipe.board.entity.CommentEntity;
 import com.codingrecipe.board.entity.MusicalEntity;
 import com.codingrecipe.board.entity.ReservationEntity;
 import com.codingrecipe.board.repository.ReservationRepository;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,12 +47,17 @@ public class ReservationService {
     }
 
     public String findPlaceByresno(Long res_no) {
-        ReservationEntity reservationEntity = reservationRepository.findByMusicalEntityRes_no(res_no);
+        Optional<MusicalEntity> optionalMusicalEntity = reservationRepository.findByMusicalEntity_Resno(res_no);
+        if (optionalMusicalEntity.isPresent()) {
+            MusicalEntity musicalEntity = optionalMusicalEntity.get();
+            String place = MusicalDTO.convertToDTOTitle(musicalEntity);
+            System.out.println(place);
+            System.out.println("find");
+            return place;
+        } else {
+            return null;
+        }
 
-
-        String place2 = " ";
-        //return place;
-        return place2;
     }
 
 }

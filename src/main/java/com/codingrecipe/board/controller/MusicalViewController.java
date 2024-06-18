@@ -137,8 +137,10 @@ public class MusicalViewController {
                         DTOS.get(i).setCount(DTOS.get(i).getCount() + 1);  // 좌석 수 Count
                         DTOS.get(i).addSeat(reservationDTO.getSeat());     // DTO에서 addSeat함수를 사용해서 Seat 배열 저장.
                     } else {
-                        // System.out.println(reservationDTO.getTitle());
+
                          String place = reservationService.findPlaceByresno(reservationDTO.getRes_no());
+                         System.out.println(reservationDTO.getRes_no() + "res");
+                         System.out.println(place + "픞레이스");
                          reservationDTO.setPlace(place);
                          DTOS.add(reservationDTO);
                     }
