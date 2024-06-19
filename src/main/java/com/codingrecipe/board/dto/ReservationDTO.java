@@ -34,7 +34,13 @@ public class ReservationDTO {
         reservationDTO.setTitle(reservationEntity.getTitle());
         reservationDTO.setSeat(reservationEntity.getSeat());
 
+        // MusicalEntity의 Resno를 reservationDTO에 저장.
+        if (reservationEntity.getMusicalEntity() != null) {
+            reservationDTO.setRes_no(reservationEntity.getMusicalEntity().getResno());
+        }
+
         return reservationDTO;
+
     }
 
     public void addSeat(String seat){

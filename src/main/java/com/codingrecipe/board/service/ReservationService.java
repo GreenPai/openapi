@@ -6,6 +6,7 @@ import com.codingrecipe.board.entity.BoardEntity;
 import com.codingrecipe.board.entity.CommentEntity;
 import com.codingrecipe.board.entity.MusicalEntity;
 import com.codingrecipe.board.entity.ReservationEntity;
+import com.codingrecipe.board.repository.MusicalRepository;
 import com.codingrecipe.board.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final MusicalRepository musicalRepository;
 
     public List<ReservationDTO> findSeats(String title, String date) {
 
@@ -47,17 +49,12 @@ public class ReservationService {
     }
 
     public String findPlaceByresno(Long res_no) {
-        Optional<MusicalEntity> optionalMusicalEntity = reservationRepository.findByMusicalEntity_Resno(res_no);
-        if (optionalMusicalEntity.isPresent()) {
-            MusicalEntity musicalEntity = optionalMusicalEntity.get();
-            String place = MusicalDTO.convertToDTOTitle(musicalEntity);
-            System.out.println(place);
-            System.out.println("find");
-            return place;
-        } else {
-            return null;
-        }
+        // 이 부분에서 resno를 기준으로 검색했기에 여러가지 값이 나올 수 있음.
+        MusicalEntity musicalEntity = musicalRepository.findByResno(res_no);
+        MusicalDTO musicalDTO = MusicalDTO.convertToDTO(musicalEntity);
+        System.out.println(musicalDTO.getPlace_nm());
 
+        return musicalDTO.getPlace_nm();
     }
 
 }
