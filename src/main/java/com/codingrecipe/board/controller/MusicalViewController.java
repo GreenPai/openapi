@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -131,24 +132,38 @@ public class MusicalViewController {
 
         for(ReservationDTO reservationDTO : reservationDTOS){
 
+            int check = 0;
+            int index = 0;
             if(!DTOS.isEmpty()){
                 for(int i=0; i<DTOS.size(); i++) {
                     if (DTOS.get(i).getTitle().equals(reservationDTO.getTitle()) && DTOS.get(i).getDate().equals(reservationDTO.getDate())) {
-                        DTOS.get(i).setCount(DTOS.get(i).getCount() + 1);  // 좌석 수 Count
-                        DTOS.get(i).addSeat(reservationDTO.getSeat());     // DTO에서 addSeat함수를 사용해서 Seat 배열 저장.
-                    } else {
-                         String place = reservationService.findPlaceByresno(reservationDTO.getRes_no());
-                         reservationDTO.setPlace(place);
-                         DTOS.add(reservationDTO);
-                    }
+                        check = 1;
+                        break;
+                        }
+                    index++;
                 }
+
+                if (check == 1) {
+                    DTOS.get(index).setCount(DTOS.get(index).getCount() + 1); // 좌석 수 증가
+                    DTOS.get(index).addSeat(reservationDTO.getSeat()); // DTO에 좌석 추가
+                } else {
+                    String place = reservationService.findPlaceByresno(reservationDTO.getRes_no());
+                    reservationDTO.setPlace(place);
+                    DTOS.add(reservationDTO);
+                    DTOS.get(index).addSeat(reservationDTO.getSeat());
+                }
+
             }else{
                 String place = reservationService.findPlaceByresno(reservationDTO.getRes_no());
                 reservationDTO.setPlace(place);
                 DTOS.add(reservationDTO);
+                DTOS.get(0).addSeat(reservationDTO.getSeat());
             }
 
         }
+
+        System.out.println(DTOS);
+        DTOS.sort(Comparator.comparing(ReservationDTO::getDate));
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("list", DTOS);

@@ -28,17 +28,24 @@
         <div class="mypage_wrap">
             <div class="title_sub_area">
                 <div class="title_area">
-                    <h4 class="title" style="font-style:normal; font-weight:normal;" >내가 예약한 뮤지컬 : </h4>
+                    <h4 class="title" style="font-style:normal; font-weight:normal;" >예약한 뮤지컬 : </h4>
                     <span class="sub"><em th:text="${count}"> </em> 편</span>
                 </div>
             </div>
         </div>
         <ul class="my_movie_list">
-            <li>
+            <li th:each="musical : ${list}">
                 <div class="poster">
                     <a href="#none" title="뮤지컬 상세페이지 이동">
                         <img src="/upload/mypage.jpg">
                     </a>
+                </div>
+                <div>
+                    <p th:text="${musical.title}">제목</p>
+                    <p th:text="${musical.date}">날짜</p>
+                    <p th:text="${musical.seat_list}">좌석</p>
+                    <p th:text="${musical.res_no}">번호</p>
+
                 </div>
             </li>
         </ul>
