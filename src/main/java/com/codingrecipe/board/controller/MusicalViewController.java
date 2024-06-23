@@ -162,12 +162,12 @@ public class MusicalViewController {
 
         }
 
-        System.out.println(DTOS);
         DTOS.sort(Comparator.comparing(ReservationDTO::getDate));
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("list", DTOS);
         mv.addObject("count",reservationDTOS.size());
+
         mv.setViewName("/musical/musical_userpage");
 
         return mv;

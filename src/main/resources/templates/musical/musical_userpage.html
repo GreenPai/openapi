@@ -23,6 +23,7 @@
         .poster img { width: 100px; }
     </style>
 </head>
+
 <body>
     <div id="section">
         <div class="mypage_wrap">
@@ -33,6 +34,7 @@
                 </div>
             </div>
         </div>
+        <div>
         <ul class="my_movie_list">
             <li th:each="musical : ${list}">
                 <div class="poster">
@@ -41,15 +43,16 @@
                     </a>
                 </div>
                 <div>
-                    <p th:text="${musical.title}">제목</p>
+                    <p th:text="${musical.title}" style="font-weight:bold; font-size: 21px;">제목</p>
+                    <p th:text="${musical.place}">장소</p>
                     <p th:text="${musical.date}">날짜</p>
-                    <p th:text="${musical.seat_list}">좌석</p>
-                    <p th:text="${musical.res_no}">번호</p>
-
+                    <p th:text="${musical.seat_list}">관람 인원</p>
+                    <p th:text="${#lists.size(musical.seat_list)}">관람 인원</p>
+                    <p th:text="${musical.res_no}">뮤지컬 번호</p>
                 </div>
             </li>
         </ul>
-
+        </div>
     </div>
 
 
