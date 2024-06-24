@@ -16,11 +16,42 @@
         .sub {margin-left: 18px; font-size: 22px;}
         .sub em {font-style: normal; color:red; text-decoration: underline;}
 
-        //뮤지컬 리스트
-        .my_movie_list { list-style: none; padding: 0; }
-        .my_movie_list li { display: block; margin-bottom: 20px; }
+        p, ul {margin:0; padding:0;}
+
+        /* 세션 스타일 -> 전체 범위 조절 */
+        #section{
+           width: 50%; /* 너비 */
+           margin-left: auto; /* 가운데 정렬 */
+           margin-right: auto; /* 가운데 정렬 */
+        }
+
+        /* 뮤지컬 사진 스타일 */
         .poster { float: left; margin-right: 10px; }
-        .poster img { width: 100px; }
+
+        /* 뮤지컬 아이템 스타일 */
+        .my_movie_list{
+            display: flex; /* flex 설정 */
+            flex-wrap: wrap; /* 아이템 1:1 비율로 배치하고 나머지는 내리기 위해서 */
+            list-style: none;
+            align-item : center;
+            justify-content: center;
+            list-style: none;
+        }
+        .my_movie_list li {
+            flex: 1 1 50%; /* 각 li 요소의 너비를 50%로 설정 */
+            box-sizing: border-box; /* 패딩과 테두리를 포함한 박스 크기 계산 */
+            margin-bottom: 30px; /* li 요소 간의 간격 */
+            padding: 10px;
+            display: block;
+            min-width: 480px;
+        }
+
+        .detail_info{
+            margin-top : 10px; /* 제목과 아이템 간격 */
+        }
+
+
+
     </style>
 </head>
 
@@ -36,14 +67,16 @@
         </div>
         <div>
         <ul class="my_movie_list">
-            <li th:each="musical : ${list}">
+            <li th:each="musical : ${list}" style="display : block;">
                 <div class="poster">
                     <a href="#none" title="뮤지컬 상세페이지 이동">
-                        <img src="/upload/mypage.jpg">
+                        <img src="/upload/mypage.jpg" style="width: 200px; height: auto;">
                     </a>
                 </div>
-                <div>
-                    <p th:text="${musical.title}" style="font-weight:bold; font-size: 21px;">제목</p>
+                <strong class="tit" style="cursor:pointer;">
+                    <span th:text="${musical.title}" style="font-size: 21px;"></span>
+                </strong>
+                <div class="detail_info">
                     <p th:text="${musical.place}">장소</p>
                     <p th:text="${musical.date}">날짜</p>
                     <p th:text="${musical.seat_list}">관람 인원</p>
