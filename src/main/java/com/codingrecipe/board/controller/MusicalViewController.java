@@ -173,4 +173,19 @@ public class MusicalViewController {
         return mv;
     }
 
+    //마이페이지에서 예약 삭제하기
+    @PostMapping("/delete")
+    public ModelAndView reservation_delete(@ModelAttribute ReservationDTO reservationDTO){
+
+        String date = reservationDTO.getDate();
+        Long resno = reservationDTO.getRes_no();
+
+        reservationService.deleteMusical(date, resno);
+
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/musical/musical_userpage");
+        return mv;
+    }
+
 }

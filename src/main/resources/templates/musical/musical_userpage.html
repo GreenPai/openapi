@@ -43,12 +43,19 @@
             margin-bottom: 30px; /* li 요소 간의 간격 */
             padding: 10px;
             display: block;
-            min-width: 480px;
+            width: 480px;
+
         }
 
         .detail_info{
             margin-top : 10px; /* 제목과 아이템 간격 */
         }
+
+        /* 삭제 버튼 */
+        .btn_box{
+            float : right;
+        }
+
 
 
 
@@ -78,16 +85,43 @@
                 </strong>
                 <div class="detail_info">
                     <p th:text="${musical.place}">장소</p>
-                    <p th:text="${musical.date}">날짜</p>
-                    <p th:text="${musical.seat_list}">관람 인원</p>
-                    <p th:text="${#lists.size(musical.seat_list)}">관람 인원</p>
-                    <p th:text="${musical.res_no}">뮤지컬 번호</p>
+                    <p id="date" th:text="${musical.date}">날짜</p>
+                    <p th:text="'관람인원 ' +${#lists.size(musical.seat_list)} + '명'" style="margin-top:6px;"></p>
+                    <p th:text="${musical.seat_list}">관람 좌석</p>
+                    <p id="resno" th:text="${musical.res_no}" style="display:none;">번호</p>
+                </div>
+                <div class="btn_box">
+                    <button id="del" type="button" onclick="del()" class="btn_del">삭제</button>
                 </div>
             </li>
         </ul>
         </div>
     </div>
 
-
 </body>
+
+<script>
+
+
+
+    function del(){
+        let date = document.querySelector('#date').textContent.trim();;
+        let resno = document.querySelector('#resno').textContent.trim();;
+
+        $.ajax({
+        type: "POST",
+        url: "/musical/delete",
+        data: { res_no : resno, date : date},
+        success: function(response) {
+            alert("성공");
+            alert(date);
+            alert(resno);
+        },
+        error: function(xhr, status, error) {
+            alert("실패");
+       }
+       });
+    }
+
+</script>
 </html>
