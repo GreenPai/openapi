@@ -17,6 +17,4 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
 
     Optional<MusicalEntity> findByMusicalEntity_Resno(Long resNo);
 
-    void deleteByResnoAndDate(String date, Long resno);
-
 }

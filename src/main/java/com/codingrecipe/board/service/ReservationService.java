@@ -24,7 +24,8 @@ public class ReservationService {
     private final MusicalRepository musicalRepository;
 
     public void deleteMusical(String date, Long resno) {
-        reservationRepository.deleteByResnoAndDate(date,resno);
+        // reservationRepository.deleteByResnoAndDate(date,resno);
+
     }
 
 

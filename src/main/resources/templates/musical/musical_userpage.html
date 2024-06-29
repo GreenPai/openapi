@@ -63,18 +63,18 @@
 </head>
 
 <body>
-    <div id="section">
-        <div class="mypage_wrap">
-            <div class="title_sub_area">
-                <div class="title_area">
-                    <h4 class="title" style="font-style:normal; font-weight:normal;" >예약한 뮤지컬 : </h4>
-                    <span class="sub"><em th:text="${count}"> </em> 편</span>
-                </div>
+<div id="section">
+    <div class="mypage_wrap">
+        <div class="title_sub_area">
+            <div class="title_area">
+                <h4 class="title" style="font-style:normal; font-weight:normal;">예약한 뮤지컬 : </h4>
+                <span class="sub"><em th:text="${count}"></em> 편</span>
             </div>
         </div>
-        <div>
+    </div>
+    <div>
         <ul class="my_movie_list">
-            <li th:each="musical : ${list}" style="display : block;">
+            <li th:each="musical : ${list}" style="display: block;">
                 <div class="poster">
                     <a href="#none" title="뮤지컬 상세페이지 이동">
                         <img src="/upload/mypage.jpg" style="width: 200px; height: auto;">
@@ -85,43 +85,57 @@
                 </strong>
                 <div class="detail_info">
                     <p th:text="${musical.place}">장소</p>
-                    <p id="date" th:text="${musical.date}">날짜</p>
-                    <p th:text="'관람인원 ' +${#lists.size(musical.seat_list)} + '명'" style="margin-top:6px;"></p>
+                    <p class="date" th:text="${musical.date}">날짜</p>
+                    <p th:text="'관람인원 ' + ${#lists.size(musical.seat_list)} + '명'" style="margin-top:6px;"></p>
                     <p th:text="${musical.seat_list}">관람 좌석</p>
-                    <p id="resno" th:text="${musical.res_no}" style="display:none;">번호</p>
+                    <p class="resno" th:text="${musical.res_no}" style="display:none;">번호</p>
                 </div>
                 <div class="btn_box">
-                    <button id="del" type="button" onclick="del()" class="btn_del">삭제</button>
+                    <button type="button" class="btn_del">삭제</button>
                 </div>
             </li>
         </ul>
-        </div>
     </div>
-
-</body>
+</div>
 
 <script>
 
+    let user = "";
+    var token = localStorage.getItem("Authorization");
 
+    document.querySelectorAll('.btn_del').forEach(button => {
+        button.addEventListener('click', function() {
+            const resno = this.closest('li').querySelector('.resno').textContent;
+            const date = this.closest('li').querySelector('.date').textContent;
+            myName();
+            //alert(user);
+            // username(resno, date, user);
+        });
+    });
 
-    function del(){
-        let date = document.querySelector('#date').textContent.trim();;
-        let resno = document.querySelector('#resno').textContent.trim();;
+    function username(resno, date, user) {
+        console.log("Delete reservation with resno:", resno);
+        console.log("Delete reservation with date:", date);
+        console.log("user : " + user);
+        // AJAX 요청 또는 다른 삭제 로직
+    }
 
+    function myName(){
         $.ajax({
-        type: "POST",
-        url: "/musical/delete",
-        data: { res_no : resno, date : date},
+        type: "GET",
+        url: "/loginCheck",
+        data: { user : token },
         success: function(response) {
             alert("성공");
-            alert(date);
-            alert(resno);
+            user = response.username;
+            username(resno, date, user);
         },
         error: function(xhr, status, error) {
-            alert("실패");
+            console.error("로그인 오류: " + error);
+            alert("로그인 문제");
        }
        });
     }
-
 </script>
+</body>
 </html>

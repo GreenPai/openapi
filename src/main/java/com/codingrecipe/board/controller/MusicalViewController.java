@@ -180,8 +180,7 @@ public class MusicalViewController {
         String date = reservationDTO.getDate();
         Long resno = reservationDTO.getRes_no();
 
-        reservationService.deleteMusical(date, resno);
-
+        // reservationService.deleteMusical(date, resno);
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/musical/musical_userpage");
