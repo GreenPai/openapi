@@ -23,13 +23,6 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final MusicalRepository musicalRepository;
 
-    public void deleteMusical(String date, Long resno) {
-        // reservationRepository.deleteByResnoAndDate(date,resno);
-
-    }
-
-
-
     public List<ReservationDTO> findSeats(String title, String date) {
 
         List<ReservationEntity> reservationEntities  = reservationRepository.findByTitleAndDate(title,date);
@@ -64,4 +57,7 @@ public class ReservationService {
         return musicalDTO.getPlace_nm();
     }
 
+    public void deleteMusical(String date, Long resno, String user) {
+        reservationRepository.deleteByDateAndResnoAndUser(date,resno,user);
+    }
 }

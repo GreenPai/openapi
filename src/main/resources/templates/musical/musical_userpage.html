@@ -107,35 +107,75 @@
         button.addEventListener('click', function() {
             const resno = this.closest('li').querySelector('.resno').textContent;
             const date = this.closest('li').querySelector('.date').textContent;
-            myName();
-            //alert(user);
-            // username(resno, date, user);
+            myName(resno, date);  // resno와 date를 myName 함수에 전달
         });
     });
 
     function username(resno, date, user) {
-        console.log("Delete reservation with resno:", resno);
-        console.log("Delete reservation with date:", date);
-        console.log("user : " + user);
-        // AJAX 요청 또는 다른 삭제 로직
+        $.ajax({
+            type: "POST",
+            url: "/musical/delete",
+            data: { user : user, res_no : resno, date : date },
+            success: function(response) {
+                alert("성공");
+                updateReservationList(response);
+            },
+            error: function(xhr, status, error) {
+                alert("삭제 실패");
+            }
+        });
     }
 
-    function myName(){
+    function myName(resno, date) {
         $.ajax({
-        type: "GET",
-        url: "/loginCheck",
-        data: { user : token },
-        success: function(response) {
-            alert("성공");
-            user = response.username;
-            username(resno, date, user);
-        },
-        error: function(xhr, status, error) {
-            console.error("로그인 오류: " + error);
-            alert("로그인 문제");
-       }
-       });
+            type: "GET",
+            url: "/loginCheck",
+            data: { user : token },
+            success: function(response) {
+                alert("성공");
+                const user = response.username;
+                username(resno, date, user);  // AJAX 요청이 성공한 후에 username 함수 호출
+            },
+            error: function(xhr, status, error) {
+                alert("로그인 문제");
+            }
+        });
     }
+
+    function updateReservationList(reservations) {
+    const reservationList = document.querySelector('.my_movie_list'); // 변경: 리스트가 있는 부분의 클래스명을 선택
+    reservationList.innerHTML = ''; // 기존 리스트 초기화
+
+    reservations.forEach(reservation => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <div class="poster">
+                <a href="#none" title="뮤지컬 상세페이지 이동">
+                    <img src="/upload/mypage.jpg" style="width: 200px; height: auto;">
+                </a>
+            </div>
+            <strong class="tit" style="cursor:pointer;">
+                <span style="font-size: 21px;">${reservation.title}</span>
+            </strong>
+            <div class="detail_info">
+                <p>${reservation.place}</p>
+                <p class="date">${reservation.date}</p>
+                <p>관람인원 ${reservation.seat_list.length}명</p>
+                <p>${reservation.seat_list}</p>
+                <p class="resno" style="display:none;">${reservation.res_no}</p>
+            </div>
+            <div class="btn_box">
+                <button type="button" class="btn_del">삭제</button>
+            </div>
+        `;
+        reservationList.appendChild(li);
+    });
+
+    const countElement = document.querySelector('.title_area .sub em'); // 변경: 예약 편수를 업데이트할 요소 선택
+    countElement.textContent = reservations.length; // 예약 수 업데이트
+    }
+
+
 </script>
 </body>
 </html>

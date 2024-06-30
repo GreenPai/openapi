@@ -8,6 +8,7 @@ import com.codingrecipe.board.service.JoinService;
 import com.codingrecipe.board.service.MusicalService;
 import com.codingrecipe.board.service.ReservationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -175,16 +176,55 @@ public class MusicalViewController {
 
     //마이페이지에서 예약 삭제하기
     @PostMapping("/delete")
-    public ModelAndView reservation_delete(@ModelAttribute ReservationDTO reservationDTO){
+    @ResponseBody
+    public ResponseEntity<List<ReservationDTO>> reservation_delete(@ModelAttribute ReservationDTO DTO){
 
-        String date = reservationDTO.getDate();
-        Long resno = reservationDTO.getRes_no();
 
-        // reservationService.deleteMusical(date, resno);
+        String date = DTO.getDate();
+        Long resno = DTO.getRes_no();
+        String user = DTO.getUser();
 
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("/musical/musical_userpage");
-        return mv;
+        reservationService.deleteMusical(date, resno, user);
+
+        List<ReservationDTO> reservationDTOS = reservationService.findReservation(user);
+
+        List<ReservationDTO> DTOS = new ArrayList<>();
+
+        for(ReservationDTO reservationDTO : reservationDTOS){
+
+            int check = 0;
+            int index = 0;
+            if(!DTOS.isEmpty()){
+                for(int i=0; i<DTOS.size(); i++) {
+                    if (DTOS.get(i).getTitle().equals(reservationDTO.getTitle()) && DTOS.get(i).getDate().equals(reservationDTO.getDate())) {
+                        check = 1;
+                        break;
+                    }
+                    index++;
+                }
+
+                if (check == 1) {
+                    DTOS.get(index).setCount(DTOS.get(index).getCount() + 1); // 좌석 수 증가
+                    DTOS.get(index).addSeat(reservationDTO.getSeat()); // DTO에 좌석 추가
+                } else {
+                    String place = reservationService.findPlaceByresno(reservationDTO.getRes_no());
+                    reservationDTO.setPlace(place);
+                    DTOS.add(reservationDTO);
+                    DTOS.get(index).addSeat(reservationDTO.getSeat());
+                }
+
+            }else{
+                String place = reservationService.findPlaceByresno(reservationDTO.getRes_no());
+                reservationDTO.setPlace(place);
+                DTOS.add(reservationDTO);
+                DTOS.get(0).addSeat(reservationDTO.getSeat());
+            }
+
+        }
+
+        DTOS.sort(Comparator.comparing(ReservationDTO::getDate));
+
+        return ResponseEntity.ok(DTOS);
     }
 
 }
