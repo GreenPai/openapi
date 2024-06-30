@@ -76,8 +76,8 @@
         <ul class="my_movie_list">
             <li th:each="musical : ${list}" style="display: block;">
                 <div class="poster">
-                    <a href="#none" title="뮤지컬 상세페이지 이동">
-                        <img src="/upload/mypage.jpg" style="width: 200px; height: auto;">
+                    <a href="#" th:onclick="'openNewWindow(\'' + @{/musical/api-detail2(title=${musical.title})} + '\'); return false;'" >
+                    <img src="/upload/mypage.jpg" style="width: 200px; height: auto;">
                     </a>
                 </div>
                 <strong class="tit" style="cursor:pointer;">
@@ -169,11 +169,26 @@
             </div>
         `;
         reservationList.appendChild(li);
+
+         // 새로운 삭제 버튼에 이벤트 리스너 추가
+         // 없을 시 삭제 버튼을 눌렀을 때 작동을 하지 않음.
+        li.querySelector('.btn_del').addEventListener('click', function() {
+            const resno = this.closest('li').querySelector('.resno').textContent;
+            const date = this.closest('li').querySelector('.date').textContent;
+            myName(resno, date);  // resno와 date를 myName 함수에 전달
+        });
+
     });
 
     const countElement = document.querySelector('.title_area .sub em'); // 변경: 예약 편수를 업데이트할 요소 선택
     countElement.textContent = reservations.length; // 예약 수 업데이트
     }
+
+
+    function openNewWindow(url) {
+           window.open(url, '_blank', 'width=800,height=500');
+   }
+
 
 
 </script>

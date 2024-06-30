@@ -49,6 +49,20 @@ public class MusicalViewController {
         return mv;
     }
 
+    // 마이페이지 예약에서 사진 클릭했을 때 정보페이지
+    @GetMapping("/api-detail2")
+    public ModelAndView api_detail2(MusicalDTO musicalDTO) {
+
+        String title = musicalDTO.getTitle();
+        MusicalDTO musicalDTO1 = musicalService.findByTitle(title);
+        System.out.println(musicalDTO1.getRes_no());
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/musical/musical_userpage_detail");
+        mv.addObject("list",musicalDTO1);
+
+        return mv;
+    }
+
 
     @GetMapping("/test")
     public String test(){
