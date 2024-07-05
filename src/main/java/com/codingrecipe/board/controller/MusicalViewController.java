@@ -63,7 +63,6 @@ public class MusicalViewController {
         return mv;
     }
 
-
     @GetMapping("/test")
     public String test(){
         return "/basic/navbar";
@@ -82,7 +81,6 @@ public class MusicalViewController {
         return mv;
     }
 
-
     @PostMapping("/reservation")
     public ModelAndView reservation2(MusicalDTO musicalDTO,
                                      @RequestParam("price") String price,
@@ -90,9 +88,6 @@ public class MusicalViewController {
                                      @RequestParam("date") String date,
                                      @RequestParam("user") String username,
                                      @RequestParam("res_no") String res_no) {
-
-        System.out.println(res_no);
-
 
         ReservationDTO reservationDTO = new ReservationDTO();
         reservationDTO.setDate(date);
@@ -116,8 +111,7 @@ public class MusicalViewController {
 
     @PostMapping("/sit")
     public ModelAndView postsit(@RequestParam("date") String date) {
-        System.out.println(date);
-        ModelAndView mv = new ModelAndView();
+       ModelAndView mv = new ModelAndView();
         mv.setViewName("index");
         return mv;
     }
