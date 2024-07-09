@@ -36,6 +36,7 @@
             align-item : center;
             justify-content: center;
             list-style: none;
+
         }
         .my_movie_list li {
             flex: 1 1 50%; /* 각 li 요소의 너비를 50%로 설정 */
@@ -45,6 +46,7 @@
             display: block;
             width: 480px;
 
+
         }
 
         .detail_info{
@@ -53,7 +55,13 @@
 
         /* 삭제 버튼 */
         .btn_box{
-            float : right;
+            margin-top: 10px;
+        }
+
+        .btn_del{
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
         }
 
 
@@ -91,7 +99,7 @@
                     <p class="resno" th:text="${musical.res_no}" style="display:none;">번호</p>
                 </div>
                 <div class="btn_box">
-                    <button type="button" class="btn_del">삭제</button>
+                    <button type="button" class="btn_del">예약 취소</button>
                 </div>
             </li>
         </ul>

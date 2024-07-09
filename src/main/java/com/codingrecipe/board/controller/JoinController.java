@@ -38,8 +38,6 @@ public class JoinController {
     public String logintest(JoinDTO joinDTO){
 
         JoinDTO joinDTO1 = joinService.test(joinDTO);
-        System.out.println(joinDTO1.getUsername());
-        System.out.println(joinDTO1.getPassword());
 
         return "index";
     }

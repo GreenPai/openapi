@@ -99,7 +99,6 @@ public class MusicalViewController {
         for(String seatNumber : seat){
             reservationDTO.setSeat(seatNumber);
             musicalService.save(reservationDTO);
-            System.out.println(reservationDTO);
         }
 
         ModelAndView mv = new ModelAndView();
