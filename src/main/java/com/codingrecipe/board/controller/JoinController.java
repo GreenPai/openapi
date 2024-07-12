@@ -49,7 +49,6 @@ public class JoinController {
     public Map<String, String> loginCheck(@RequestParam("user") String token) {
 
         // 토큰을 검증하고 필요한 데이터를 반환하는 로직
-
         // token의 경우 Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluMTIzIiwicm9sZSI6IuydvOuwmOyduCIsImlhdCI6MTcxNjM3NDU3NSwiZXhwIjoxNzE2NDEwNTc1fQ.AUcuJXLFmdY4yqj7NP0sGN2g6xrOPw3xzFKxulIGqlA
         // Bearer 이 부분을 분리해야된다. 분리하지 않으면 오류가 발생.
         String Real_token = token.split(" ")[1];
