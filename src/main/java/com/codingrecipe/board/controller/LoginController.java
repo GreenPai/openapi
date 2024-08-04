@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,20 +45,32 @@ public class LoginController {
     @GetMapping("/loginpage")
     public String login(){return "/login/login";}
 
-
     @PostMapping("/getUser")
     public String getUser(@ModelAttribute JoinDTO joinDTO) throws IOException {
-        joinService.save(joinDTO);
 
+        if (joinDTO.getPassword().equals("") || joinDTO.getUsername().equals("") || joinDTO.getPhonenumber().equals("")){
+            return "redirect:/user/newUser";
+        }
+
+        if(!joinService.checkId(joinDTO.getUsername())){
+            return "redirect:/user/newUser";
+        }
+
+        joinService.save(joinDTO);
         return "index";
     }
 
+    /*
     @PostMapping("/login")
     public String login(JoinDTO joinDTO){
-
-        System.out.println("인덱스 실행");
+        System.out.println("로그인 체크");
+        if(!joinService.checkIdAndPassword(joinDTO.getUsername(), joinDTO.getPassword())){
+            System.out.println("오류");
+            return "redirect:/user/loginpage";
+        }
         return "index";
     }
+*/
 
     @GetMapping("/loginpage2")
     public String login2(){

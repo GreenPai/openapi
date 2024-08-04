@@ -58,4 +58,25 @@ public class JoinService {
         JoinDTO joinDTO1 = JoinDTO.tosaveDto(userData);
         return joinDTO1;
     }
+
+    /**
+     *
+     * 회원가입 아이디 중복체크
+     */
+    public boolean checkId(String username) {
+        UserEntity userEntity = userRepository.findByUsername(username);
+        if (userEntity != null){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkIdAndPassword(String username, String password) {
+        String pwd = bCryptPasswordEncoder.encode(password);
+        UserEntity userEntity = userRepository.findByUsernameAndPassword(username,pwd);
+        if (userEntity != null){
+            return false;
+        }
+        return true;
+    }
 }
