@@ -45,7 +45,6 @@ public class JoinController {
     // 로그인 좌석 예약 페이지 musical_sit.html 아이디 체크
     @GetMapping("/loginCheck")
     @ResponseBody
-
     public Map<String, String> loginCheck(@RequestParam("user") String token) {
 
         // 토큰을 검증하고 필요한 데이터를 반환하는 로직

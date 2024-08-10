@@ -110,7 +110,7 @@ public class MusicalViewController {
 
     @PostMapping("/sit")
     public ModelAndView postsit(@RequestParam("date") String date) {
-       ModelAndView mv = new ModelAndView();
+        ModelAndView mv = new ModelAndView();
         mv.setViewName("index");
         return mv;
     }
