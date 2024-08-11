@@ -4,69 +4,119 @@
 <head>
     <meta charset="UTF-8">
     <title>index</title>
-</head>
-<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
 
-<button onclick="saveReq()">글작성</button>
-<button onclick="location.href = '/board/save'"></button>
-<a href="/board/save">글작성(링크)</a>
-<button onclick="listReq()">글목록</button>
-<button onclick="pagingReq()">페이징목록</button>
-<button onclick="api_data()">데이터불러오기</button>
-<button onclick="api_view()">뮤지컬 정보</button>
-<button onclick="newUser()">회원가입</button>
-<button onclick="login()">로그인</button>
-<button onclick="test()">JWT 테스트</button>
-<button id="myPage" onclick="myPage()">마이페이지</button>
-</body>
+        .container {
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .button-group {
+            border: 2px solid #007BFF;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .button-group button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-group button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div id="board" class="button-group">
+        <div class="section-title">보드</div>
+        <button onclick="location.href='/board/save'">글작성</button>
+        <button onclick="location.href='/board/'">글목록</button>
+        <button onclick="location.href='/board/paging'">페이징목록</button>
+        <button onclick="review()">리뷰</button>
+    </div>
+
+    <div id="musical" class="button-group">
+        <div class="section-title">뮤지컬 및 데이터</div>
+        <button onclick="location.href='/api'">데이터불러오기</button>
+        <button onclick="location.href='/musical/api-page'">뮤지컬 정보</button>
+        <button id="myPage" onclick="myPage()">마이페이지</button>
+    </div>
+
+    <div id="login" class="button-group">
+        <div class="section-title">사용자 관리</div>
+        <button onclick="location.href='/user/newUser'">회원가입</button>
+        <button onclick="location.href='/user/loginpage'">로그인</button>
+        <button onclick="location.href='/user/jwttest'">JWT 테스트</button>
+    </div>
+</div>
 
 <script>
-
     var token = localStorage.getItem("Authorization");
     var username = "";
 
-    const saveReq = () => {
-      location.href = "/board/save";
-    }
-    const listReq = () => {
-      location.href = "/board/";
-    }
-    const pagingReq = () => {
-      location.href = "/board/paging";
-    }
-    const api_data = () => {
-      location.href="/api";
-    }
-    const api_view = () => {
-        location.href="/musical/api-page";
-    }
-    const newUser = () => {
-        location.href="/user/newUser";
-    }
-    const login = () => {
-        location.href="/user/loginpage";
-    }
-
-    const test = () => {
-        location.href="/user/jwttest";
-    }
-
     function myPage(){
         $.ajax({
-        type: "GET",
-        url: "/loginCheck",
-        data: { user : token },
-        success: function(response) {
-            alert("성공");
-            username = response.username;
-            window.location.href= "/musical/my_reservation?user=" + username;
-        },
-        error: function(xhr, status, error) {
-            console.error("로그인 오류: " + error);
-            alert("로그인 문제");
-       }
-       });
+            type: "GET",
+            url: "/loginCheck",
+            data: { user : token },
+            success: function(response) {
+                alert("성공");
+                username = response.username;
+                window.location.href= "/musical/my_reservation?user=" + username;
+            },
+            error: function(xhr, status, error) {
+                console.error("로그인 오류: " + error);
+                alert("로그인 문제");
+            }
+        });
     }
 
+
+    function review(){
+        $.ajax({
+            type: "GET",
+            url: "/loginCheck",
+            data: { user : token },
+            success: function(response) {
+                alert("성공");
+                username = response.username;
+                window.location.href= "/review";
+            },
+            error: function(xhr, status, error) {
+                console.error("로그인 오류: " + error);
+                alert("로그인 문제");
+            }
+        });
+    }
+
+
+
+
 </script>
+</body>
 </html>

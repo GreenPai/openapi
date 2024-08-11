@@ -104,7 +104,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                 .antMatchers("/login", "/Main", "/", "/join","/user/**","/upload/**").permitAll()
                 .antMatchers("/loginCheck").permitAll()
-                .antMatchers("/board/**" , "/musical/**","/api" ).permitAll()
+                .antMatchers("/board/**" , "/musical/**","/api").permitAll()
+                .antMatchers("/review/**" ).permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated());
 
