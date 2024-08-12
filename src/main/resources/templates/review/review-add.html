@@ -1,14 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>리뷰페이지</title>
+    <link rel="stylesheet" href="/static/css/star.css">
 </head>
 <body>
-    <form action="#" method="post">
+    <form action="/review/add" method="post" name="review" id="review">
         <fieldset>
             <legend>리뷰 등록하기</legend>
+            <select name="title" id="title">
+                <optgroup label="뮤지컬 이름">
+                    <th:block th:each="title : ${list}">
+                        <option th:value="${title}" th:text="${title}"></option>
+                    </th:block>
+                </optgroup>
+            </select>
+            <button type="submit">등록하기</button>
         </fieldset>
+
+        <fieldset>
+            <legend>별점</legend>
+            <span class="text-bold">별점을 선택해주세요</span>
+            <input type="radio" name="star" value="5" id="rate1"><label
+                for="rate1">★</label>
+            <input type="radio" name="star" value="4" id="rate2"><label
+                for="rate2">★</label>
+            <input type="radio" name="star" value="3" id="rate3"><label
+                for="rate3">★</label>
+            <input type="radio" name="star" value="2" id="rate4"><label
+                for="rate4">★</label>
+            <input type="radio" name="star" value="1" id="rate5"><label
+                for="rate5">★</label>
+        </fieldset>
+
+        <div>
+		<textarea class="col-auto form-control" type="text" id="reviewContents"
+                  placeholder="뮤지컬에 대한 리뷰를 남겨주세요!! ">
+        </textarea>
+        </div>
+
     </form>
 </body>
 </html>
