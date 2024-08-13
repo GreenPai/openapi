@@ -1,5 +1,6 @@
 package com.codingrecipe.board.controller;
 
+import com.codingrecipe.board.dto.ReviewDTO;
 import com.codingrecipe.board.service.ReservationService;
 import com.codingrecipe.board.service.ReviewService;
 import lombok.RequiredArgsConstructor;
@@ -40,11 +41,10 @@ public class ReviewController {
     }
 
     @PostMapping("/add")
-    public ModelAndView reviewadd(@RequestParam("title") String title,
-                                  @RequestParam("star") Double star){
+    public ModelAndView reviewadd(ReviewDTO reviewDTO){
 
-        System.out.println(title);
-        System.out.println(star);
+        reviewService.saveReview(reviewDTO);
+
         ModelAndView mv = new ModelAndView();
         mv.setViewName("index");
         return mv;
