@@ -89,86 +89,80 @@
 
     }
 
+    .items {
+        position: relative;
+        width: 50px; /* 네모 모양의 너비 설정 */
+        height: 20px; /* 네모 모양의 높이 설정 */
+        text-align: center;
+    }
 
+    .items::before {
+        content: "X"; /* 의사 요소의 내용 설정 */
+        position: absolute;
+        top: 50%;
+        left: -25px; /* 텍스트와의 간격 조절 */
+        width: 20px; /* 네모 모양의 너비 설정 */
+        height: 20px; /* 네모 모양의 높이 설정 */
+        background-color: #ccc; /* 네모 모양의 배경색 설정 */
+        border: 1px solid #666; /* 네모 모양의 테두리 설정 */
+        transform: translateY(-50%); /* 수직 가운데 정렬 */
+        border-radius: 10px 10px 0 0; /* 윗부분만 둥글게 설정 */
+        color : black;
+    }
 
+    .items.na::before {
+        background-color: #f2f2f2; /* N/A 배경색 설정 */
+        content: "X"; /* 의사 요소의 내용 설정 */
+    }
 
+    .items.selected::before {
+        background-color: #cceeff; /* Selected 배경색 설정 */
+        content: "✔"; /* 의사 요소의 내용 설정 */
+    }
 
-.items {
-    position: relative;
-    width: 50px; /* 네모 모양의 너비 설정 */
-    height: 20px; /* 네모 모양의 높이 설정 */
-    text-align: center;
-}
+    .items.occupied::before {
+        background-color: #ffcccc; /* Occupied 배경색 설정 */
+        content: "X"; /* 의사 요소의 내용 설정 */
+    }
 
-.items::before {
-    content: "X"; /* 의사 요소의 내용 설정 */
-    position: absolute;
-    top: 50%;
-    left: -25px; /* 텍스트와의 간격 조절 */
-    width: 20px; /* 네모 모양의 너비 설정 */
-    height: 20px; /* 네모 모양의 높이 설정 */
-    background-color: #ccc; /* 네모 모양의 배경색 설정 */
-    border: 1px solid #666; /* 네모 모양의 테두리 설정 */
-    transform: translateY(-50%); /* 수직 가운데 정렬 */
-    border-radius: 10px 10px 0 0; /* 윗부분만 둥글게 설정 */
-    color : black;
-}
+    #sit {
+        margin-top:10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
-.items.na::before {
-    background-color: #f2f2f2; /* N/A 배경색 설정 */
-    content: "X"; /* 의사 요소의 내용 설정 */
-}
+    .seat-container {
+        display: flex;
+        justify-content: space-between;
+    }
 
-.items.selected::before {
-    background-color: #cceeff; /* Selected 배경색 설정 */
-    content: "✔"; /* 의사 요소의 내용 설정 */
-}
+    .left-seats,
+    .right-seats {
+        display: flex;
+        flex-direction: row;
+    }
 
-.items.occupied::before {
-    background-color: #ffcccc; /* Occupied 배경색 설정 */
-    content: "X"; /* 의사 요소의 내용 설정 */
-}
+    .center-seats {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0 20px; /* 좌석 사이의 간격을 조절 */
+    }
 
-#sit {
-    margin-top:10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.seat-container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.left-seats,
-.right-seats {
-    display: flex;
-    flex-direction: row;
-}
-
-.center-seats {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 0 20px; /* 좌석 사이의 간격을 조절 */
-}
-
-.item {
-    display: flex;
-    align-items: center; /* 수직 가운데 정렬을 위해 추가 */
-    justify-content: center; /* 수평 가운데 정렬을 위해 추가 */
-    position: relative;
-    width: 30px; /* 네모 모양의 너비 설정 */
-    height: 30px; /* 네모 모양의 높이 설정 */
-    text-align: center;
-    background-color: #ccc; /* 네모 모양의 배경색 설정 */
-    border: 1px solid #666; /* 네모 모양의 테두리 설정 */
-    border-radius: 10px 10px 0 0; /* 윗부분만 둥글게 설정 */
-}
-
-
+    .item {
+        display: flex;
+        align-items: center; /* 수직 가운데 정렬을 위해 추가 */
+        justify-content: center; /* 수평 가운데 정렬을 위해 추가 */
+        position: relative;
+        width: 30px; /* 네모 모양의 너비 설정 */
+        height: 30px; /* 네모 모양의 높이 설정 */
+        text-align: center;
+        background-color: #ccc; /* 네모 모양의 배경색 설정 */
+        border: 1px solid #666; /* 네모 모양의 테두리 설정 */
+        border-radius: 10px 10px 0 0; /* 윗부분만 둥글게 설정 */
+    }
 
 
     </style>
@@ -442,7 +436,6 @@
             alert(token);
        }
        });
-
 
    }
 

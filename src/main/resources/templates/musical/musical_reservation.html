@@ -54,14 +54,14 @@
     }
 
     button {
-    padding: 15px 30px; /* 버튼의 패딩을 늘립니다. */
-    margin: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s;
+        padding: 15px 30px; /* 버튼의 패딩을 늘립니다. */
+        margin: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
     }
 
 </style>
@@ -111,15 +111,13 @@
 
     const datepicker  = document.getElementById('datepicker');
     const musicalDay = document.getElementById('musical_day');
-    const title = document.getElementById('title');
-    // const res_no = document.getElementById('res_no');
 
     function handleDateChange(selecterDates , dateStr, instance){
         musicalDay.innerText = dateStr;
     }
 
-    const startDate = document.querySelector("#op_st_dt").textContent.trim();
-    const endDate = document.querySelector("#op_ed_dt").textContent.trim();
+    const startDate =  [[${list.op_st_dt}]]
+    const endDate =  [[${list.op_ed_dt}]]
 
     const start = new Date(startDate); // 예시: '2024-04-17'
     const end = new Date(endDate); // 예시: '2024-04-30'
@@ -146,7 +144,7 @@
 		onChange: handleDateChange,
 		});
 
-
+/*
       $("#select").click(function() {
                 var selectedDate = $("#musical_day").text();
                 var title = $("#title").text();
@@ -168,7 +166,30 @@
                 });
             });
 
+*/
 
+
+      $("#select").click(function() {
+
+                let title = "[[${list.title}]]"
+                let res_no = [[${list.res_no}]]
+                var selectedDate = $("#musical_day").text();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/musical/sit",
+                    data: { date: selectedDate },
+                    success: function(response) {
+                        localStorage.setItem('musical', selectedDate);
+                        localStorage.setItem('title', title);
+                        localStorage.setItem('res_no',res_no);
+                        window.location.href ="/musical/sit?" + "title=" + encodeURIComponent(title) + "&selectedDate=" + encodeURIComponent(selectedDate);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("날짜 저장 중 오류가 발생했습니다: " + error);
+                    }
+                });
+            });
 
 </script>
 
