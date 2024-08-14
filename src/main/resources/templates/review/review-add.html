@@ -21,6 +21,7 @@ form {
 fieldset {
     border: none;
     margin-bottom: 20px;
+    direction: rtl;
 }
 
 /* 레전드 스타일 */
@@ -154,8 +155,10 @@ button:hover {
 
 
 <script>
+    document.getElementById('review').addEventListener('submit', function(event) {
+        alert("제출")
+    });
 
-
-    </script>
+</script>
 </body>
 </html>

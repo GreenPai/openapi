@@ -1,18 +1,17 @@
 package com.codingrecipe.board.service;
 
 import com.codingrecipe.board.dto.ReviewDTO;
+import com.codingrecipe.board.entity.MusicalEntity;
 import com.codingrecipe.board.entity.ReservationEntity;
 import com.codingrecipe.board.entity.ReviewEntity;
+import com.codingrecipe.board.repository.MusicalRepository;
 import com.codingrecipe.board.repository.ReservationRepository;
 import com.codingrecipe.board.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -20,6 +19,7 @@ import java.util.Set;
 public class ReviewService {
     private final ReviewRepository repository;
     private final ReservationRepository reservationRepository;
+    private final MusicalRepository musicalRepository;
 
     /**
      * @param username
@@ -48,7 +48,8 @@ public class ReviewService {
      * @param reviewDTO
      */
     public void saveReview(ReviewDTO reviewDTO) {
-        ReviewEntity entity = ReviewEntity.toSaveReviewEntity(reviewDTO);
+        List<MusicalEntity> MusicalEntitys = musicalRepository.findByTitle(reviewDTO.getTitle());
+        ReviewEntity entity = ReviewEntity.toSaveReviewEntity(reviewDTO, MusicalEntitys.get(0));
         repository.save(entity);
     }
 }

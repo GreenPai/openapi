@@ -25,11 +25,17 @@ public class ReviewEntity {
     @Column
     private Double star;
 
-    public static ReviewEntity toSaveReviewEntity(ReviewDTO reviewDTO) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "resno") // 외래 키 컬럼 정의
+    private MusicalEntity musicalEntity;
+
+
+    public static ReviewEntity toSaveReviewEntity(ReviewDTO reviewDTO, MusicalEntity musicalEntity) {
         ReviewEntity entity = new ReviewEntity();
         entity.setTitle(reviewDTO.getTitle());
         entity.setStar(reviewDTO.getStar());
         entity.setCont(reviewDTO.getCont());
+        entity.setMusicalEntity(musicalEntity);
         return entity;
     }
 }
