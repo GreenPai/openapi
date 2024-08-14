@@ -2,6 +2,7 @@ package com.codingrecipe.board.service;
 
 import com.codingrecipe.board.dto.ReviewDTO;
 import com.codingrecipe.board.entity.ReservationEntity;
+import com.codingrecipe.board.entity.ReviewEntity;
 import com.codingrecipe.board.repository.ReservationRepository;
 import com.codingrecipe.board.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository repository;
+    private final ReservationRepository reservationRepository;
 
     /**
      * @param username
@@ -25,7 +27,8 @@ public class ReviewService {
      * @return title
      */
     public List<String> findtitle(String username) {
-        List<ReservationEntity> reservationEntity = repository.findByUser(username);
+        // List<ReservationEntity> reservationEntity = repository.findByUser(username);
+        List<ReservationEntity> reservationEntity = reservationRepository.findByUser(username);
         List<String> list = new ArrayList<>();
 
         for(ReservationEntity entity : reservationEntity){
@@ -40,7 +43,12 @@ public class ReviewService {
         return title;
     }
 
+    /**
+     * 리뷰 저장하는 메서드 입니다.
+     * @param reviewDTO
+     */
     public void saveReview(ReviewDTO reviewDTO) {
-
+        ReviewEntity entity = ReviewEntity.toSaveReviewEntity(reviewDTO);
+        repository.save(entity);
     }
 }

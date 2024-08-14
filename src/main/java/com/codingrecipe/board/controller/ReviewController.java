@@ -29,9 +29,8 @@ public class ReviewController {
     }
 
     @GetMapping("/add")
-    public ModelAndView reviewmove(){
-        String username = "ehfbs";
-        List<String> titleList = reviewService.findtitle(username);
+    public ModelAndView reviewmove(@RequestParam("user") String user){
+        List<String> titleList = reviewService.findtitle(user);
         System.out.println(titleList);
 
         ModelAndView mv = new ModelAndView();
