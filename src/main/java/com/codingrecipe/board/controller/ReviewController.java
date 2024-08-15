@@ -2,6 +2,7 @@ package com.codingrecipe.board.controller;
 
 import com.codingrecipe.board.dto.MusicalDTO;
 import com.codingrecipe.board.dto.ReviewDTO;
+import com.codingrecipe.board.jwt.JWTUtil;
 import com.codingrecipe.board.service.MusicalService;
 import com.codingrecipe.board.service.ReservationService;
 import com.codingrecipe.board.service.ReviewService;
@@ -23,6 +24,7 @@ public class ReviewController {
 
     private final ReviewService reviewService;
     private final MusicalService musicalService;
+    private final JWTUtil jwtUtil;
 
     @GetMapping
     public String review(Model model){
@@ -42,8 +44,12 @@ public class ReviewController {
         return mv;
     }
 
+    // 리뷰 저장하는 기능
     @PostMapping("/add")
     public ModelAndView reviewAddV1(ReviewDTO reviewDTO){
+        String jwt = reviewDTO.getUser().split(" ")[1];
+        String user = jwtUtil.getUsername(jwt);
+        reviewDTO.setUser(user);
 
         reviewService.saveReview(reviewDTO);
 
@@ -52,6 +58,7 @@ public class ReviewController {
         return mv;
     }
 
+    // 지정해둔 뮤지컬의 리뷰 작성 페이지 제공
     @GetMapping("/add/{resno}")
     public ModelAndView reviewAddV2(@PathVariable("resno") Long resno){
 

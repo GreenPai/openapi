@@ -30,12 +30,19 @@ public class ReviewEntity {
     private MusicalEntity musicalEntity;
 
 
-    public static ReviewEntity toSaveReviewEntity(ReviewDTO reviewDTO, MusicalEntity musicalEntity) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid") // 외래 키 컬럼 정의
+    private UserEntity userEntity;
+
+
+
+    public static ReviewEntity toSaveReviewEntity(ReviewDTO reviewDTO, MusicalEntity musicalEntity, UserEntity userEntity) {
         ReviewEntity entity = new ReviewEntity();
         entity.setTitle(reviewDTO.getTitle());
         entity.setStar(reviewDTO.getStar());
         entity.setCont(reviewDTO.getCont());
         entity.setMusicalEntity(musicalEntity);
+        entity.setUserEntity(userEntity);
         return entity;
     }
 }

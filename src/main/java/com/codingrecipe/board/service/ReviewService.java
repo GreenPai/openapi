@@ -4,9 +4,11 @@ import com.codingrecipe.board.dto.ReviewDTO;
 import com.codingrecipe.board.entity.MusicalEntity;
 import com.codingrecipe.board.entity.ReservationEntity;
 import com.codingrecipe.board.entity.ReviewEntity;
+import com.codingrecipe.board.entity.UserEntity;
 import com.codingrecipe.board.repository.MusicalRepository;
 import com.codingrecipe.board.repository.ReservationRepository;
 import com.codingrecipe.board.repository.ReviewRepository;
+import com.codingrecipe.board.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ public class ReviewService {
     private final ReviewRepository repository;
     private final ReservationRepository reservationRepository;
     private final MusicalRepository musicalRepository;
+    private final UserRepository userRepository;
 
     /**
      * @param username
@@ -49,7 +52,8 @@ public class ReviewService {
      */
     public void saveReview(ReviewDTO reviewDTO) {
         List<MusicalEntity> MusicalEntitys = musicalRepository.findByTitle(reviewDTO.getTitle());
-        ReviewEntity entity = ReviewEntity.toSaveReviewEntity(reviewDTO, MusicalEntitys.get(0));
+        UserEntity userEntity = userRepository.findByUsername(reviewDTO.getUser());
+        ReviewEntity entity = ReviewEntity.toSaveReviewEntity(reviewDTO, MusicalEntitys.get(0), userEntity);
         repository.save(entity);
     }
 

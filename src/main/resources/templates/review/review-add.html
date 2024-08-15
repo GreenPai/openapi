@@ -120,6 +120,9 @@ button:hover {
     <fieldset>
         <legend>리뷰 등록하기</legend>
 
+        <!-- 유저 이름 -->
+        <input type="hidden" id="user" name="user" />
+
         <!-- 뮤지컬 제목 선택 -->
         <label for="title">뮤지컬 선택:</label>
         <select name="title" id="title" required>
@@ -159,6 +162,15 @@ button:hover {
 
 <script>
 
+    window.onload = function() {
+            // 로컬 스토리지에서 값 읽기
+            var user = localStorage.getItem('Authorization');
+
+            // 폼 필드에 값 설정
+            document.getElementById('user').value = user;
+    };
+
+
 
     // unload는 페이지 이동할 때 발생하는 이벤트
 
@@ -168,7 +180,6 @@ button:hover {
                 window.close();
             });
     });
-
 
 /*
     function save() {
