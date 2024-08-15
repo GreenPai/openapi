@@ -58,7 +58,7 @@
             margin-top: 10px;
         }
 
-        .btn_del{
+        .btn{
             border: none;
             border-radius: 50px;
             font-size: 16px;
@@ -89,7 +89,7 @@
                     </a>
                 </div>
                 <strong class="tit" style="cursor:pointer;">
-                    <span th:text="${musical.title}" style="font-size: 21px;"></span>
+                    <span class="title" th:text="${musical.title}" style="font-size: 21px;"></span>
                 </strong>
                 <div class="detail_info">
                     <p th:text="${musical.place}">장소</p>
@@ -99,7 +99,8 @@
                     <p class="resno" th:text="${musical.res_no}" style="display:none;">번호</p>
                 </div>
                 <div class="btn_box">
-                    <button type="button" class="btn_del">예약 취소</button>
+                    <button type="button" class="btn" id="del">예약 취소</button>
+                    <button type="button" class="btn" id="review">리뷰</button>
                 </div>
             </li>
         </ul>
@@ -111,12 +112,27 @@
     let user = "";
     var token = localStorage.getItem("Authorization");
 
-    document.querySelectorAll('.btn_del').forEach(button => {
+    document.querySelectorAll('#del').forEach(button => {
         button.addEventListener('click', function() {
             const resno = this.closest('li').querySelector('.resno').textContent;
             const date = this.closest('li').querySelector('.date').textContent;
-            myName(resno, date);  // resno와 date를 myName 함수에 전달
+            myName(); // 유저 이름
+
+            setTimeout(function() {
+                del(resno, date, user);
+            }, 500); // 500ms 정도 지연
         });
+    });
+
+    document.querySelectorAll('#review').forEach(button => {
+        button.addEventListener('click', function() {
+            const resno = this.closest('li').querySelector('.resno').textContent;
+
+            setTimeout(function() {
+                let url = "/review/add/" + resno;
+                openNewReview(url);
+            }, 500); // 500ms 정도 지연
+            });
     });
 
     function del(resno, date, user) {
@@ -134,15 +150,14 @@
         });
     }
 
-    function myName(resno, date) {
+    function myName() {
         $.ajax({
             type: "GET",
             url: "/loginCheck",
             data: { user : token },
             success: function(response) {
                 alert("성공");
-                const user = response.username;
-                del(resno, date, user);  // AJAX 요청이 성공한 후에 username 함수 호출
+                user = response.username;
             },
             error: function(xhr, status, error) {
                 alert("로그인 문제");
@@ -173,22 +188,32 @@
                 <p class="resno" style="display:none;">${reservation.res_no}</p>
             </div>
             <div class="btn_box">
-                <button type="button" class="btn_del">삭제</button>
+                <button type="button" class="btn" id="del">삭제</button>
+                <button type="button" class="btn" id="review">리뷰</button>
             </div>
         `;
         reservationList.appendChild(li);
 
+
         // 새로운 삭제 버튼에 이벤트 리스너 추가
         // 없을 시 삭제 버튼을 눌렀을 때 작동을 하지 않음.
-        li.querySelector('.btn_del').addEventListener('click', function() {
+        li.querySelector('#del').addEventListener('click', function() {
             const resno = this.closest('li').querySelector('.resno').textContent;
             const date = this.closest('li').querySelector('.date').textContent;
             myName(resno, date);  // resno와 date를 myName 함수에 전달
         });
 
+        //클릭 시 정보창 제공
         li.querySelector('.detail').addEventListener('click', function() {
             openNewWindow(`/musical/api-detail2?title=${reservation.title}`)
         });
+
+        //리뷰 페이지
+        li.querySelector('#review').addEventListener('click', function() {
+            const resno = this.closest('li').querySelector('.resno').textContent;
+            console.log(resno);
+        });
+
 
     });
 
@@ -198,7 +223,11 @@
 
     function openNewWindow(url) {
            window.open(url, '_blank', 'width=800,height=500');
-   }
+    }
+
+    function openNewReview(url) {
+           window.open(url, '_blank', 'width=540,height=540');
+    }
 
 
 

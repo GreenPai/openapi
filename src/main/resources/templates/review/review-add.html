@@ -21,8 +21,9 @@ form {
 fieldset {
     border: none;
     margin-bottom: 20px;
-    direction: rtl;
 }
+
+
 
 /* 레전드 스타일 */
 legend {
@@ -67,6 +68,7 @@ textarea {
     display: flex;
     justify-content: space-around;
     margin: 10px 0;
+    direction: rtl;
 }
 
 .star-rating input[type="radio"] {
@@ -151,13 +153,32 @@ button:hover {
 
     <!-- 등록 버튼 -->
     <button type="submit" id="btn">등록하기</button>
+    <!-- <button type="button" onclick="save()" id="btn">등록하기</button> -->
 </form>
 
 
 <script>
+
+
+    // unload는 페이지 이동할 때 발생하는 이벤트
+
     document.getElementById('review').addEventListener('submit', function(event) {
-        alert("제출")
+
+            window.addEventListener('unload', function () {
+                window.close();
+            });
     });
+
+
+/*
+    function save() {
+        alert("제출");
+        document.forms["review"].submit();
+        setTimeout(function() {
+        window.close();
+        }, 300); // 100ms 정도 지연
+    }
+*/
 
 </script>
 </body>
