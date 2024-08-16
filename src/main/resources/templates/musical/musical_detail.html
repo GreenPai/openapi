@@ -66,6 +66,7 @@
     <tr>
         <td colspan="8">
             <button id="reservation" type="button" onclick="reservation()" class="btn btn-outline-primary header-btn">예약하기</button>
+            <button id="review" type="button" onclick="review()" class="btn btn-outline-primary header-btn">리뷰보기</button>
             <button id="back" type="button" onclick="back()" class="btn btn-outline-primary header-btn">뒤로가기</button>
         </td>
     </tr>
@@ -75,28 +76,24 @@
 
 <script>
 
-/*
-    function reservation() {
-
-    let res_no = document.querySelector('#musical_res_no').textContent.trim();
-    let pay_at = document.querySelector('#musical_pay').textContent.trim();
-    window.location.href = "/musical/reservation?res_no=" + res_no + "&pay_at=" + pay_at;
-
-    }
-
-    const back = () => {
-        window.close();
-    }
-*/
+    // 예약 페이지
     function reservation() {
 
     let res_no = [[${list.res_no}]];
     let pay_at = "[[${list.pay_at}]]";
 
     window.location.href = "/musical/reservation?res_no=" + res_no + "&pay_at=" + pay_at;
-
     }
 
+
+    // 리뷰 페이지
+    function review() {
+        let resno = [[${list.res_no}]];
+        window.location.href = "/review/" + resno
+    }
+
+
+    //뒤로가기
     const back = () => {
         window.close();
     }

@@ -73,6 +73,16 @@ public class ReviewController {
         return mv;
     }
 
+    @GetMapping("/{resno}")
+    public String reviewPage(@PathVariable("resno") String resno, Model model){
+        List<ReviewDTO> reviews = reviewService.findByResno(resno);
+        return "/review/review";
+    }
+
+
+
+
+
 
 
 }

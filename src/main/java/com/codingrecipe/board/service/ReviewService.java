@@ -57,4 +57,10 @@ public class ReviewService {
         repository.save(entity);
     }
 
+    public List<ReviewDTO> findByResno(String resno) {
+        List<ReviewEntity> reviewEntities = repository.findByResno(resno);
+        List<ReviewDTO> reviewDTOS = ReviewDTO.toSaveReviewDTOD(reviewEntities);
+        return reviewDTOS;
+
+    }
 }
