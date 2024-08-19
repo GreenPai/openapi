@@ -1,6 +1,7 @@
 package com.codingrecipe.board.controller;
 
 import com.codingrecipe.board.dto.MusicalDTO;
+import com.codingrecipe.board.dto.ReviewAvgDTO;
 import com.codingrecipe.board.dto.ReviewDTO;
 import com.codingrecipe.board.jwt.JWTUtil;
 import com.codingrecipe.board.service.MusicalService;
@@ -74,8 +75,15 @@ public class ReviewController {
     }
 
     @GetMapping("/{resno}")
-    public String reviewPage(@PathVariable("resno") String resno, Model model){
-        List<ReviewDTO> reviews = reviewService.findByResno(resno);
+    public String reviewPage(@PathVariable("resno") Long resno, Model model){
+
+        ReviewAvgDTO reviewAvgDTO = reviewService.findByResno(resno);
+
+        model.addAttribute("cnt" , reviewAvgDTO.getCnt());
+        model.addAttribute("avg", String.format("%.2f", reviewAvgDTO.getAvg()));
+        model.addAttribute("reviews" , reviewAvgDTO.getReviewDTOS());
+
+        System.out.println(reviewAvgDTO);
         return "/review/review";
     }
 

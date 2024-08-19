@@ -30,7 +30,7 @@ public class ReviewEntity {
     private MusicalEntity musicalEntity;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userid") // 외래 키 컬럼 정의
     private UserEntity userEntity;
 

@@ -1,5 +1,6 @@
 package com.codingrecipe.board.service;
 
+import com.codingrecipe.board.dto.ReviewAvgDTO;
 import com.codingrecipe.board.dto.ReviewDTO;
 import com.codingrecipe.board.entity.MusicalEntity;
 import com.codingrecipe.board.entity.ReservationEntity;
@@ -57,10 +58,12 @@ public class ReviewService {
         repository.save(entity);
     }
 
-    public List<ReviewDTO> findByResno(String resno) {
-        List<ReviewEntity> reviewEntities = repository.findByResno(resno);
-        List<ReviewDTO> reviewDTOS = ReviewDTO.toSaveReviewDTOD(reviewEntities);
-        return reviewDTOS;
+    public ReviewAvgDTO findByResno(Long resno) {
+        List<ReviewEntity> reviewEntities = repository.findByMusicalEntity_Resno(resno);
+        // List<ReviewDTO> reviewDTOS = ReviewDTO.toSaveReviewDTOD(reviewEntities);
+        ReviewAvgDTO reviewAvg = ReviewAvgDTO.toReviewAvg(reviewEntities);
+
+        return reviewAvg;
 
     }
 }
