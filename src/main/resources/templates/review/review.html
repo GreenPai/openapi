@@ -8,6 +8,7 @@
     <title>뮤지컬 리뷰 평점</title>
 
     <style>
+
         .top{
 
             background-color: #76473A;
@@ -20,6 +21,17 @@
 
         .title{
             height: 60px;
+        }
+
+
+        .button button{
+            margin-top: 10px;
+            background-color: #805549;
+            padding: 5px;
+            border-radius: 10px;
+            border: none;
+            color: white;
+            font-size: 14px;
         }
 
         .body{
@@ -55,6 +67,11 @@
             font-size : 24px;
         }
 
+        .cont .stars{
+            color: red;
+            font-size : 16px;
+        }
+
         .star .number{
             display: inline-block;
             width: 120px;
@@ -62,16 +79,34 @@
             font-size : 12px;
             text-align: center;
         }
+
+        // 유저 리뷰
+        .cont{
+            margin-top: 5px;
+        }
+
+        .review{
+            border: 1px solid #D9D9D9;
+            border-radius: 5px;
+            padding: 5px;
+        }
     </style>
 
 </head>
 <body>
     <div class="top">
+        <!-- 뮤지컬 제목-->
         <div class="title">
-            <h3 th:text="${reviews[0].title}">에이리언</h3>
+            <h3 th:text="${reviews[0].title}">뮤지컬 제목</h3>
             <p>2024</p>
         </div>
+        <div class="button">
+            <button onclick="back()">뒤로가기</button>
+        </div>
+
+
         <div class="body">
+            <!-- 리뷰 총 집계-->
             <div class="star">
             <p>
                 <span class="score">네티즌 평점:</span>
@@ -79,10 +114,37 @@
             <p>
                 <span class="number-left" th:text="${avg}"><strong> 3.00</strong></span>
                 <span class="number-right"> / 5</span><br>
-                <span class="stars"> ★★★★★</span> <br>
+                <span class="stars">
+                    <span th:if="${avg >= 5}" >★</span>
+                    <span th:if="${avg >= 4}" >★</span>
+                    <span th:if="${avg >= 3}" >★</span>
+                    <span th:if="${avg >= 2}" >★</span>
+                    <span th:if="${avg >= 1}" >★</span>
+                    <span th:if="${avg == null}" >리뷰 정보가 없습니다</span>
+                </span> <br>
                 <span class="number" th:text="${cnt} + '명 참여'" >  100명 참여</span>
             </p>
+            </div>
 
+            <!-- 유저들 리뷰 -->
+            <div class="cont">
+                <tr th:each="review : ${reviews}">
+                    <div class="review">
+                        <span class="stars">
+                            <span th:if="${review.star == 5}" >★★★★★</span>
+                            <span th:if="${review.star == 4}" >★★★★</span>
+                            <span th:if="${review.star == 3}" >★★★</span>
+                            <span th:if="${review.star == 2}" >★★</span>
+                            <span th:if="${review.star == 1}" >★</span>
+                        </span>
+                        <br>
+                        <span class="content" th:text="${review.cont}" style="font-size: 14px;" >리뷰 내용입니다.</span> <br>
+                        <span class="user" th:text="${review.user}" style="font-size: 12px;" >유저 이름</span>
+                        <span class="date" th:text="${review.date}" style="font-size: 12px;" >날짜</span>
+
+                    </div>
+
+                </tr>
             </div>
         </div>
     </div>
@@ -91,7 +153,9 @@
 
 <script>
 
-    let
+    function back() {
+
+    }
 
 
 </script>

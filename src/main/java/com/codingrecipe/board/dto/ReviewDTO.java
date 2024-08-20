@@ -20,6 +20,7 @@ public class ReviewDTO {
     private String cont;
     private Double star;
     private String user;
+    private String date;
 
     public static String titleToString(ReservationEntity entity) {
         ReviewDTO reviewDTO = new ReviewDTO();

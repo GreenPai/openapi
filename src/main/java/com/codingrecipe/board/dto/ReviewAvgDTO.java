@@ -4,6 +4,7 @@ package com.codingrecipe.board.dto;
 import com.codingrecipe.board.entity.ReviewEntity;
 import lombok.*;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,12 @@ public class ReviewAvgDTO {
             reviewDTO.setStar(reviewEntity.getStar());
             reviewDTO.setCont(reviewEntity.getCont());
             reviewDTO.setTitle(reviewEntity.getTitle());
+
+            //날짜 정보
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm");
+            String formattedDate = reviewEntity.getCreatedTime().format(formatter);
+            reviewDTO.setDate(formattedDate);
+
             reviewDTOS.add(reviewDTO);
             sum += reviewEntity.getStar();
         }

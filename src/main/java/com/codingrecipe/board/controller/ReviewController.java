@@ -78,9 +78,10 @@ public class ReviewController {
     public String reviewPage(@PathVariable("resno") Long resno, Model model){
 
         ReviewAvgDTO reviewAvgDTO = reviewService.findByResno(resno);
+        Double avg = Double.valueOf(String.format("%.2f", reviewAvgDTO.getAvg()));
 
         model.addAttribute("cnt" , reviewAvgDTO.getCnt());
-        model.addAttribute("avg", String.format("%.2f", reviewAvgDTO.getAvg()));
+        model.addAttribute("avg", avg);
         model.addAttribute("reviews" , reviewAvgDTO.getReviewDTOS());
 
         System.out.println(reviewAvgDTO);

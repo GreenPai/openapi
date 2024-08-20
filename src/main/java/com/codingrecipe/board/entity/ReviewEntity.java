@@ -3,8 +3,10 @@ package com.codingrecipe.board.entity;
 import com.codingrecipe.board.dto.ReviewDTO;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -34,7 +36,9 @@ public class ReviewEntity {
     @JoinColumn(name = "userid") // 외래 키 컬럼 정의
     private UserEntity userEntity;
 
-
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdTime;
 
     public static ReviewEntity toSaveReviewEntity(ReviewDTO reviewDTO, MusicalEntity musicalEntity, UserEntity userEntity) {
         ReviewEntity entity = new ReviewEntity();
