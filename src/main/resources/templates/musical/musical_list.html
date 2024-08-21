@@ -50,10 +50,21 @@
          <td colspan="2">뮤지컬 정보 페이지 입니다</td>
      </tr>
      <tr id="title">
-         <td colspan="2">뮤지컬 제목</td>
      </tr>
      <tr id="content" th:each="list: ${musicalList}">
+         <!--
          <td><a href="#" th:onclick="'openNewWindow(\'' + @{/musical/api-detail(title=${list.title})} + '\'); return false;'" th:text="${list.title}">&nbsp;</a></td>
+         -->
+
+         <td>
+             <a href="#"
+                th:onclick="'openNewWindow(' + ${list.res_no} + '); return false;'"
+                th:text="${list.title}">
+                 &nbsp;
+             </a>
+         </td>
+
+
      </tr>
 
  </table>
@@ -64,14 +75,27 @@
 
     var token = localStorage.getItem("Authorization");
 
+    /*
     function openNewWindow(url) {
        if( token == null ){
            alert("로그인 해주세요");
        }else{
-
            window.open(url, '_blank', 'width=850,height=500');
        }
-   }
+    */
+
+    function openNewWindow(res_no) {
+    // URL을 형성할 때 슬래시를 포함하여 올바르게 결합합니다.
+    let url = "/musical/api-detail/" + res_no;
+
+    // 새로운 창을 열어 해당 URL로 이동합니다.
+    window.open(url, '_blank', 'width=850,height=500');
+    }
+
+
+
+
+
 
 </script>
 </html>

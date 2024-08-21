@@ -32,22 +32,30 @@ public class MusicalViewController {
     public String api_page(Model model){
         List<MusicalDTO> musicalDTOList = musicalService.findAll();
         model.addAttribute("musicalList", musicalDTOList);
+        System.out.println(musicalDTOList);
         return "/musical/musical_list";
 
     }
 
-    @GetMapping("/api-detail")
-    public ModelAndView api_detail(MusicalDTO musicalDTO) {
+    @GetMapping("/api-detail/{res_no}")
+    public ModelAndView api_detail(@PathVariable("res_no") Long res_no) {
 
-        String title = musicalDTO.getTitle();
-        MusicalDTO musicalDTO1 = musicalService.findByTitle(title);
-        System.out.println(musicalDTO1.getRes_no());
+        MusicalDTO musicalDTO1 = musicalService.findByResno(res_no);
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/musical/musical_detail");
         mv.addObject("list",musicalDTO1);
-
+        mv.setViewName("/musical/musical_detail");
         return mv;
     }
+
+    @GetMapping("/api-detail/{title}")
+    public ModelAndView api_detail(@PathVariable("title") String title) {
+        MusicalDTO musicalDTO1 = musicalService.findByTitle(title);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("list",musicalDTO1);
+        mv.setViewName("/musical/musical_detail");
+        return mv;
+    }
+
 
     // 마이페이지 예약에서 사진 클릭했을 때 정보페이지
     @GetMapping("/api-detail2")
