@@ -47,7 +47,7 @@ public class MusicalViewController {
         return mv;
     }
 
-    @GetMapping("/api-detail/{title}")
+    @GetMapping("/api-detail/title/{title}")
     public ModelAndView api_detail(@PathVariable("title") String title) {
         MusicalDTO musicalDTO1 = musicalService.findByTitle(title);
         ModelAndView mv = new ModelAndView();

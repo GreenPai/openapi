@@ -101,7 +101,7 @@
             <p>2024</p>
         </div>
         <div class="button">
-            <button>뒤로가기</button>
+            <button onclick="back()">뒤로가기</button>
 
         </div>
 
@@ -152,12 +152,15 @@
 
 
 
-<script>
-    function back(title) {
-        alert(title)
-   }
+    <script type="text/javascript">
+        // Thymeleaf 표현식 사용
+        let title = "[[${reviews[0].title}]]";
 
-</script>
+        function back(){
+            let url = "/musical/api-detail/title/" + encodeURIComponent(title);
+            window.location.href = url;
+        }
+    </script>
 
 
 
