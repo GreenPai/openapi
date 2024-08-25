@@ -18,9 +18,13 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userid;
 
+    @Column
     private String username;
+    @Column
     private String password;
+    @Column
     private String phonenumber;
+    @Column
     private String role;
 
     public static UserEntity tosaveEntity(JoinDTO joinDTO) {

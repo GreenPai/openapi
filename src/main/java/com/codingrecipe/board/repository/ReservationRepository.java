@@ -16,10 +16,7 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
     
 
     List<ReservationEntity> findByTitleAndDate(String title, String date);
-
     List<ReservationEntity> findByUser(String username);
-
-    Optional<MusicalEntity> findByMusicalEntity_Resno(Long resNo);
 
     @Modifying
     @Transactional

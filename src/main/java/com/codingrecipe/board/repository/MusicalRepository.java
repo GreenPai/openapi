@@ -10,6 +10,5 @@ import java.util.List;
 public interface MusicalRepository extends JpaRepository<MusicalEntity, Long> {
 
     List<MusicalEntity> findByTitle(String title);
-
     MusicalEntity findByResno(Long resNo);
 }

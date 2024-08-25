@@ -20,10 +20,8 @@ public class ReviewEntity {
 
     @Column
     private String title;
-
     @Column
     private String cont;
-
     @Column
     private Double star;
 
