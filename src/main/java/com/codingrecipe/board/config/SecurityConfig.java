@@ -3,9 +3,9 @@ package com.codingrecipe.board.config;
 
 
 
-import com.codingrecipe.board.jwt.JWTFilter;
-import com.codingrecipe.board.jwt.JWTUtil;
-import com.codingrecipe.board.jwt.LoginFilter;
+import com.codingrecipe.board.jwt.filter.JWTFilter;
+import com.codingrecipe.board.jwt.filter.JWTUtil;
+import com.codingrecipe.board.jwt.filter.LoginFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
