@@ -47,18 +47,6 @@ public class LoginController {
         return "index";
     }
 
-    /*
-    @PostMapping("/login")
-    public String login(JoinDTO joinDTO){
-        System.out.println("로그인 체크");
-        if(!joinService.checkIdAndPassword(joinDTO.getUsername(), joinDTO.getPassword())){
-            System.out.println("오류");
-            return "redirect:/user/loginpage";
-        }
-        return "index";
-    }
-*/
-
     @GetMapping("/loginpage2")
     public String login2(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
